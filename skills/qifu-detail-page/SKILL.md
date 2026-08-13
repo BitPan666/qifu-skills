@@ -202,6 +202,15 @@ Page / Detail / <object> / <compositionName>
 - 不把列表页(FilterBar + List Action Bar + Table)硬塞进详情页;DetailBlock 内的 Table 是关联数据展示,不是"子列表页"。
 - 不宣称缺失组件已存在;明确区分正式实例与降级组合。
 
+## 已知限制
+
+> 按时间倒序,最新在最前。跑通后发现的限制统一放这里,不散落在正文各处。
+> 仓库内回填方式见 `_docs/limit-backfill.md`(仅发布仓)。
+
+### 2026-08-12 · 继承自 qifu-drawer-form 的踩坑
+- 页面内所有控件 INSTANCE 必须嵌套在 `PageHead / Tabs / DetailBlock/<name>` 三容器之一,不允许 Page 根级孤儿(详见验证清单"层级归属检查")
+- Page Surface 内不允许存在与已嵌实例位置/尺寸几乎一致的重复节点(详见验证清单"重复节点检查")
+
 ## 交付内容
 
 完成后返回:

@@ -199,6 +199,16 @@ Drawer / <pageName> / Create / <compositionName>
 - 不把复杂看板、向导流、批量编辑硬塞进本 Skill。
 - 不宣称缺失组件已存在;明确区分正式实例与降级组合。
 
+## 已知限制
+
+> 按时间倒序,最新在最前。跑通后发现的限制统一放这里,不散落在正文各处。
+> 仓库内回填方式见 `_docs/limit-backfill.md`(仅发布仓)。
+
+### 2026-08-12 · 新建触发式任务抽屉
+- 抽屉 Frame 内所有控件 INSTANCE 必须嵌套在 `Drawer/Header | Section/<name> | Drawer/Footer` 三容器之一,不允许 Page 根级孤儿(详见验证清单"层级归属检查")
+- 抽屉 Frame 内不允许存在与已嵌实例位置/尺寸几乎一致的重复节点(详见验证清单"重复节点检查")
+- 配套兜底工具:`Component Library/.figma-plugins/qifu-drawer-cleanup/`(在外部仓,可改写为"选中即清"版本)
+
 ## 交付内容
 
 完成后返回:

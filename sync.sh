@@ -15,6 +15,11 @@
 # rsync 的 --exclude 保护(不要删):
 # - README.md                 工作目录没有;删掉会把仓里写好的 README 清掉
 # - references/component-map.md / platform-yushu.md   已上提到 shared/,不再拷子目录
+#
+# 顶层目录保护(本脚本的 rsync 只动 skills/ 与 shared/,顶层其它目录不在同步范围):
+# - _docs/                    钩通日志 + 已知限制回填指引(只在仓里,不下发给工作目录)
+# - screenshots/              全仓统一展示图(用户在仓里维护)
+# - 仓根 README.md / .gitignore / sync.sh 自身        这些是"发布视图"资产,工作目录不需要
 
 set -euo pipefail
 
