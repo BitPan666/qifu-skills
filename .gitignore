@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+._*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Node(将来脚本需要时)
+node_modules/
+
+# 大文件截图可选忽略(首次上传后再决定)
+# screenshots/*.png

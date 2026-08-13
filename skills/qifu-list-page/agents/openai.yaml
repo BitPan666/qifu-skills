@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qifu List Page"
+  short_description: "按命名组合生成奇富后台列表页、筛选栏与数据表格"
+  default_prompt: "使用 $qifu-list-page，根据业务字段选择已注册的表格组合名称，并在 Figma 中生成奇富后台列表页。"
