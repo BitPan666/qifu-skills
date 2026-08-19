@@ -174,3 +174,16 @@ done
 **维护者**:师静雅 · Qifu B 端设计
 **首次推送**:2026-08-13
 **结构版本**:v1.0(5 层体系落地的最初形态)
+
+## Codex installation
+
+The Qifu page skills share component and navigation references. Install all four packages together so every page skill can resolve its dependencies:
+
+```bash
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo jingjingtu/qifu-skills \
+  --path skills/qifu-shared skills/qifu-list-page skills/qifu-detail-page skills/qifu-drawer-form \
+  --method git
+```
+
+`qifu-shared` is an internal dependency package; it should remain installed beside the three page-generation skills.
