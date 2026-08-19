@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#08131f"/>
+<text x="90" y="92" font-family="Arial,'PingFang SC',sans-serif" font-size="42" font-weight="700" fill="#fff">跨平台页面迁移矩阵</text>
+<text x="92" y="132" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#91a7b8">保持 Archetype 与 Pattern，只替换平台上下文</text>
+<g font-family="Arial,'PingFang SC',sans-serif">
+ <rect x="100" y="220" width="1400" height="490" rx="18" fill="#112335" stroke="#2c5267"/>
+ <g fill="#a6ff4d" font-size="18" font-weight="700"><text x="150" y="275">固定能力</text><text x="620" y="275">平台 Adapter 注入</text><text x="1140" y="275">业务槽位</text></g>
+ <g stroke="#29475a" stroke-width="2"><path d="M100 305H1500M100 390H1500M100 475H1500M100 560H1500M100 645H1500"/><path d="M500 220V710M1040 220V710"/></g>
+ <g fill="#fff" font-size="20"><text x="150" y="355">Page Archetype</text><text x="150" y="440">Pattern</text><text x="150" y="525">组件语义</text><text x="150" y="610">状态与验证</text><text x="620" y="355">Header / SideMenu</text><text x="620" y="440">品牌 / 术语 / 菜单树</text><text x="620" y="525">权限 / 数据范围</text><text x="620" y="610">容器 / 导航密度</text><text x="1140" y="355">圈选</text><text x="1140" y="440">地图</text><text x="1140" y="525">指标选择器</text><text x="1140" y="610">平台专属业务组件</text></g>
+ <g fill="#91a7b8" font-size="16"><text x="150" y="680">List / Detail / Drawer Form / Dashboard</text><text x="620" y="680">platform-yushu / platform-risk / platform-generic</text><text x="1140" y="680">Slot / fallback / missing audit</text></g>
+ <path d="M500 330H1040M500 415H1040M500 500H1040M500 585H1040" stroke="#68e6aa" stroke-width="3" stroke-dasharray="8 8"/>
+</g>
+<text x="90" y="800" font-family="Arial,'PingFang SC',sans-serif" font-size="18" fill="#91a7b8">迁移验收：替换 Adapter 后，用户主任务仍可完成，组件实例和状态仍可核对。</text>
+</svg>

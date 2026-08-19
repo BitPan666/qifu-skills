@@ -32,7 +32,7 @@ if [[ ! -d "$SRC" ]]; then
 fi
 
 echo "→ 同步 skills/ ..."
-for s in qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-list-page qifu-drawer-form qifu-detail-page; do
   if [[ ! -d "$SRC/$s" ]]; then
     echo "  ⚠ 跳过: 工作目录缺少 $s" >&2
     continue

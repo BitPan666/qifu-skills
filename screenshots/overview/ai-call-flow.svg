@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<rect width="1600" height="900" fill="#f6f8fb"/>
+<text x="90" y="92" font-family="Arial,'PingFang SC',sans-serif" font-size="42" font-weight="700" fill="#132233">AI 组件调用流程</text>
+<text x="92" y="132" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#64748b">先抽象，再发现，再实例化，最后审计</text>
+<g font-family="Arial,'PingFang SC',sans-serif">
+ <g fill="#fff" stroke="#d8e1ea" stroke-width="2">
+  <rect x="90" y="230" width="260" height="170" rx="18"/><rect x="430" y="230" width="260" height="170" rx="18"/><rect x="770" y="230" width="260" height="170" rx="18"/><rect x="1110" y="230" width="360" height="170" rx="18"/>
+ </g>
+ <g fill="#2f855a" font-size="16" font-weight="700" text-anchor="middle"><text x="220" y="270">01</text><text x="560" y="270">02</text><text x="900" y="270">03</text><text x="1290" y="270">04</text></g>
+ <g fill="#132233" font-size="23" font-weight="700" text-anchor="middle"><text x="220" y="315">解析 PageSpec</text><text x="560" y="315">选择 Archetype</text><text x="900" y="315">发现组件</text><text x="1290" y="315">应用 Adapter + 审计</text></g>
+ <g fill="#64748b" font-size="15" text-anchor="middle"><text x="220" y="350">平台 / 对象 / 任务</text><text x="220" y="374">状态 / 权限 / 密度</text><text x="560" y="350">List / Detail / Form</text><text x="560" y="374">Dashboard / Wizard</text><text x="900" y="350">语义 → 组件集</text><text x="900" y="374">节点 ID / 发布 Key</text><text x="1290" y="350">导航 / 品牌 / 术语</text><text x="1290" y="374">层级 / 缺口 / 迁移性</text></g>
+ <path d="M350 315H430M690 315H770M1030 315H1110" stroke="#3ecf8e" stroke-width="5"/>
+ <rect x="165" y="535" width="1270" height="205" rx="22" fill="#132233"/>
+ <text x="800" y="585" text-anchor="middle" fill="#a6ff4d" font-size="18" font-weight="700">Component Contract</text>
+ <g fill="#fff" font-size="20" text-anchor="middle"><text x="320" y="635">semanticName</text><text x="570" y="635">componentSet</text><text x="820" y="635">nodeId / publishedKey</text><text x="1110" y="635">properties / states</text></g>
+ <g fill="#9fb1c2" font-size="15" text-anchor="middle"><text x="320" y="674">按语义发现</text><text x="570" y="674">精确组件集</text><text x="820" y="674">跨文件可调用</text><text x="1110" y="674">约束与可用变体</text></g>
+ <text x="800" y="805" text-anchor="middle" fill="#64748b" font-size="17">找不到组件时：合法组合 → Fallback / Capability → Audit / Missing Components</text>
+</g>
+</svg>

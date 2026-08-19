@@ -32,11 +32,18 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 | L2 | Component | 真实组件实例 + 节点 ID + 发布 Key | `shared/references/component-map.md` |
 | L3 | Pattern | Filter Bar / Action Bar / DetailBlock 等组合区块 | 各 skill 的 `references/page-blueprint.md` |
 | L4 | Page Archetype | 列表 / 抽屉表单 / 详情 / 向导… | `skills/qifu-*`(本仓库主资产) |
-| L5 | Business Page | 业务菜单树、用户上下文、业务名词 | `shared/references/platform-yushu.md` |
+| L5 | Platform Adapter | 平台导航、品牌、术语、权限、业务槽位 | `shared/references/platform-*.md` |
+| L6 | Business Page | 业务菜单树、用户上下文、业务名词 | 具体交付页面 |
 
 **关键设计**:L1 / L2 / L5 是**跨原型共享资产**,只维护一份(`shared/references/`);L4 每新增一种原型,只需写 3 份新文件(SKILL.md + blueprint + compositions),复用骨架和共享层。
 
-## 当前 Skill 家族(L4 已 3 个)
+## 当前 Skill 家族
+
+| Skill | 作用 |
+|---|---|
+| [qifu-b-end-design-system](./skills/qifu-b-end-design-system/) | 公司级编排入口：页面类型、Pattern、组件调用、跨平台 Adapter 与缺口治理 |
+
+### 页面 Archetype Skills
 
 | Skill | 覆盖场景 | 配方数 | 标准组合 |
 |---|---|---|---:|---|
@@ -68,6 +75,7 @@ qifu-skills-repo/
 │       ├── component-map.md         ← 全部真实组件的节点 ID / 发布 Key / 属性
 │       └── platform-yushu.md        ← 毓数平台导航基线 / 菜单树 / 图标映射
 ├── skills/                          ← L4 原型 skill 家族
+│   ├── qifu-b-end-design-system/     ← 公司级页面抽象与组件调用编排
 │   ├── qifu-list-page/
 │   │   ├── SKILL.md
 │   │   ├── references/
@@ -80,6 +88,23 @@ qifu-skills-repo/
 └── screenshots/                     ← 全仓库统一效果截图(待补)
 ```
 
+
+## 架构与调用截图
+
+### 公司级分层架构
+
+![Qifu B 端 Design System 架构](./screenshots/overview/architecture.svg)
+
+### AI 组件调用流程
+
+![AI 组件调用流程](./screenshots/overview/ai-call-flow.svg)
+
+### 跨平台页面迁移矩阵
+
+![跨平台页面迁移矩阵](./screenshots/overview/platform-migration.svg)
+
+> 以上图片是仓库文档用的结构说明图，不替代 Figma 中的真实组件实例。真实组件来源仍以“奇富科技中后台组件库 新”及 `shared/references/component-map.md` 为准。
+
 ## 快速开始
 
 ### 安装到 Claude Code
@@ -91,7 +116,7 @@ cd qifu-skills
 
 # 2. 逐个把 skill 软链到 ~/.claude/skills
 mkdir -p ~/.claude/skills
-for s in qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-list-page qifu-drawer-form qifu-detail-page; do
   ln -sf "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 
@@ -106,7 +131,7 @@ done
 
 # 2. 软链到 Codex skills 目录
 mkdir -p ~/.codex/skills
-for s in qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-list-page qifu-drawer-form qifu-detail-page; do
   ln -sf "$(pwd)/skills/$s" ~/.codex/skills/$s
 done
 # Codex 通过每个 skill 下的 agents/openai.yaml 识别入口
