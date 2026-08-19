@@ -81,7 +81,7 @@ contentDensity: compact | normal | spacious
 
 ### 3. 选择 Pattern 与组件
 
-使用 `shared/references/component-map.md` 做组件发现：
+先读取 `../../shared/theme/index.md`，按任务加载相关主题文件；再使用 `shared/references/component-map.md` 做组件发现：
 
 - 先匹配语义（例如“筛选单选”），再匹配视觉；
 - 优先使用已发布组件 Key 创建实例；同文件生成时优先使用节点 ID；
@@ -121,6 +121,7 @@ contentDensity: compact | normal | spacious
 - File key：`gTV3VdC6a5e9vpkRHIZSXA`
 - Figma URL：见用户提供的组件库链接
 - 组件资产索引：`../../shared/references/component-map.md`
+- 主题 Token 索引：`../../shared/theme/index.md`（按需读取 Color / Typography / Size / Radius / Shadow）
 - 毓数平台适配器：`../../shared/references/platform-yushu.md`
 - 通用平台适配器：`../../shared/references/platform-generic.md`
 

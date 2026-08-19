@@ -71,9 +71,11 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 qifu-skills-repo/
 ├── README.md                        ← 你正在读的这份
 ├── shared/                          ← 跨原型共享资产(L1/L2/L5)
+│   ├── theme/                       ← 主题 Token 索引（Color / Typography / Size / Radius / Shadow）
 │   └── references/
 │       ├── component-map.md         ← 全部真实组件的节点 ID / 发布 Key / 属性
-│       └── platform-yushu.md        ← 毓数平台导航基线 / 菜单树 / 图标映射
+│       ├── platform-yushu.md        ← 毓数平台导航基线 / 菜单树 / 图标映射
+│       └── platform-generic.md      ← 未指定平台时的中性适配器
 ├── skills/                          ← L4 原型 skill 家族
 │   ├── qifu-b-end-design-system/     ← 公司级页面抽象与组件调用编排
 │   ├── qifu-list-page/
@@ -88,6 +90,18 @@ qifu-skills-repo/
 └── screenshots/                     ← 全仓库统一效果截图(待补)
 ```
 
+
+## Theme Token 索引
+
+参照 TDesign Web Theme 的目录分层，新增 Qifu 的主题调用索引：
+
+- [Theme Index](./shared/theme/index.md)：Token 来源、状态与 AI 查询顺序；
+- [Color](./shared/theme/color.md)：语义色、背景、边框、遮罩；
+- [Typography](./shared/theme/typography.md)：标题、正文、筛选项与表格文字；
+- [Size](./shared/theme/size.md)：页面、Pattern、控件与表格尺寸；
+- [Radius](./shared/theme/radius.md)、[Shadow](./shared/theme/shadow.md)：仅通过真实实例/变量调用。
+
+> 当前清单标记了 `confirmed`、`variable-required`、`reserved` 三类状态；AI 只能直接使用已确认数值，其他 Token 必须继承 Figma Variables 或真实组件实例。
 
 ## 架构与调用截图
 
