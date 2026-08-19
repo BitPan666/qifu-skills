@@ -16,8 +16,8 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - [页面蓝图](references/page-blueprint.md):页面骨架、PageHead、Tabs、DetailBlock、操作位置、间距铁律。
 - [区块路由表](references/detail-block-map.md):六种 bodyType(Descriptions / Table / Cards / Timeline / KeyMetrics / Empty)的选型规则。
 - [组合注册表](references/detail-compositions.md):Flat / Tabbed / Master Detail / Readonly 四种形态与调用规则。
-- 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../../shared/references/platform-yushu.md)。
-- 组件名 / 节点 ID / 发布 Key 全部复用[组件映射](../../shared/references/component-map.md),不在本 Skill 重复维护。
+- 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
+- 组件名 / 节点 ID / 发布 Key 全部复用[组件映射](../qifu-shared/references/component-map.md),不在本 Skill 重复维护。
 
 任何 `use_figma` 调用前加载并遵循 `figma-use`;创建或更新完整页面时同时加载并遵循 `figma-generate-design`。若目标项目另有 `AGENTS.md` 或项目级 Figma 规则,先读取并以其为准。
 
@@ -87,7 +87,7 @@ targetPage       Figma 目标 Page;测试固定 Page `测试`(node 3497:651)
 
 1. 从描述、截图或线框提取 `DetailSpec`。
 2. 先从[组合注册表](references/detail-compositions.md)确定唯一 `compositionName`:精确匹配 → 推断规则 → 默认 `Tabbed`。
-3. 为每个区块确定 `bodyType`(查 [detail-block-map](detail-block-map.md));第一个区块必须是 `Descriptions`(或 Descriptions + KeyMetrics)。
+3. 为每个区块确定 `bodyType`(查 [detail-block-map](references/detail-block-map.md));第一个区块必须是 `Descriptions`(或 Descriptions + KeyMetrics)。
 4. 检查 Sections/Tags/操作数量是否越界(Tags ≤ 2,Head 操作 ≤ 3,行内操作 ≤ 2);越界就近收纳并记录假设。
 
 ### 2. 盘点目标文件
@@ -95,7 +95,7 @@ targetPage       Figma 目标 Page;测试固定 Page `测试`(node 3497:651)
 1. 确认目标 Figma 文件、页面和插入位置;不写到组件介绍 Page。
 2. 凡提示词包含"测试""效果验证""试生成"或"Skill 回归",必须复用 Page `测试`(node `3497:651`)。
 3. 检查同文件已有详情页,优先复用其外壳尺寸、变量、文字样式。
-4. 按[组件映射](../../shared/references/component-map.md)解析组件;节点 ID 失效时按名称重新发现。
+4. 按[组件映射](../qifu-shared/references/component-map.md)解析组件;节点 ID 失效时按名称重新发现。
 5. 同文件用本地组件节点创建实例;跨文件用发布键导入。
 6. 记录 `resolved / fallback / missing`,未完成盘点不得开始写页面。
 
@@ -138,7 +138,7 @@ Page / Detail / <object> / <compositionName>
 
 - 按 `blocks[]` 顺序生成,Section 之间间距 16px。
 - 每个 Block 由 `BlockHeader + BlockBody` 组成;BlockHeader padding `16 20`,BlockBody padding `20`。
-- bodyType 对应的控件与规则全部按 [detail-block-map](detail-block-map.md) 执行。
+- bodyType 对应的控件与规则全部按 [detail-block-map](references/detail-block-map.md) 执行。
 - 第一个 Block 必须是"核心信息块"(Descriptions 或 Descriptions + KeyMetrics);**不允许**首块放 Timeline / Cards / Table。
 - Table 类 Block 严格沿用 component-map 的 Table Shell-V2 同步规则;没有筛选、没有批量、行内操作 ≤ 2。
 - `Custom(<BizBlock>)` 一律降级到 `Fallback / <BizBlock>` + Audit 记录,**不手画**。

@@ -16,8 +16,8 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - [页面蓝图](references/page-blueprint.md):抽屉结构、宽度阶梯、Header/Footer、Section 与字段规则。
 - [字段控件映射](references/field-control-map.md):字段类型 → 真实控件 的路由表。
 - [抽屉组合注册表](references/drawer-compositions.md):稳定组合名称、适用场景、组件结构和按名称调用规则。
-- 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../../shared/references/platform-yushu.md)。
-- 组件名 / 节点 ID / 发布 Key 全部复用列表页的[组件映射](../../shared/references/component-map.md),不在本 Skill 重复维护。
+- 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
+- 组件名 / 节点 ID / 发布 Key 全部复用列表页的[组件映射](../qifu-shared/references/component-map.md),不在本 Skill 重复维护。
 
 任何 `use_figma` 调用前加载并遵循 `figma-use`;创建或更新完整抽屉时同时加载并遵循 `figma-generate-design`。若目标项目另有 `AGENTS.md` 或项目级 Figma 规则,先读取并以其为准。
 
@@ -77,7 +77,7 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 1. 从描述、截图或线框提取 `DrawerSpec`。
 2. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。
 3. 按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480;7–15 字段默认 640;> 12 字段或显式双列用 840。
-4. 按 [field-control-map](field-control-map.md) 为每个字段分配控件与默认 widthTier。
+4. 按 [field-control-map](references/field-control-map.md) 为每个字段分配控件与默认 widthTier。
 5. 在 DrawerSpec 中**显式列出**哪些字段是必填,哪些是禁用态及其条件,不允许留空让 AI 自行猜。
 
 ### 2. 盘点目标文件
@@ -85,7 +85,7 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 1. 确认目标 Figma 文件、页面和插入位置;不写到组件介绍页或业务 Page。
 2. 凡提示词包含"测试""效果验证""试生成"或"Skill 回归",必须复用 Page `测试`(node `3497:651`),规则与 qifu-list-page 完全一致。
 3. 检查同文件已有抽屉,优先复用其宽度档位、变量、文字样式和 Section 节奏。
-4. 按[组件映射](../../shared/references/component-map.md)中的精确名称解析所需组件;节点 ID 失效时按名称重新发现。
+4. 按[组件映射](../qifu-shared/references/component-map.md)中的精确名称解析所需组件;节点 ID 失效时按名称重新发现。
 5. 同文件使用本地组件节点创建实例;跨文件使用发布键导入。
 6. 记录组件覆盖结果:`resolved`、`fallback`、`missing`。未完成盘点前不得开始写抽屉。
 
@@ -134,7 +134,7 @@ Drawer / <pageName> / Create / <compositionName>
 ### 6. 组装字段
 
 - 每个字段使用 FormItem 容器,按 [page-blueprint](references/page-blueprint.md) 第 6 节渲染 label、required 星、controlSlot。
-- `control` 由 [field-control-map](field-control-map.md) 决定;复合场景(圈选、地图、富文本)使用 `Custom(<BizSlot>)`,节点命名 `Fallback / <BizSlot>`。
+- `control` 由 [field-control-map](references/field-control-map.md) 决定;复合场景(圈选、地图、富文本)使用 `Custom(<BizSlot>)`,节点命名 `Fallback / <BizSlot>`。
 - 所有控件**默认 32px 高度**;`widthTier` 严格取 200/304/408/FULL 阶梯。
 - `Edit` 组合必须按 `defaultValue` 回填初始值;`Readonly` 组合所有控件为 `disabled=true`,Footer 单一关闭按钮。
 - 必填字段的 `*` 由 FormItem 提供,**不手画**,颜色 `#dc2626`,与 label 间距 4px。

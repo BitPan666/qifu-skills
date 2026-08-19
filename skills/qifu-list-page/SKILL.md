@@ -12,9 +12,9 @@ description: 根据业务描述、字段清单、截图或线框，在 Figma 中
 开始前完整读取：
 
 - [页面蓝图](references/page-blueprint.md)：页面结构、布局决策、筛选与表格规则。
-- [组件映射](../../shared/references/component-map.md)：组件名称、节点、发布键、属性和已知缺口。
+- [组件映射](../qifu-shared/references/component-map.md)：组件名称、节点、发布键、属性和已知缺口。
 - [表格组合注册表](references/table-compositions.md)：稳定组合名称、适用场景、组件结构和按名称调用规则。
-- 当 `platform=yushu` 或用户提到“毓数”时，完整读取[毓数平台导航基线](../../shared/references/platform-yushu.md)。
+- 当 `platform=yushu` 或用户提到“毓数”时，完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
 
 任何 `use_figma` 调用前加载并遵循 `figma-use`；创建或更新完整页面时同时加载并遵循 `figma-generate-design`。若目标项目另有 `AGENTS.md` 或项目级 Figma 规则，先读取并以其为准。
 
@@ -118,7 +118,7 @@ AuditNote（仅有缺口时，放在画板外侧相邻位置）
 ### 4. 组装导航与标题
 
 - `platform=yushu` 时，顶部必须使用 `Navigation / HeaderMenu / Yushu Header-V2`，通过 `activeMenu 当前菜单` 设置 `headerActive`；用户名固定为 `panyue`，不重新拼装头像和功能图标。
-- 毓数侧栏按[毓数平台导航基线](../../shared/references/platform-yushu.md)使用 `Navigation / SideMenu / SideMenuItem-V2` 真实实例逐项组装。一级菜单通过 `icon 图标` 替换本地图标，并用 `showIcon 显示图标` 控制显隐；二、三级菜单保持纯文本。`sideActive` 是唯一的当前页菜单；`sideExpanded` 中的父项设置 `expanded 展开=True` 并插入已确认子项，其他父项设置为 `False`。页面位于子菜单时，把 `sidePath` 中除 `sideActive` 外的全部祖先加入 `sideAncestorsActive`：这些父项使用组件的 `State=Selected` 取得“白底 + 文字、图标、箭头主题绿”的祖先激活样式，同时保持展开；非当前路径上仅为展示而展开的父项仍使用 `State=Default`。叶子选中与祖先路径高亮是两种结构语义，不得把普通展开项误设为绿色。
+- 毓数侧栏按[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)使用 `Navigation / SideMenu / SideMenuItem-V2` 真实实例逐项组装。一级菜单通过 `icon 图标` 替换本地图标，并用 `showIcon 显示图标` 控制显隐；二、三级菜单保持纯文本。`sideActive` 是唯一的当前页菜单；`sideExpanded` 中的父项设置 `expanded 展开=True` 并插入已确认子项，其他父项设置为 `False`。页面位于子菜单时，把 `sidePath` 中除 `sideActive` 外的全部祖先加入 `sideAncestorsActive`：这些父项使用组件的 `State=Selected` 取得“白底 + 文字、图标、箭头主题绿”的祖先激活样式，同时保持展开；非当前路径上仅为展示而展开的父项仍使用 `State=Default`。叶子选中与祖先路径高亮是两种结构语义，不得把普通展开项误设为绿色。
 - 其他平台使用对应平台映射中的真实 HeaderMenu 与 SideMenu；组合组件无法改业务文案时，使用对应 `HeaderMenuItem` / `SideMenuItem` 真实实例合法组合，不覆盖成手绘菜单。
 - 侧栏宽度为 200px并填充 Header 以下高度；菜单内容放入可纵向滚动区域，底部收起按钮固定保留，不随菜单滚动。静态画板需要完整显示菜单时允许增加画板高度。
 - 仅在存在多层路径时使用 Breadcrumb；存在同级内容切换时使用 Tabs。
@@ -162,7 +162,7 @@ AuditNote（仅有缺口时，放在画板外侧相邻位置）
 
 - 先执行 `compositionName` 的表格规则，再形成 `TableStyleSpec`。组合注册表固定 `selection`、`rowsSlot` 状态和默认分页策略；`size` 与 `type` 仍按页面需求设置。状态组合只能展示注册状态，不得同时堆叠数据行、Loading 和 Empty。
 - 优先使用 `Data Display / Table / Shell-V2`，通过 `size`、`type`、`selection` 选择整表结构。显示或隐藏选择列时默认外壳均为 1248px，不应让页面发生横向跳动。
-- 在替换任何 Slot 前先确定唯一的 `TableStyleSpec={size,type,selection}`。Table Shell-V2 的三个属性只控制母版中的默认 Slot 内容；`headerSlot` 或 `rowsSlot` 被自定义实例替换后，外壳属性不会级联到 Header Cell-V2、Row-V2、Content Cell-V2 或 Selection Cell-V2。必须按照[组件映射中的逐层同步表](../../shared/references/component-map.md#table-shell-v2-slot-替换后的逐层同步强制)显式设置所有后代实例，并在同一次生成操作中完成，不能只切换外壳变体。
+- 在替换任何 Slot 前先确定唯一的 `TableStyleSpec={size,type,selection}`。Table Shell-V2 的三个属性只控制母版中的默认 Slot 内容；`headerSlot` 或 `rowsSlot` 被自定义实例替换后，外壳属性不会级联到 Header Cell-V2、Row-V2、Content Cell-V2 或 Selection Cell-V2。必须按照[组件映射中的逐层同步表](../qifu-shared/references/component-map.md#table-shell-v2-slot-替换后的逐层同步强制)显式设置所有后代实例，并在同一次生成操作中完成，不能只切换外壳变体。
 - 自定义 `rowsSlot` 的行数与母版默认行数不一致时，切换 `size`、`type` 或 `selection` 可能把 Table Shell 实例高度重置为母版固定高度，即使内部 Slot 已正确增高也会裁切后续行和分页。每次完成后代同步后，必须重新计算 `requiredTableHeight = headerSlot.height + rowsSlot.height + paginationSlot.height`，把 Table Shell 实例高度显式设为该值，并确认外层 `tableSlot` 与 List Page Shell 已按内容高度重新包裹。
 - 表头使用 Header Cell-V2；数据行使用 Row-V2；每个单元格使用 Content Cell-V2，并把 Text-V2、Status-V2 或 Action Content-V2 实例放入 `contentSlot`。任意列数通过 `cellsSlot` 和 `headerSlot` 合法组合，不回退到原版固定 Table。
 - 根据语义分配列宽：序号/ID 最窄，名称中等，长文本或 URL 弹性扩展，状态与操作保持稳定宽度。以内容需求计算各列基准宽度，再让所有列宽之和等于表格可用宽度；列背景和分割线必须连续，不使用会在单元格之间产生空白带的 `SPACE_BETWEEN`。
