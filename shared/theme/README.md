@@ -1,6 +1,6 @@
 # Qifu Theme / Figma Variables
 
-本目录参照 TDesign 的 `style/web/theme` 组织，但 **Figma Variables 是唯一的命名与值来源**。
+本目录 **Figma Variables 是唯一的命名与值来源**。
 
 - Figma 文件：[奇富科技中后台组件库-新](https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/%E5%A5%87%E5%AF%8C%E7%A7%91%E6%8A%80%E4%B8%AD%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E5%BA%93-%E6%96%B0?node-id=2874-9924&view=variables)
 - 采集范围：`基础` 107、`色彩` 82、`字体` 27、`圆角` 7、`尺寸` 55，共 **278** 个变量。
