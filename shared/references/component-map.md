@@ -193,3 +193,7 @@ Recommendation:
 ```
 
 只记录本次页面实际遇到的缺口，不把完整待办列表复制到每张页面。
+
+## 真实 Figma Variables
+
+颜色、字体、圆角和尺寸的变量源已独立维护在 `../theme/`：AI 在生成或审查时先查 `../theme/tokens.json`，再按需读取 `../theme/source/basic.json`、`color.json`、`font.json`、`radius.json`、`size.json`。禁止用解释性命名替换 Figma 原始 `figmaPath`。

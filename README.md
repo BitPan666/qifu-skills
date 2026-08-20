@@ -212,3 +212,11 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 ```
 
 `qifu-shared` is an internal dependency package; it should remain installed beside the three page-generation skills.
+
+## Figma 真实语义变量（2026-08-20）
+
+组件库 Variables 已按 Figma 的**真实 collection、mode、分组、变量路径和值/Alias**整理到 [`shared/theme/`](shared/theme/)。
+
+- 总计 278 个变量：基础 107、色彩 82、字体 27、圆角 7、尺寸 55；
+- AI 调用 Token 时先读取 [`shared/theme/tokens.json`](shared/theme/tokens.json)，需要核对模式和值时读取 `shared/theme/source/*.json`；
+- 不允许把工程 Less 的导出标识符或说明性名称当作 Figma 原变量名；Figma 原路径以 `figmaPath` 为准。

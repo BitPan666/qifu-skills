@@ -144,3 +144,7 @@ contentDensity: compact | normal | spacious
 - [页面类型与迁移矩阵](references/page-archetypes.md)
 - [平台适配器契约](references/platform-adapter.md)
 - [通用平台适配器](../../shared/references/platform-generic.md)
+
+## Figma 真实变量调用
+
+视觉 Token 的权威数据源为 `../../shared/theme/tokens.json` 与 `../../shared/theme/source/*.json`。调用时必须使用记录中的 `figmaPath` / `name`；根据 `基础` collection 的 `毓数/Light`、`智能运营/Light` 与 `色彩` collection 的 `mode/green`、`mode/blue` 选择真实模式。`shared/theme/*.less` 中的标识符是代码导出映射，不是 Figma 原变量名。
