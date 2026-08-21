@@ -6,25 +6,24 @@
 
 | TDesign common | Qifu B 端对应物 | 说明 |
 |---|---|---|
-| `style/` | `shared/` + Figma 组件库 | 共享 Token、组件外观、布局和状态基线 |
+| `style/` | `qifu-shared/` + Figma 组件库 | 共享 Token、组件外观、布局和状态基线 |
 | `style/web` / `style/mobile` | `platform-*` / 未来 `channel-*` | 平台或终端适配，不复制共享组件 |
 | `js/<component>` | Component contract + Figma 属性 | 把组件名、变体、行为和调用参数结构化 |
 | `docs/web/api` | `references/*` + 组件注册表 | AI 只读取与当前任务有关的文档 |
 | `docs/mcp` | Skill 调用协议 | 先发现组件，再按契约生成实例 |
-| 组件映射表 | `shared/references/component-map.md` | 节点 ID、发布 Key、属性、缺口、版本 |
+| 组件映射表 | `qifu-shared/references/component-map.md` | 节点 ID、发布 Key、属性、缺口、版本 |
 
 ## 2. 推荐仓库布局
 
 ```text
 qifu-skills/
-├── shared/
-│   ├── tokens/                       # 可选：Token 导出
-│   ├── references/
-│   │   ├── component-map.md          # L1/L2 共享注册表
-│   │   ├── platform-generic.md       # 通用平台适配器
-│   │   └── platform-<name>.md        # 各平台差异
-│   └── schemas/                      # PageSpec / ComponentSpec / AuditSpec
 ├── skills/
+│   ├── qifu-shared/                  # L1/L2/L5 共享依赖包
+│   │   ├── theme/                    # Figma 变量快照(tokens.json / source / less)
+│   │   └── references/
+│   │       ├── component-map.md      # L1/L2 共享注册表
+│   │       ├── platform-generic.md   # 通用平台适配器
+│   │       └── platform-<name>.md    # 各平台差异
 │   ├── qifu-b-end-design-system/     # 公司级编排入口
 │   ├── qifu-list-page/               # 页面 Archetype
 │   ├── qifu-detail-page/

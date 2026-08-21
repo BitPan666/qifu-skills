@@ -45,7 +45,7 @@ Root (1366 × 768 | 1920 × 1080)
 **规则**:
 
 - 只复用 List Page Shell 的"外壳层"(Header/SideMenu/Content/Page Surface),**不复用**其 `pageHeaderSlot / filterBarSlot / tableSlot`;详情页有独立骨架命名 Detail Page Shell。
-- 平台导航与 sidePath 解析规则完全沿用 [platform-yushu.md](../../shared/references/platform-yushu.md)。
+- 平台导航与 sidePath 解析规则完全沿用 [platform-yushu.md](../../qifu-shared/references/platform-yushu.md)。
 - Shell 与 Page Surface 间距规则与 list-page 相同:Page Surface ↔ Content 12px,Shell ↔ Page Surface 16px。
 
 ## 3. PageHead 详情头

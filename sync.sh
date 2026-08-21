@@ -7,18 +7,24 @@
 # 工作目录("/Nutstore Files/360数科-共享/skill/")是日常改动的地方;
 # 本仓(qifu-skills-repo)是发布到 GitHub 的干净版本,不要直接在本仓改 SKILL.md。
 #
-# 关键约定(2026-08-13):
-# - 工作目录:子 skill 用 `../qifu-list-page/references/xxx.md` 引用共享文件
-# - 本仓:     子 skill 用 `../../shared/references/xxx.md` 引用共享文件
+# 关键约定(2026-08-20):
+# - 工作目录:list-page 自己持有 references/component-map.md 与 platform-yushu.md;
+#            drawer/detail 用 `../qifu-list-page/references/xxx.md` 或
+#            references 子目录里用 `../../qifu-list-page/references/xxx.md` 跨目录引用。
+# - 本仓:     共享资产统一上提到 `skills/qifu-shared/references/`,子 skill 用
+#            `../qifu-shared/references/xxx.md`(SKILL.md)或 `../../qifu-shared/references/xxx.md`(references 子目录)引用。
 # 本脚本在 rsync 后自动做路径"翻译",保持两边引用各自可用。
 #
 # rsync 的 --exclude 保护(不要删):
 # - README.md                 工作目录没有;删掉会把仓里写好的 README 清掉
-# - references/component-map.md / platform-yushu.md   已上提到 shared/,不再拷子目录
+# - references/component-map.md / platform-yushu.md   已上提到 skills/qifu-shared/references/,不再拷子目录
 #
-# 顶层目录保护(本脚本的 rsync 只动 skills/ 与 shared/,顶层其它目录不在同步范围):
+# 顶层目录保护(本脚本的 rsync 只动 skills/qifu-{list-page,drawer-form,detail-page} 与
+# skills/qifu-shared/references/,其它目录不在同步范围):
 # - _docs/                    钩通日志 + 已知限制回填指引(只在仓里,不下发给工作目录)
 # - screenshots/              全仓统一展示图(用户在仓里维护)
+# - skills/qifu-b-end-design-system/  公司级编排入口(只在仓里维护)
+# - skills/qifu-shared/theme/          Figma 变量快照,源是 Figma 而非工作目录,不在此同步
 # - 仓根 README.md / .gitignore / sync.sh 自身        这些是"发布视图"资产,工作目录不需要
 
 set -euo pipefail
@@ -46,35 +52,41 @@ for s in qifu-b-end-design-system qifu-list-page qifu-drawer-form qifu-detail-pa
   echo "  ✔ $s"
 
   # 把"工作目录相对路径"翻译成"本仓相对路径"
+  # 三种形态都要覆盖:
+  #   (a) SKILL.md 里的      `../qifu-list-page/references/xxx.md`
+  #   (b) references/ 子目录里的 `../../qifu-list-page/references/xxx.md`
+  #   (c) list-page 自己 references 里的裸引用 `](references/xxx.md`
   find "$DST/skills/$s" -type f -name "*.md" -exec sed -i '' \
-    -e 's|\.\./qifu-list-page/references/component-map\.md|../../shared/references/component-map.md|g' \
-    -e 's|\.\./qifu-list-page/references/platform-yushu\.md|../../shared/references/platform-yushu.md|g' \
+    -e 's|\.\./qifu-list-page/references/component-map\.md|../qifu-shared/references/component-map.md|g' \
+    -e 's|\.\./qifu-list-page/references/platform-yushu\.md|../qifu-shared/references/platform-yushu.md|g' \
+    -e 's|\.\./\.\./qifu-list-page/references/component-map\.md|../../qifu-shared/references/component-map.md|g' \
+    -e 's|\.\./\.\./qifu-list-page/references/platform-yushu\.md|../../qifu-shared/references/platform-yushu.md|g' \
     {} +
 done
 
-# list-page 自己原本写 `references/component-map.md`,也要翻译成 shared
+# list-page 自己原本写 `references/component-map.md`,也要翻译成 qifu-shared
 find "$DST/skills/qifu-list-page" -type f -name "*.md" -exec sed -i '' \
-  -e 's|](references/component-map\.md|](../../shared/references/component-map.md|g' \
-  -e 's|](references/platform-yushu\.md|](../../shared/references/platform-yushu.md|g' \
+  -e 's|](references/component-map\.md|](../../qifu-shared/references/component-map.md|g' \
+  -e 's|](references/platform-yushu\.md|](../../qifu-shared/references/platform-yushu.md|g' \
   {} +
 
-echo "→ 同步 shared/references/ ..."
+echo "→ 同步 skills/qifu-shared/references/ ..."
 rsync -a \
   "$SRC/qifu-list-page/references/component-map.md" \
-  "$DST/shared/references/component-map.md"
+  "$DST/skills/qifu-shared/references/component-map.md"
 rsync -a \
   "$SRC/qifu-list-page/references/platform-yushu.md" \
-  "$DST/shared/references/platform-yushu.md"
+  "$DST/skills/qifu-shared/references/platform-yushu.md"
 echo "  ✔ component-map.md / platform-yushu.md"
 
 echo "→ 校验路径翻译 ..."
-leftover=$(grep -rE "\]\((\.\./)?(qifu-list-page/references|[^s][^h][^a][^r][^e][^d]/references)" "$DST/skills" 2>/dev/null | grep -v "shared/references" || true)
+leftover=$(grep -rE "\]\((\.\./)?(\.\./)?qifu-list-page/references|](references/component-map\.md|](references/platform-yushu\.md" "$DST/skills" 2>/dev/null | grep -v "qifu-shared/references" || true)
 if [[ -n "$leftover" ]]; then
   echo "  ✗ 仍有未翻译的引用,请检查:" >&2
   echo "$leftover" >&2
   exit 1
 fi
-echo "  ✔ 全部指向 shared/references"
+echo "  ✔ 全部指向 qifu-shared/references"
 
 echo ""
 echo "✔ 同步完成。下一步:"

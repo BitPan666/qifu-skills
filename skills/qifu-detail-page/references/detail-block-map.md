@@ -4,7 +4,7 @@
 
 决定 `DetailSpec.blocks[].bodyType` 使用哪种真实组件或稳定的页面级组合。优先命中本表,本表没有时使用 `Custom(<BizBlock>)` 并记录缺口。
 
-所有真实组件的节点 ID / 发布 Key / 属性,请直接查询[组件映射](../../shared/references/component-map.md);本表只做"语义 → 区块形态"的路由。
+所有真实组件的节点 ID / 发布 Key / 属性,请直接查询[组件映射](../../qifu-shared/references/component-map.md);本表只做"语义 → 区块形态"的路由。
 
 ## 通用区块类型
 

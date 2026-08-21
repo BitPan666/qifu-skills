@@ -57,8 +57,8 @@ $qifu-list-page 在毓数平台的权限管理 > 用户授权下新建用户授�
 
 本 skill 依赖以下共享文件(不写在自己 references/ 内,见仓库根 README):
 
-- [`shared/references/component-map.md`](../../shared/references/component-map.md) — 全部真实组件的节点 ID 与属性
-- [`shared/references/platform-yushu.md`](../../shared/references/platform-yushu.md) — 毓数平台导航
+- [`qifu-shared/references/component-map.md`](../qifu-shared/references/component-map.md) — 全部真实组件的节点 ID 与属性
+- [`qifu-shared/references/platform-yushu.md`](../qifu-shared/references/platform-yushu.md) — 毓数平台导航
 
 ## 不适用场景
 

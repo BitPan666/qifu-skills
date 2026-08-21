@@ -4,7 +4,7 @@
 
 决定每个 `fields[]` 在抽屉里使用哪种真实控件。优先命中本表,本表没有时使用 `Custom` Slot 并记录缺口。
 
-所有真实组件的 `节点 ID / 发布 Key / 属性`,请直接查询[组件映射](../../shared/references/component-map.md);本表只做"语义 → 控件"的路由,不重复维护组件清单。
+所有真实组件的 `节点 ID / 发布 Key / 属性`,请直接查询[组件映射](../../qifu-shared/references/component-map.md);本表只做"语义 → 控件"的路由,不重复维护组件清单。
 
 ## 通用映射
 

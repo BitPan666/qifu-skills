@@ -2,7 +2,7 @@
 
 ## 1. 适配器的职责
 
-Platform Adapter 是把通用 Page Archetype 落到具体平台的薄层配置，不是另一套组件库。每个平台一个文件：`shared/references/platform-<platform>.md`。
+Platform Adapter 是把通用 Page Archetype 落到具体平台的薄层配置，不是另一套组件库。每个平台一个文件：`qifu-shared/references/platform-<platform>.md`。
 
 ## 2. 推荐格式
 

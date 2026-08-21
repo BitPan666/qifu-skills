@@ -63,8 +63,8 @@ AI 曾把抽屉内组件实例丢到 Page 根级(看起来结构对、实际 Fra
 
 ## 共享依赖
 
-- [`shared/references/component-map.md`](../../shared/references/component-map.md)
-- [`shared/references/platform-yushu.md`](../../shared/references/platform-yushu.md)
+- [`qifu-shared/references/component-map.md`](../qifu-shared/references/component-map.md)
+- [`qifu-shared/references/platform-yushu.md`](../qifu-shared/references/platform-yushu.md)
 
 ## 不适用场景
 

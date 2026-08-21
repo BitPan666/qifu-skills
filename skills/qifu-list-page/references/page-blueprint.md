@@ -59,7 +59,7 @@ Page Surface 与 Content 四周固定 12px；Page Content 与 Page Surface 四�
 
 ## 3. 上下文导航
 
-先确定平台导航，再判断内容区是否需要 Breadcrumb 或 Tabs。当前毓数平台的顶部入口、侧栏菜单树、图标与展开规则见 [platform-yushu.md](platform-yushu.md)。
+先确定平台导航，再判断内容区是否需要 Breadcrumb 或 Tabs。当前毓数平台的顶部入口、侧栏菜单树、图标与展开规则见 [platform-yushu.md](../../qifu-shared/references/platform-yushu.md)。
 
 按信息架构选择一种或组合使用：
 

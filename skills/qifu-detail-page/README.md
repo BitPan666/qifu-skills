@@ -78,5 +78,5 @@ Tabs:基本信息、触发记录。
 
 ## 共享依赖
 
-- [`shared/references/component-map.md`](../../shared/references/component-map.md)
-- [`shared/references/platform-yushu.md`](../../shared/references/platform-yushu.md)
+- [`qifu-shared/references/component-map.md`](../qifu-shared/references/component-map.md)
+- [`qifu-shared/references/platform-yushu.md`](../qifu-shared/references/platform-yushu.md)

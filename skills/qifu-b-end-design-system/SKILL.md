@@ -36,11 +36,11 @@ description: 公司级 B 端界面设计系统与 Figma 组件调用规范。用
 | 层 | 名称 | AI 需要知道什么 | 本仓库位置 |
 |---|---|---|---|
 | L0 | Governance | 命名、版本、发布、缺口和验证规则 | 本 Skill + audit |
-| L1 | Token | 颜色、字体、间距、圆角、阴影、尺寸、状态 | `shared/references/component-map.md` 与组件库变量 |
-| L2 | Component | 组件集、节点 ID、发布 Key、属性、状态、可组合关系 | `shared/references/component-map.md` |
+| L1 | Token | 颜色、字体、间距、圆角、阴影、尺寸、状态 | `qifu-shared/references/component-map.md` 与组件库变量 |
+| L2 | Component | 组件集、节点 ID、发布 Key、属性、状态、可组合关系 | `qifu-shared/references/component-map.md` |
 | L3 | Pattern | 筛选栏、操作栏、详情块、表单分区、指标卡、时间线 | 各页面 Skill 的 references |
 | L4 | Page Archetype | 列表、详情、抽屉、工作台、树表、向导、看板等 | `skills/` 下的页面 Skill |
-| L5 | Platform Adapter | 导航、品牌、术语、权限、业务槽位、平台特有组件 | `shared/references/platform-*.md` |
+| L5 | Platform Adapter | 导航、品牌、术语、权限、业务槽位、平台特有组件 | `qifu-shared/references/platform-*.md` |
 | L6 | Business Page | 某个平台某菜单下的一张具体页面 | 业务交付页面，不反向污染共享层 |
 
 **约束：**业务差异向下通过 Adapter 和 Slot 注入；共享层不写平台名，页面交付不复制组件库规则。
@@ -81,7 +81,7 @@ contentDensity: compact | normal | spacious
 
 ### 3. 选择 Pattern 与组件
 
-使用 `shared/references/component-map.md` 做组件发现：
+使用 `qifu-shared/references/component-map.md` 做组件发现：
 
 - 先匹配语义（例如“筛选单选”），再匹配视觉；
 - 优先使用已发布组件 Key 创建实例；同文件生成时优先使用节点 ID；
@@ -120,9 +120,9 @@ contentDensity: compact | normal | spacious
 
 - File key：`gTV3VdC6a5e9vpkRHIZSXA`
 - Figma URL：见用户提供的组件库链接
-- 组件资产索引：`../../shared/references/component-map.md`
-- 毓数平台适配器：`../../shared/references/platform-yushu.md`
-- 通用平台适配器：`../../shared/references/platform-generic.md`
+- 组件资产索引：`../qifu-shared/references/component-map.md`
+- 毓数平台适配器：`../qifu-shared/references/platform-yushu.md`
+- 通用平台适配器：`../qifu-shared/references/platform-generic.md`
 
 节点 ID 只保证在该组件库文件内有效；发布 Key 用于其他文件导入。组件被重建后，以精确组件集名称重新发现并更新注册表，不凭旧节点 ID 猜测。
 
@@ -143,8 +143,8 @@ contentDensity: compact | normal | spacious
 - [组件注册表契约](references/component-contract.md)
 - [页面类型与迁移矩阵](references/page-archetypes.md)
 - [平台适配器契约](references/platform-adapter.md)
-- [通用平台适配器](../../shared/references/platform-generic.md)
+- [通用平台适配器](../qifu-shared/references/platform-generic.md)
 
 ## Figma 真实变量调用
 
-视觉 Token 的权威数据源为 `../../shared/theme/tokens.json` 与 `../../shared/theme/source/*.json`。调用时必须使用记录中的 `figmaPath` / `name`；根据 `基础` collection 的 `毓数/Light`、`智能运营/Light` 与 `色彩` collection 的 `mode/green`、`mode/blue` 选择真实模式。`shared/theme/*.less` 中的标识符是代码导出映射，不是 Figma 原变量名。
+视觉 Token 的权威数据源为 `../qifu-shared/theme/tokens.json` 与 `../qifu-shared/theme/source/*.json`。调用时必须使用记录中的 `figmaPath` / `name`；根据 `基础` collection 的 `毓数/Light`、`智能运营/Light` 与 `色彩` collection 的 `mode/green`、`mode/blue` 选择真实模式。`qifu-shared/theme/*.less` 中的标识符是代码导出映射，不是 Figma 原变量名。

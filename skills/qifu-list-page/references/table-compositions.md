@@ -38,4 +38,4 @@ rowsState
 showPagination
 ```
 
-不得以重命名 Figma 组件的方式实现上述协议。真实组件仍按[组件映射](component-map.md)中的正式名称解析。
+不得以重命名 Figma 组件的方式实现上述协议。真实组件仍按[组件映射](../../qifu-shared/references/component-map.md)中的正式名称解析。

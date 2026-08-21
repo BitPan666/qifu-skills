@@ -2,7 +2,7 @@
 
 ## 1. 组件记录格式
 
-`shared/references/component-map.md` 中的每个正式组件建议具备以下字段：
+`qifu-shared/references/component-map.md` 中的每个正式组件建议具备以下字段：
 
 ```yaml
 component:

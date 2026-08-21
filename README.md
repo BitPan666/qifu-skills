@@ -28,14 +28,14 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 
 | 层级 | 名称 | 它是什么 | 在本仓库 |
 |---|---|---|---|
-| L1 | Design Token | 颜色 / 字体 / 圆角 / 间距 / 边框 | `shared/references/component-map.md` 第一段 |
-| L2 | Component | 真实组件实例 + 节点 ID + 发布 Key | `shared/references/component-map.md` |
+| L1 | Design Token | 颜色 / 字体 / 圆角 / 间距 / 边框 | `qifu-shared/references/component-map.md` 第一段 |
+| L2 | Component | 真实组件实例 + 节点 ID + 发布 Key | `qifu-shared/references/component-map.md` |
 | L3 | Pattern | Filter Bar / Action Bar / DetailBlock 等组合区块 | 各 skill 的 `references/page-blueprint.md` |
 | L4 | Page Archetype | 列表 / 抽屉表单 / 详情 / 向导… | `skills/qifu-*`(本仓库主资产) |
-| L5 | Platform Adapter | 平台导航、品牌、术语、权限、业务槽位 | `shared/references/platform-*.md` |
+| L5 | Platform Adapter | 平台导航、品牌、术语、权限、业务槽位 | `qifu-shared/references/platform-*.md` |
 | L6 | Business Page | 业务菜单树、用户上下文、业务名词 | 具体交付页面 |
 
-**关键设计**:L1 / L2 / L5 是**跨原型共享资产**,只维护一份(`shared/references/`);L4 每新增一种原型,只需写 3 份新文件(SKILL.md + blueprint + compositions),复用骨架和共享层。
+**关键设计**:L1 / L2 / L5 是**跨原型共享资产**,只维护一份(`qifu-shared/references/`);L4 每新增一种原型,只需写 3 份新文件(SKILL.md + blueprint + compositions),复用骨架和共享层。
 
 ## 当前 Skill 家族
 
@@ -70,12 +70,14 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 ```
 qifu-skills-repo/
 ├── README.md                        ← 你正在读的这份
-├── shared/                          ← 跨原型共享资产(L1/L2/L5)
-│   └── references/
-│       ├── component-map.md         ← 全部真实组件的节点 ID / 发布 Key / 属性
-│       └── platform-yushu.md        ← 毓数平台导航基线 / 菜单树 / 图标映射
-├── skills/                          ← L4 原型 skill 家族
+├── skills/                          ← skill 家族
 │   ├── qifu-b-end-design-system/     ← 公司级页面抽象与组件调用编排
+│   ├── qifu-shared/                 ← 跨原型共享依赖包(L1/L2/L5 + theme)
+│   │   ├── references/
+│   │   │   ├── component-map.md     ← 全部真实组件的节点 ID / 发布 Key / 属性
+│   │   │   ├── platform-yushu.md    ← 毓数平台导航基线 / 菜单树 / 图标映射
+│   │   │   └── platform-generic.md  ← 通用平台适配器
+│   │   └── theme/                   ← Figma 变量快照(tokens.json / source / less)
 │   ├── qifu-list-page/
 │   │   ├── SKILL.md
 │   │   ├── references/
@@ -103,7 +105,7 @@ qifu-skills-repo/
 
 ![跨平台页面迁移矩阵](./screenshots/overview/platform-migration.svg)
 
-> 以上图片是仓库文档用的结构说明图，不替代 Figma 中的真实组件实例。真实组件来源仍以“奇富科技中后台组件库 新”及 `shared/references/component-map.md` 为准。
+> 以上图片是仓库文档用的结构说明图，不替代 Figma 中的真实组件实例。真实组件来源仍以“奇富科技中后台组件库 新”及 `qifu-shared/references/component-map.md` 为准。
 
 ## 快速开始
 
@@ -114,9 +116,9 @@ qifu-skills-repo/
 git clone git@github.com:jingjingtu/qifu-skills.git
 cd qifu-skills
 
-# 2. 逐个把 skill 软链到 ~/.claude/skills
+# 2. 逐个把 skill 软链到 ~/.claude/skills（qifu-shared 是共享依赖包，必须一并链入）
 mkdir -p ~/.claude/skills
-for s in qifu-b-end-design-system qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
   ln -sf "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 
@@ -129,9 +131,9 @@ done
 ```bash
 # 1. 同上克隆
 
-# 2. 软链到 Codex skills 目录
+# 2. 软链到 Codex skills 目录（qifu-shared 是共享依赖包，必须一并链入）
 mkdir -p ~/.codex/skills
-for s in qifu-b-end-design-system qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
   ln -sf "$(pwd)/skills/$s" ~/.codex/skills/$s
 done
 # Codex 通过每个 skill 下的 agents/openai.yaml 识别入口
@@ -215,8 +217,8 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 
 ## Figma 真实语义变量（2026-08-20）
 
-组件库 Variables 已按 Figma 的**真实 collection、mode、分组、变量路径和值/Alias**整理到 [`shared/theme/`](shared/theme/)。
+组件库 Variables 已按 Figma 的**真实 collection、mode、分组、变量路径和值/Alias**整理到 [`skills/qifu-shared/theme/`](skills/qifu-shared/theme/)。
 
 - 总计 278 个变量：基础 107、色彩 82、字体 27、圆角 7、尺寸 55；
-- AI 调用 Token 时先读取 [`shared/theme/tokens.json`](shared/theme/tokens.json)，需要核对模式和值时读取 `shared/theme/source/*.json`；
+- AI 调用 Token 时先读取 [`skills/qifu-shared/theme/tokens.json`](skills/qifu-shared/theme/tokens.json)，需要核对模式和值时读取 `skills/qifu-shared/theme/source/*.json`；
 - 不允许把工程 Less 的导出标识符或说明性名称当作 Figma 原变量名；Figma 原路径以 `figmaPath` 为准。

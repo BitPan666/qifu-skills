@@ -35,7 +35,7 @@
 └─"平台/业务规则的边界"
     (如:毓数侧栏只支持到三级、权限管理必须展开父菜单)
       ↓
-    → 写进 shared/references/platform-yushu.md(或者将来的 platform-XX.md)
+    → 写进 qifu-shared/references/platform-yushu.md(或者将来的 platform-XX.md)
 ```
 
 ---

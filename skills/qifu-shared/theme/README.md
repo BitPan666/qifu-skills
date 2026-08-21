@@ -10,7 +10,7 @@
 ## 目录
 
 ```text
-shared/theme/
+skills/qifu-shared/theme/
 ├── _index.less
 ├── _light.less          # 基础 collection，默认导出毓数/Light
 ├── _font.less
@@ -32,7 +32,7 @@ shared/theme/
 ## Less 使用
 
 ```less
-@import 'shared/theme/_index.less';
+@import 'skills/qifu-shared/theme/_index.less';
 // @qifu-text-color-primary  ← Figma: 文本颜色/--qifu-text-color-primary
 ```
 

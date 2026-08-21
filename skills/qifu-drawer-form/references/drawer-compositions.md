@@ -37,7 +37,7 @@ footerButtons[]     cancel | prev | next | ok | save | close
 defaultState        data | loading | disabled | error
 ```
 
-不得以重命名 Figma 组件的方式实现上述协议。真实组件仍按[组件映射](../../shared/references/component-map.md)中的正式名称解析。
+不得以重命名 Figma 组件的方式实现上述协议。真实组件仍按[组件映射](../../qifu-shared/references/component-map.md)中的正式名称解析。
 
 ## 与列表页 6 组合的对照
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qifu Shared References"
+  short_description: "Qifu 页面生成 Skill 的共享依赖包，提供组件映射与毓数导航基线。"
+  default_prompt: "安装任一 Qifu 页面 Skill 时，同时安装 $qifu-shared 作为依赖，供其解析组件映射与平台导航基线。"
