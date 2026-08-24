@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# sync.sh —— 把"工作目录"中的 3 个 qifu skill 同步到本仓,准备推 GitHub
+# sync.sh —— 把"工作目录"中的 qifu / zhikexing skill 同步到本仓,准备推 GitHub
 # 使用:
 #   chmod +x sync.sh
 #   ./sync.sh
@@ -63,6 +63,17 @@ for s in qifu-b-end-design-system qifu-list-page qifu-drawer-form qifu-detail-pa
     -e 's|\.\./\.\./qifu-list-page/references/platform-yushu\.md|../../qifu-shared/references/platform-yushu.md|g' \
     {} +
 done
+
+# 智客星列表页独立持有参考文件，不沿用上方 qifu-shared 的排除与路径翻译规则。
+if [[ -d "$SRC/zhikexing-list-page" ]]; then
+  rsync -a --delete \
+    --exclude='.DS_Store' \
+    --exclude='README.md' \
+    "$SRC/zhikexing-list-page/" "$DST/skills/zhikexing-list-page/"
+  echo "  ✔ zhikexing-list-page"
+else
+  echo "  ⚠ 跳过: 工作目录缺少 zhikexing-list-page" >&2
+fi
 
 # list-page 自己原本写 `references/component-map.md`,也要翻译成 qifu-shared
 find "$DST/skills/qifu-list-page" -type f -name "*.md" -exec sed -i '' \
