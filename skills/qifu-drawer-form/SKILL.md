@@ -1,6 +1,6 @@
 ---
 name: qifu-drawer-form
-description: 根据业务描述、字段清单、截图或线框,在 Figma 中使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台右侧抽屉表单(新建/编辑/查看)。适用于按稳定的组合名称调用 Simple Create / Sectioned Create / Advanced Create / Edit / Readonly 五种抽屉形态,并完成 Header、1..N 个 Form Section、Footer(取消+确定/保存/关闭);也支持以已验证的智客星列表页为底图叠加蒙层与抽屉。不要用于复杂看板、向导流(Wizard)、带批量编辑的列表页或高度定制的工作台。
+description: 根据业务描述、字段清单、截图或线框,在 Figma 中使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台右侧抽屉表单(新建/编辑/查看)。适用于按稳定名称调用 Simple Create / Sectioned Create / Advanced Create / Edit / Readonly / Data Detail with Table 六种组合，并完成 Header、Form Section、Footer 或摘要+筛选+内嵌表格结构；也支持以已验证的智客星列表页为底图叠加蒙层与抽屉。不要用于复杂看板、向导流(Wizard)、带批量编辑的列表页或高度定制的工作台。
 ---
 
 # Qifu Drawer Form
@@ -16,6 +16,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - [页面蓝图](references/page-blueprint.md):抽屉结构、宽度阶梯、Header/Footer、Section 与字段规则。
 - [字段控件映射](references/field-control-map.md):字段类型 → 真实控件 的路由表。
 - [抽屉组合注册表](references/drawer-compositions.md):稳定组合名称、适用场景、组件结构和按名称调用规则。
+- 当抽屉包含“摘要信息 + 区块标题 + 筛选控件 + 内嵌表格/分页”时，完整读取[数据详情抽屉 Golden Sample](references/golden-sample-data-detail-drawer.md)，并使用 `Qifu Drawer Form / Data Detail with Table`。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
 - 当 `platform=zhikexing` 且 `presentationMode=OVERLAY_ON_ZHIKEXING_LIST` 时，完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料。
 - 组件名 / 节点 ID / 发布 Key 全部复用列表页的[组件映射](../qifu-shared/references/component-map.md),不在本 Skill 重复维护。
@@ -36,7 +37,7 @@ background        仅 OVERLAY_ON_ZHIKEXING_LIST 使用
   ├─ sourceNode   EXISTING_LIST_PAGE 时必填
   ├─ sidePath[]   底图菜单路径，仅修改模板中已存在的菜单状态
   └─ pageName     底图业务页名称，仅用于 Scene 命名
-widthTier        480 / 640 / 840;未指定按字段数与复杂度推断,默认可先按 640
+widthTier        480 / 640 / 680 / 840;普通表单默认 640，数据详情表格组合固定 680
 maskClosable     默认 false
 escClosable      默认 false
 sections[]       1..N 个分区,按业务顺序排列
@@ -60,6 +61,13 @@ footer           覆盖默认 Footer(可选)
   ├─ danger     可选 {label, confirm} 危险动作,出现在 Footer 最左
   └─ extras[]   可选次要按钮
 data             示例数据或 Edit 组合下的回填数据
+embeddedTable    仅 Data Detail with Table 使用(可选)
+  ├─ columns[]      表头、列宽、排序/筛选开关
+  ├─ rows[]         真实数据行
+  ├─ tableSize      默认 small 36px
+  ├─ tableType      默认 bordered
+  ├─ selection      默认 off
+  └─ pagination     total / pageSize / current / showPageSize / showJumper
 targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 Page `测试`(node 3497:651)
 ```
 
@@ -91,7 +99,7 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 1. 从描述、截图或线框提取 `DrawerSpec`。
 2. 解析 `presentationMode`：未指定时固定为 `STANDALONE`；只有 `platform=zhikexing` 才允许 `OVERLAY_ON_ZHIKEXING_LIST`。
 3. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。
-4. 按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480;7–15 字段默认 640;> 12 字段或显式双列用 840。
+4. 含摘要、筛选和内嵌表格的数据详情抽屉使用 `Qifu Drawer Form / Data Detail with Table` 与 680px；其余抽屉按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480;7–15 字段默认 640;> 12 字段或显式双列用 840。
 5. 按 [field-control-map](references/field-control-map.md) 为每个字段分配控件与默认 widthTier。
 6. 在 DrawerSpec 中**显式列出**哪些字段是必填,哪些是禁用态及其条件,不允许留空让 AI 自行猜。
 
@@ -132,11 +140,13 @@ Drawer / <pageName> / Create / <compositionName>
 
 抽屉外层用 `frame` 直接管理,不创建"DrawerShell"母版;抽屉宽度档位 = [page-blueprint](references/page-blueprint.md) 中的 Narrow/Standard/Wide。
 
+`Qifu Drawer Form / Data Detail with Table` 不套用上面的通用表单 Section 骨架。必须按 [Golden Sample](references/golden-sample-data-detail-drawer.md) 创建 `1366×768` Scene：完整真实列表页底图 < Overlay Mask < 右侧 680px 抽屉；不得用 IMAGE 矩形或截图充当底图。抽屉内部使用 16px 内容安全边距、20/24 内容卡片、真实 Select / Table Shell-V2 / Pagination-V2 实例，以及分页器与表格描边分离的结构。
+
 ### 4. 组装 Header 与 Footer
 
-- Header 高度 56px;Title 使用 `17px / 600 / #111827`,文案严格动宾(`新建 X` / `编辑 X` / `查看 X`)。
+- Header 高度 56px；自由文本 Title 必须应用组件库 `标题/Medium` 文本样式（当前真实定义 16/24），不得手填字体属性。数据详情类标题可使用名词短语；Create/Edit 仍使用动宾结构。
 - Header 内**禁止**面包屑、tabs、副标题、secondary 图标——抽屉是单一任务。
-- CloseBtn 24×24,仅 `×`;使用真实 icon 组件。
+- CloseBtn 使用组件库真实 `Icon/basic/close`，可见尺寸固定 16×16，右侧 24px、上下居中；不得用字符 `×`、自绘矢量或错误命名的返回图标代替。
 - Footer 高度 52px;按钮从右到左排列:`[OK] [Cancel] [Spacer] [Danger]`。
 - 主操作**唯一**,文案严格遵循组合:Create=确定 / Edit=保存 / Readonly=关闭;Advanced Create 的情形才允许 `[提交] [上一步/下一步] [取消]` 组合。
 - 危险动作放在 Footer 最左,使用 `Button / variant=danger` + `Popconfirm theme=Danger`;**不放进主操作组**。
@@ -207,6 +217,14 @@ Drawer / <pageName> / Create / <compositionName>
 - `OVERLAY_ON_ZHIKEXING_LIST` 额外验证 Scene、Background、Overlay Mask 均为 `1366 x 768`，图层顺序为 Background < Overlay Mask < Drawer，Drawer 贴 Scene 右侧，且截图中底图被压暗而 Drawer 保持清晰。
 - 组合模式背景必须继续通过 `zhikexing-list-page` 的 Header、侧栏、Shell、Filter Bar、Table Shell 与 Pagination 结构检查；底图不得是截图、展平图层、裸 Text 或 Slot 覆盖物。
 - 抽屉外层 Frame 不叠加自定义 padding;所有留白来自 page-blueprint 第 7 节的 10 项铁律。
+- `Data Detail with Table` 额外通过 Golden Sample QA：抽屉 680px；Body 内容卡片距抽屉四周 16px；卡片使用纵向 Auto Layout、上下 20px/左右 24px；区块标题使用 `标题/Small`，品牌色 3×12 rail 与标题 gap=5；标题后 Tag gap 绑定 `--qifu-size/8`；标题与正文 gap=16；Form label 左对齐且各控件左边缘对齐，默认 label-control gap=24。
+- `Data Detail with Table` 的页面级普通正文与 Form label 必须绑定组件库 `Body/Regular`（PingFang SC Regular 14/22）；禁止使用 `Body/Medium`、Bold 或手填字体属性。Header Title、Section Title、表头和链接仍保持各自语义样式，不得为了“统一”一并改成 Regular。
+- 表格正文必须由 `Data Display / Table / Cell Content / Text-V2` 的 `contentFont 内容字号=14px` 组件变体继承 `Body/Regular` 14/22；不得在页面实例上逐个覆盖。表头继续使用 Header Cell-V2 的 Semibold 层级。
+- 内嵌表格的 Table Shell-V2、Header Cell-V2、Row-V2、Content Cell-V2、Text-V2、Pagination-V2 必须全部为组件库真实实例；表格描边只包围表头与数据行，分页器位于描边外。
+- `Data Detail with Table` 的内容 Section 与 `Table Border / 四边完整` 统一使用 4px 圆角。Table Border 必须是单独 Frame：1px Inside 描边、`Clip content=true`；表头、数据行和列分割线放入其中，Pagination 不得成为该边框的可见内容。
+- 非 Empty / Loading 状态下，表格每个可见数据行的每个可见单元格必须有真实内容；表头与数据行逐列同宽，所有列宽之和必须精确等于 Table Border 内容宽度，不得依赖裁剪隐藏横向溢出。
+- 新建的页面组合层（Scene、Background、Overlay Mask、Drawer、内容卡片、Table Border、Pagination 容器）以及其自由布局属性的 x、y、width、height、padding、gap、圆角和描边宽度必须为整数；发现本次缩放造成的小数即 FAIL，替换为未缩放实例或整数重建。正式组件实例内部的 Vector、Text、Slot 或由母版 Auto Layout 计算出的分数值不做页面层修正，不得为凑整数 detach 或改写母版。
+- 自由文本必须应用组件库文本样式；组件实例内部文字由组件自身管理。组件库不存在指定文本样式时报告 `STYLE_MISSING`，不得自行生成近似字体。
 
 ## 硬性约束
 
@@ -224,6 +242,11 @@ Drawer / <pageName> / Create / <compositionName>
 
 > 按时间倒序,最新在最前。跑通后发现的限制统一放这里,不散落在正文各处。
 > 仓库内回填方式见 `_docs/limit-backfill.md`(仅发布仓)。
+
+### 2026-08-24 · 数据详情抽屉 Golden Sample
+- 唯一 Golden Sample 为组件库文件 Page `02 From 训练过程` 的 `Golden Sample / Drawer / 数据详情 / 680 · 0821 根据手搓重生成`（node `4725:1548`）；未来同类抽屉先复用其 Scene、抽屉和表格结构，再替换业务数据。旧的 `4659:420` 仅作历史对照。
+- Golden Sample Scene 固定 `1366×768`。原有 `底图 1` 是 IMAGE 填充矩形，不能作为交付底图；生成或重制时必须换成完整真实列表页。当前可验证底图源为 `Template / List Page / 智客星 / 1440 / 手动调整`（node `4892:34812`，实际 `1366×768`），且 Header、侧栏、Shell、Filter Bar、Table Shell 与 Pagination 必须保持真实组件实例。
+- 页面级任务正文与 Form label 使用 `Body/Regular` 14/22；`Body/Medium` 会造成正文误加粗。`标题/Medium` 的真实定义为 16/24；不得手工覆盖行高。`Text-V2 / contentFont 内容字号=14px` 的表格正文已绑定 `Body/Regular` 14/22。
 
 ### 2026-08-12 · 新建触发式任务抽屉
 - 抽屉 Frame 内所有控件 INSTANCE 必须嵌套在 `Drawer/Header | Section/<name> | Drawer/Footer` 三容器之一,不允许 Page 根级孤儿(详见验证清单"层级归属检查")
