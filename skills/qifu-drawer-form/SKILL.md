@@ -1,6 +1,6 @@
 ---
 name: qifu-drawer-form
-description: 根据业务描述、字段清单、截图或线框,在 Figma 中使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台右侧抽屉表单(新建/编辑/查看)。适用于按稳定的组合名称调用 Simple Create / Sectioned Create / Advanced Create / Edit / Readonly 五种抽屉形态,并完成 Header、1..N 个 Form Section、Footer(取消+确定/保存/关闭);也用于审查所需组件是否缺失。不要用于复杂看板、向导流(Wizard)、带批量编辑的列表页或高度定制的工作台。
+description: 根据业务描述、字段清单、截图或线框,在 Figma 中使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台右侧抽屉表单(新建/编辑/查看)。适用于按稳定的组合名称调用 Simple Create / Sectioned Create / Advanced Create / Edit / Readonly 五种抽屉形态,并完成 Header、1..N 个 Form Section、Footer(取消+确定/保存/关闭);也支持以已验证的智客星列表页为底图叠加蒙层与抽屉。不要用于复杂看板、向导流(Wizard)、带批量编辑的列表页或高度定制的工作台。
 ---
 
 # Qifu Drawer Form
@@ -17,6 +17,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - [字段控件映射](references/field-control-map.md):字段类型 → 真实控件 的路由表。
 - [抽屉组合注册表](references/drawer-compositions.md):稳定组合名称、适用场景、组件结构和按名称调用规则。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
+- 当 `platform=zhikexing` 且 `presentationMode=OVERLAY_ON_ZHIKEXING_LIST` 时，完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料。
 - 组件名 / 节点 ID / 发布 Key 全部复用列表页的[组件映射](../qifu-shared/references/component-map.md),不在本 Skill 重复维护。
 
 任何 `use_figma` 调用前加载并遵循 `figma-use`;创建或更新完整抽屉时同时加载并遵循 `figma-generate-design`。若目标项目另有 `AGENTS.md` 或项目级 Figma 规则,先读取并以其为准。
@@ -28,7 +29,13 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 ```text
 drawerTitle      抽屉标题(动宾:新建 X / 编辑 X / 查看 X)
 compositionName  抽屉组合的完整注册名称;未指定时按场景匹配,默认使用 Qifu Drawer Form / Sectioned Create
-platform         所属平台;当前默认基准为 yushu
+platform         所属平台;当前默认基准为 yushu，可选 zhikexing
+presentationMode  展示模式:STANDALONE(默认) | OVERLAY_ON_ZHIKEXING_LIST
+background        仅 OVERLAY_ON_ZHIKEXING_LIST 使用
+  ├─ source       TEMPLATE(默认) | EXISTING_LIST_PAGE
+  ├─ sourceNode   EXISTING_LIST_PAGE 时必填
+  ├─ sidePath[]   底图菜单路径，仅修改模板中已存在的菜单状态
+  └─ pageName     底图业务页名称，仅用于 Scene 命名
 widthTier        480 / 640 / 840;未指定按字段数与复杂度推断,默认可先按 640
 maskClosable     默认 false
 escClosable      默认 false
@@ -68,6 +75,13 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 【可选】Footer 危险/次要动作。
 ```
 
+智客星列表页底图模式可追加：
+
+```text
+展示方式：OVERLAY_ON_ZHIKEXING_LIST；底图使用智客星列表页模板；
+当前菜单：【一级菜单 / 二级菜单】。
+```
+
 解析优先级固定为:平台 → 操作类型(Create/Edit/Readonly)→ 对象 → 抽屉标题 → sections[] → fields[] → Footer。不要把页面对象当成字段标签。
 
 ## 工作流
@@ -75,21 +89,25 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 ### 1. 形成 DrawerSpec
 
 1. 从描述、截图或线框提取 `DrawerSpec`。
-2. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。
-3. 按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480;7–15 字段默认 640;> 12 字段或显式双列用 840。
-4. 按 [field-control-map](references/field-control-map.md) 为每个字段分配控件与默认 widthTier。
-5. 在 DrawerSpec 中**显式列出**哪些字段是必填,哪些是禁用态及其条件,不允许留空让 AI 自行猜。
+2. 解析 `presentationMode`：未指定时固定为 `STANDALONE`；只有 `platform=zhikexing` 才允许 `OVERLAY_ON_ZHIKEXING_LIST`。
+3. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。
+4. 按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480;7–15 字段默认 640;> 12 字段或显式双列用 840。
+5. 按 [field-control-map](references/field-control-map.md) 为每个字段分配控件与默认 widthTier。
+6. 在 DrawerSpec 中**显式列出**哪些字段是必填,哪些是禁用态及其条件,不允许留空让 AI 自行猜。
 
 ### 2. 盘点目标文件
 
 1. 确认目标 Figma 文件、页面和插入位置;不写到组件介绍页或业务 Page。
 2. 凡提示词包含"测试""效果验证""试生成"或"Skill 回归",必须复用 Page `测试`(node `3497:651`),规则与 qifu-list-page 完全一致。
 3. 检查同文件已有抽屉,优先复用其宽度档位、变量、文字样式和 Section 节奏。
-4. 按[组件映射](../qifu-shared/references/component-map.md)中的精确名称解析所需组件;节点 ID 失效时按名称重新发现。
-5. 同文件使用本地组件节点创建实例;跨文件使用发布键导入。
-6. 记录组件覆盖结果:`resolved`、`fallback`、`missing`。未完成盘点前不得开始写抽屉。
+4. `OVERLAY_ON_ZHIKEXING_LIST` 模式下，先按[智客星列表页底图协议](references/zhikexing-list-background.md)解析并验证背景来源；背景模板或现有列表页不合格时停止并返回相应错误，未完成底图预检前不得创建 Drawer。
+5. 按[组件映射](../qifu-shared/references/component-map.md)中的精确名称解析所需组件;节点 ID 失效时按名称重新发现。
+6. 同文件使用本地组件节点创建实例;跨文件使用发布键导入。
+7. 记录组件覆盖结果:`resolved`、`fallback`、`missing`。未完成盘点前不得开始写抽屉。
 
 ### 3. 创建抽屉骨架
+
+`presentationMode=OVERLAY_ON_ZHIKEXING_LIST` 时，先严格按[智客星列表页底图协议](references/zhikexing-list-background.md)创建 `1366 x 768` 的 Scene，复制完整列表页作为 Background，在其上创建绑定语义遮罩变量的 `Overlay Mask`，最后把本节 Drawer 放在最上层并右侧贴边。该模式不改变 `compositionName`、字段、Footer 或抽屉宽度规则。
 
 先创建唯一顶层 Frame(Drawer),再把所有区域直接创建在 Frame 内部。使用 Auto Layout 表达结构关系。以 `Qifu Drawer Form / Sectioned Create` 为例:
 
@@ -186,11 +204,14 @@ Drawer / <pageName> / Create / <compositionName>
 - 状态唯一:Data / Loading / Disabled / Error 只有一种。
 - 存在缺口时已生成 `Audit / Missing Components`。
 - 无文字截断、节点重叠、画板溢出。
+- `OVERLAY_ON_ZHIKEXING_LIST` 额外验证 Scene、Background、Overlay Mask 均为 `1366 x 768`，图层顺序为 Background < Overlay Mask < Drawer，Drawer 贴 Scene 右侧，且截图中底图被压暗而 Drawer 保持清晰。
+- 组合模式背景必须继续通过 `zhikexing-list-page` 的 Header、侧栏、Shell、Filter Bar、Table Shell 与 Pagination 结构检查；底图不得是截图、展平图层、裸 Text 或 Slot 覆盖物。
 - 抽屉外层 Frame 不叠加自定义 padding;所有留白来自 page-blueprint 第 7 节的 10 项铁律。
 
 ## 硬性约束
 
 - 不把参考图直接作为图片放进抽屉交付。
+- `OVERLAY_ON_ZHIKEXING_LIST` 不得临时手绘、截图化或缩放智客星底图；只允许复制已验证模板或用户指定并验收通过的现有列表页。
 - 不重画已有组件,不分离实例来改外观。
 - 不为追求截图相似度破坏组件属性或变量绑定。
 - 不擅自改动、补充或发布组件库母版。
@@ -214,6 +235,7 @@ Drawer / <pageName> / Create / <compositionName>
 完成后返回:
 
 - 抽屉节点 ID 与名称;
+- `presentationMode`、Scene 节点及底图来源节点（组合模式时）；
 - 使用的 `compositionName`;
 - 使用的主要组件及关键变体;
 - Section 清单与字段总数;

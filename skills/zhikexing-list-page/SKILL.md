@@ -31,6 +31,14 @@ node: 4892:34812
 
 名称中的 `1440` 是历史命名，不得据此改变画板宽度。后续新页面均按实际 `1366 x 768` 创建；模板重命名由人工单独处理，不在生成任务中改动。
 
+## 与抽屉 Skill 协作
+
+本 Skill 既可独立生成列表页，也可作为 `qifu-drawer-form` 的智客星底图来源。抽屉场景必须由 `qifu-drawer-form` 读取其 `zhikexing-list-background.md` 协议并负责蒙层与右侧 Drawer；本 Skill 只负责验证和复制完整列表页。
+
+- 底图只能使用人工基线 `4892:34812`，或用户明确指定且已通过本 Skill 结构化验收的 `1366 x 768` 列表页。
+- 底图复制后保留现有 Shell、组件实例、文本样式、变量和 Slot；不得改写 Slot，也不得使用截图、裸 Text 或手绘页面替代。
+- 组合模式中列表页放在 `Background / Zhikexing List Page`，蒙层与 Drawer 由抽屉 Skill 创建；本 Skill 不生成蒙层或抽屉。
+
 ## PageSpec 输入
 
 接受自然语言、字段清单、截图或线框，提取：
