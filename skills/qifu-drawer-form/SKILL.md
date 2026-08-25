@@ -7,7 +7,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 
 将简短业务描述转换为结构清楚、可编辑、保持组件实例关系的右侧滑出抽屉表单。把参考图作为信息架构基线,不机械复刻其中的品牌、业务名称或固定字段数。
 
-本 Skill 与 [qifu-list-page](../qifu-list-page/SKILL.md) 共享同一套 5 层 AI 设计体系;L1 Token、L2 Component、L5 业务上下文是跨原型共享资产,L4 抽屉蓝图是本 Skill 独有。
+本 Skill 与 [qifu-list-page](https://github.com/BitPan666/qifu-list-page) 共享同一套 5 层 AI 设计体系;L1 Token、L2 Component、L5 业务上下文是跨原型共享资产,L4 抽屉蓝图是本 Skill 独有。
 
 ## 必读资料
 
@@ -19,6 +19,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - [平台与主题切换协议](references/platform-theme-switching.md):`platformKey`、`themeKey`、智客星/毓数/智能运营平台切换、主题变量回读和示例提示词。
 - [Figma 执行与结构化验收](references/figma-execution-validation.md):截图解析、组件解析闭环、Slot 验证、P0 失败即停和 PASS/BLOCKED/FAIL 判定。
 - 当抽屉包含“摘要信息 + 区块标题 + 筛选控件 + 内嵌表格/分页”时，完整读取[数据详情抽屉 Golden Sample](references/golden-sample-data-detail-drawer.md)，并使用 `Qifu Drawer Form / Data Detail with Table`。
+- 当 `platformKey=zhineng-yunying` 且表单包含“主模板 + 模板明细表”或“关联运营策略 + 多选选择器 + 策略明细表”时，完整读取[智能运营策略关联抽屉 Golden Sample](references/golden-sample-smartops-strategy-drawer.md)，并使用 `Qifu Drawer Form / Sectioned Create`。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
 - 当创建正式抽屉交付时，必须完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料；智客星默认使用该协议的模板底图。
 - 当用户指定 `PORTABLE_KIT` 或说明没有正式组件库权限时,完整读取[Portable Kit 模式](references/portable-kit.md)与[Portable 组件清单](references/portable-component-manifest.json)。
@@ -209,6 +210,18 @@ Drawer / <pageName> / Create / <compositionName>
 - 危险动作放在 Footer 最左,使用 `Button / variant=danger` + `Popconfirm theme=Danger`;**不放进主操作组**。
 - Footer 主按钮、Radio 选中态、链接、轻量标签和强调色必须来自 `themeKey/themePrimary` 对应变量或组件公开属性；平台切换不得改变按钮顺序或主操作数量。
 
+#### 智能运营平台 / 策略关联型抽屉
+
+当 `platformKey=zhineng-yunying`，且表单包含“主模板 + 模板明细表”或“关联运营策略 + 筛选选择器 + 策略明细表”时，仍使用 `Qifu Drawer Form / Sectioned Create`，但应用以下已验证的细节：
+
+- Header Title 使用组件库 `标题/Large`（18/26），不使用 `标题/Medium` 或手填字号；Header 高度仍为 56px。
+- CloseBtn 继续使用真实 `Icon/basic/close` 实例，图形 Fill 必须绑定 `图标颜色/--qifu-icon-color-secondary`，不以页面级色值覆盖。
+- “关联运营策略”是字段标签，使用 `Body/Regular`（14/22）；不误用 `标题/Small`。必填星号同样复用 `Body/Regular`，由 FormLabel 结构提供。
+- 多选 Select 内已选项使用真实 `Data Display / Tag / Tag`，`size=small 小尺寸`，并开启 Tag 自带关闭按钮；不得用 Select 外的裸 Tag 或手绘关闭图标替代。
+- Select 与其下方关联明细表属于同一个“选择器-明细组合模块”：内部 gap 固定 8px，高度随真实表格行数自动撑开；不得用固定空白或额外 margin 撑开画面。
+- 明细表的外层不增加整表描边。仅 Table Header 增加 `INNER_SHADOW`（x=0, y=1, blur=2, spread=0, rgba(0,0,0,0.08)）；表头与数据行继续使用真实 Table 组件实例。
+- Footer 的“保存”使用无描边主按钮；“关闭”使用无描边文字按钮。两者均为真实 Button 实例，不为保持视觉而叠加页面级边框或文字。
+
 ### 5. 组装 Form Section
 
 - 按 `DrawerSpec.sections[]` 顺序生成每个 Section。
@@ -347,6 +360,8 @@ Control / overFrequencyRule
 - 表格正文必须由 `Data Display / Table / Cell Content / Text-V2` 的 `contentFont 内容字号=14px` 组件变体继承 `Body/Regular` 14/22；不得在 30 个页面实例上逐个覆盖。表头继续使用 Header Cell-V2 的 Semibold 层级。
 - 内嵌表格的 Table Shell-V2、Header Cell-V2、Row-V2、Content Cell-V2、Text-V2、Pagination-V2 必须全部为组件库真实实例；表格描边只包围表头与数据行，分页器位于描边外。
 - `Data Detail with Table` 的内容 Section 与 `Table Border / 四边完整` 统一使用 4px 圆角。Table Border 必须是单独 Frame：1px Inside 描边、`Clip content=true`；表头、数据行和列分割线放入其中，Pagination 不得成为该边框的可见内容。
+- 智能运营平台的策略关联型抽屉额外验证：Header Title 为 `标题/Large` 18/26；Close 图形 Fill 绑定 `图标颜色/--qifu-icon-color-secondary`；“关联运营策略”标签为 `Body/Regular` 14/22；已选 Tag 为真实 `Data Display / Tag / Tag / small 小尺寸` 且其关闭图标来自 Tag 子树。
+- 智能运营平台的策略关联型抽屉中，两个“选择器-明细组合模块”均为 `Select → 8px gap → 明细表` 的垂直结构，整体高度随内容撑开；明细表外层无描边，只有 Table Header 带单层 `INNER_SHADOW`（x=0, y=1, blur=2, spread=0, rgba(0,0,0,0.08)）。Footer 的关闭按钮为 `variant 类型=text 文字`，保存按钮为无描边 `variant 类型=base 基础`。
 - 非 Empty / Loading 状态下，表格每个可见数据行的每个可见单元格必须有真实内容；表头与数据行逐列同宽，所有列宽之和必须精确等于 Table Border 内容宽度，不得依赖裁剪隐藏横向溢出。
 - 新建的页面组合层（Scene、Background、Overlay Mask、Drawer、内容卡片、Table Border、Pagination 容器）以及其自由布局属性的 x、y、width、height、padding、gap、圆角和描边宽度必须为整数；发现本次缩放造成的小数即 FAIL，替换为未缩放实例或整数重建。正式组件实例内部的 Vector、Text、Slot 或由母版 Auto Layout 计算出的分数值不做页面层修正，不得为凑整数 detach 或改写母版。
 - 自由文本必须应用组件库文本样式；组件实例内部文字由组件自身管理。组件库不存在指定文本样式时报告 `STYLE_MISSING`，不得自行生成近似字体。

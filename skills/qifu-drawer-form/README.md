@@ -1,153 +1,153 @@
 # qifu-drawer-form
 
-> 在 Figma 中按命名组合,使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台右侧抽屉表单(新建 / 编辑 / 查看)。
+在 Figma 中生成可继续编辑的奇富后台右侧抽屉。它会复用真实组件实例，而不是把控件画成分散的矩形和文字。
 
-![Type](https://img.shields.io/badge/archetype-L4%20Drawer%20Form-cyan) ![Compositions](https://img.shields.io/badge/compositions-6-blue)
+## 最短调用方式
 
-## 解决什么问题
+普通场景只需要说清三件事：**平台、抽屉标题、字段**。例如：
 
-把 B 端"新建 X / 编辑 X / 查看 X"这种最常见的右侧抽屉,从中文描述直接生成成结构化、可编辑、与组件库保持绑定的 Figma 实例。
-
-## 输入 → 输出示例
-
-**输入**:
-```
-在智客星平台智能运营下,新建触发式任务抽屉。
-platformKey=zhikexing, themeKey=zhikexing-green。
-分区 1【基础信息】:任务名称(Input 必填)、所属项目(Select 必填)。
-分区 2【选择客群】:人群圈选(Custom,必填)。
-分区 3【任务规则】:触发事件、任务目标、任务有效期、强制提醒、任务说明。
+```text
+使用 qifu-drawer-form，在智客星生成“新建活动”右侧抽屉。
+字段：活动名称 Input 必填；活动类型 Select 必填；有效期 DateRange 必填。
 ```
 
-**输出**:Figma `1366×768` 完整打开态画板中
-- Background:平台列表页底图
-- Overlay Mask:覆盖完整画板的蒙层
-- Drawer 宽度 640px(Standard 档)
-- Header:标题"新建触发式任务" + 关闭按钮,56px
-- Body(padding 24,gap 24):
-  - Section × 3,每个 Section 有标题 + FormItem ×N
-- Footer(pin 底):取消 + 确定(Primary)
-- 控件全部 32px 高,真实组件 INSTANCE
-- 页面级文字全部绑定组件库 Text Style，不手填字体、字号或行高
+Skill 会自动补全默认组合、宽度和 Footer。字段较多或有明确交付要求时，再补充下列可选项：
 
-## 6 个注册组合
+| 可选项 | 何时需要写 | 示例 |
+| --- | --- | --- |
+| `platformKey` | 要准确切换平台时 | `zhikexing` |
+| `themeKey` | 要明确切换主题色时 | `smartops-blue` |
+| `compositionName` | 已确定抽屉组合时 | `Qifu Drawer Form / Sectioned Create` |
+| `widthTier` | 有固定宽度要求时 | `680` |
+| `componentMode` | 没有正式组件库权限时 | `PORTABLE_KIT` |
+| `background` | 需要交付完整打开态页面时 | `EXISTING_LIST_PAGE + 节点 ID` |
 
-| 组合名 | 场景 | Footer |
-|---|---|---|
-| `Qifu Drawer Form / Simple Create` | 字段 ≤ 6,无分组 | 取消 + 确定 |
-| `Qifu Drawer Form / Sectioned Create` | 7–15 字段,有分组(最常用) | 取消 + 确定 |
-| `Qifu Drawer Form / Advanced Create` | > 15 字段或分步 | 取消 + 上一步/下一步/提交 |
-| `Qifu Drawer Form / Edit` | 编辑已有记录,字段回填 | 取消 + 保存 |
-| `Qifu Drawer Form / Readonly` | 严格只读 | 关闭 |
-| `Qifu Drawer Form / Data Detail with Table` | 摘要 + 筛选 + 内嵌表格 | 可无 Footer |
+默认 `componentMode=REAL_COMPONENT_ONLY`。没有正式组件库时，请明确写 `componentMode=PORTABLE_KIT`；不要让 Skill 用手绘控件替代组件。
 
-## 宽度三档
+## 平台和主题是两件事
 
-| 档位 | 宽度 | 适用 |
-|---|---:|---|
-| Narrow | 480px | 极少字段 + 短控件 |
-| Standard | 640px | **默认** |
-| Wide | 840px | 双列 / 复杂控件 |
+- **平台 `platformKey`**：决定平台名称、菜单/底图规则和业务壳。
+- **主题 `themeKey`**：只改变主按钮、选中态、链接、轻量 Tag 和强调色。
 
-## 平台与主题切换
+换主题不会改变字段、控件、间距、圆角、阴影或 Footer。也不要为蓝色主题复制一套组件库。
 
-平台切换和主题切换是两个独立维度：
+| 平台 | `platformKey` | 默认主题 | 完整页面底图规则 |
+| --- | --- | --- | --- |
+| 智客星 | `zhikexing` | `zhikexing-green` | 可使用已验证的智客星列表页模板。 |
+| 毓数 | `yushu` | `yushu-green` | 使用毓数平台基线；需指定或验收底图。 |
+| 智能运营平台 | `zhineng-yunying` | `smartops-blue` | 正式页面必须指定已验收的智能运营列表页节点。 |
+| 奇富通用后台 | `qifu-generic` | `zhikexing-green` | 没有已批准通用底图时只做内部调试，正式交付需先提供底图。 |
 
-- `platformKey`：决定平台壳、菜单、业务词汇、底图协议和平台缺口。
-- `themeKey/themePrimary`：只决定主按钮、选中态、链接色、轻量标签和强调色。
+| 主题 | `themeKey` | 主色 |
+| --- | --- | --- |
+| 智客星绿 | `zhikexing-green` | `#00B578` |
+| 毓数绿 | `yushu-green` | 以目标文件变量为准 |
+| 智能运营蓝 | `smartops-blue` | `#1677FF` |
+| 自定义主题 | `custom` | 必须同时给出 `themePrimary` |
 
-| platformKey | 平台 | 默认主题 | 说明 |
-|---|---|---|---|
-| `zhikexing` | 智客星 | `zhikexing-green` | 当前主平台；正式交付默认生成 `1366×768` 完整打开态，使用智客星列表页模板底图 + 蒙层 + 右侧抽屉。 |
-| `yushu` | 毓数 | `yushu-green` | 只有明确指定毓数时使用，不再作为默认平台。 |
-| `zhineng-yunying` | 智能运营平台 | `smartops-blue` | 预留蓝色主题平台；正式交付仍必须是 `1366×768` 完整打开态，缺少专属底图时返回 `BACKGROUND_TEMPLATE_MISSING`。 |
-| `qifu-generic` | 奇富通用后台 | `zhikexing-green` | 未指定平台时使用；仍必须生成 `1366×768` 完整打开态，缺少通用底图时返回 `BACKGROUND_TEMPLATE_MISSING`。 |
+## 何时需要完整页面
 
-| themeKey | 主色 | 说明 |
-|---|---:|---|
-| `zhikexing-green` | `#00B578` | 智客星默认绿色主题。 |
-| `yushu-green` | `#00B578` | 毓数当前绿色主题，以目标文件变量为准。 |
-| `smartops-blue` | `#1677FF` | 智能运营平台蓝色主题。 |
-| `custom` | 用户指定 | 必须同时写 `themePrimary`。 |
+正式交付默认生成抽屉“打开态”：`Background < Overlay Mask < Drawer`，画面为 `1366 × 768`。抽屉本体调试可以写 `presentationMode=STANDALONE_DEBUG`，但不能把它当成正式页面交付。
 
-换平台不能改变 `compositionName`、字段顺序、控件类型和 Footer；换主题不能 detach 组件或手改实例内部颜色。
+智能运营平台目前已有抽屉 Golden Sample，但没有已批准的原生列表页模板。因此：
+
+- 只做抽屉本体，直接使用“智能运营平台策略关联抽屉 Golden Sample”。
+- 做正式完整页面，必须提供 `background.source=EXISTING_LIST_PAGE` 和 `background.sourceNode=<已验收列表页节点 ID>`。
+- 图片背景只能用于视觉对照，不能作为正式页面底图。
 
 ## 示例提示词
 
-### 智客星超频流控配置
+### 1. 通用抽屉，最短写法
 
 ```text
-使用 qifu-drawer-form，在智客星平台生成“超频流控配置”右侧抽屉。
-platformKey：zhikexing
-themeKey：zhikexing-green
-展示方式：完整页面打开态
-画板：1366×768
-底图：使用智客星列表页模板
-蒙层：自动生成
-componentMode：REAL_COMPONENT_ONLY
-compositionName：Qifu Drawer Form / Simple Create
-widthTier：840
-
-字段：规则名称 Select 必填；超频人群 Radio.Group 必填，选项为人群包/客群；选择人群 Custom(SelectedAudienceTag)；有效期 DateRange 必填；触达方式 Select 必填；超频规则 Custom(OverFrequencyRuleBuilder)。
-Footer：取消 + 确定。
-完成后返回 platformKey/themeKey 回读、ComponentResolutionManifest、TextStyleResolutionManifest、Slot 验证、structuralValidation 和 visualValidation。
+使用 qifu-drawer-form，生成“新建活动”右侧抽屉。
+字段：活动名称 Input 必填；活动类型 Select 必填；活动有效期 DateRange 必填；活动说明 Textarea。
 ```
 
-### 蓝色主题智能运营平台
+### 2. 智客星完整页面
 
 ```text
-使用 qifu-drawer-form，在智能运营平台生成“超频流控配置”右侧抽屉。
+使用 qifu-drawer-form，在智客星生成“新建活动”右侧抽屉的完整打开态页面。
+platformKey：zhikexing
+themeKey：zhikexing-green
+componentMode：REAL_COMPONENT_ONLY
+background.source：TEMPLATE
+当前菜单：客户运营 / 活动管理
+
+字段：活动名称 Input 必填；活动类型 Select 必填；活动有效期 DateRange 必填；活动说明 Textarea。
+底部按钮：取消、确定。
+```
+
+### 3. 毓数平台
+
+```text
+使用 qifu-drawer-form，在毓数生成“编辑数据任务”右侧抽屉。
+platformKey：yushu
+themeKey：yushu-green
+componentMode：REAL_COMPONENT_ONLY
+compositionName：Qifu Drawer Form / Edit
+
+字段：任务名称 Input 必填，默认值“用户标签同步”；执行周期 Select 必填，默认值“每日”；生效时间 DateRange；任务说明 Textarea。
+底部按钮：取消、保存。
+```
+
+### 4. 智能运营 Golden Sample 抽屉
+
+```text
+使用 qifu-drawer-form，在智能运营平台生成“新增短信模板策略”右侧抽屉。
 platformKey：zhineng-yunying
 platformName：智能运营平台
 themeKey：smartops-blue
 themePrimary：#1677FF
-展示方式：完整页面打开态
-画板：1366×768
-底图：使用已验收的智能运营平台列表页节点；没有节点时返回 BACKGROUND_TEMPLATE_MISSING
-蒙层：自动生成
 componentMode：REAL_COMPONENT_ONLY
+compositionName：Qifu Drawer Form / Sectioned Create
+widthTier：680
+使用“智能运营平台策略关联抽屉 Golden Sample”。
 
-字段与智客星超频流控配置一致。只把主按钮、Radio 选中态、链接色、轻量标签和强调色切换为蓝色主题；不得改变字段、布局、控件实例、间距、圆角、阴影或 Slot 结构。
-如果智能运营平台专属导航壳或已验收底图缺失，返回 BACKGROUND_TEMPLATE_MISSING；不要生成裸抽屉，也不要借用毓数菜单冒充。
+字段：策略名称 Input 必填；有效期 DateRange 必填；主模板 Select 必填并在下方展示模板明细表；关联运营策略 Multiple Select 必填并在下方展示策略明细表；灰度比例 Select 必填，默认值“100%”。
+底部按钮：关闭、保存。
 ```
 
-### 智客星列表页叠加抽屉
+### 5. 智能运营正式完整页面
 
 ```text
-使用 qifu-drawer-form 和 zhikexing-list-page，在智客星平台生成“超频流控配置”右侧抽屉。
-platformKey：zhikexing
-themeKey：zhikexing-green
-presentationMode：OVERLAY_ON_ZHIKEXING_LIST
-background.source：TEMPLATE
-当前菜单：客户运营 / 流控管理
+使用 qifu-drawer-form，根据“智能运营平台策略关联抽屉 Golden Sample”生成完整打开态页面。
+platformKey：zhineng-yunying
+themeKey：smartops-blue
+componentMode：REAL_COMPONENT_ONLY
+background.source：EXISTING_LIST_PAGE
+background.sourceNode：<已验收的智能运营平台列表页节点 ID>
+
+在该列表页右侧打开“新增短信模板策略”抽屉。
+不要复用智客星或毓数菜单；不要使用截图或图片作为正式底图。
 ```
 
-> 旧写法 `OVERLAY_ON_ZHIKEXING_LIST` 继续兼容；正式交付与“完整页面打开态”含义一致。
+## SmartOps Golden Sample 的固定规则
 
-## 关键铁律(踩过的坑 — 2026-08-12)
+“新增短信模板策略”使用 `Qifu Drawer Form / Sectioned Create` 和 `680px` 宽度：
 
-AI 曾把抽屉内组件实例丢到 Page 根级(看起来结构对、实际 Frame 不嵌套),已把以下两条加入 SKILL.md 验证清单最前:
+- 标题用 `标题/Large` `18/26`；关闭图标绑定 `qifu-icon-color-secondary`。
+- “关联运营策略”标签使用 `Body/Regular` `14/22`；已选项是可关闭的 `Tag / small`。
+- “主模板”和“关联运营策略”都按 `Select -> 8px -> 明细表` 组合；高度随表格内容撑开。
+- 表格外层不加描边，只对表头加 `INNER_SHADOW`：`0 1 2 0 rgba(0,0,0,0.08)`。
+- Footer 的关闭使用文字按钮，保存使用主按钮，两者均不加页面级描边。
 
-1. **层级归属检查** — 所有控件 INSTANCE 必须在 `Drawer/Header | Section/<name> | Drawer/Footer` 三容器之一内,不允许 Page 根级孤儿
-2. **重复节点检查** — 抽屉内不存在位置/尺寸几乎一致的重复节点
+完整字段和验收要求见 [智能运营平台策略关联抽屉 Golden Sample](references/golden-sample-smartops-strategy-drawer.md)。
 
-配套清理插件(兜底)在 `Component Library/.figma-plugins/qifu-drawer-cleanup/`(外部,不在本仓)。
+## 输出时应看到什么
+
+完成后，Skill 应返回节点 ID、`platformKey/themeKey` 回读、使用的组合、组件来源、字段清单，以及：
+
+```text
+structuralValidation = PASS | BLOCKED | FAIL
+visualValidation     = PASS | BLOCKED | FAIL
+```
+
+只有两项都是 `PASS` 才能算正式完成。
 
 ## 文件导航
 
-- `SKILL.md` — 9 步工作流 + 输入契约 DrawerSpec + 验证清单
-- `references/drawer-compositions.md` — 6 组合与调用规则
-- `references/page-blueprint.md` — 宽度阶梯 / Header / Footer / Section 规则
-- `references/field-control-map.md` — 字段类型 → 控件的路由表 + 32px 高度统一规格
-- `references/platform-theme-switching.md` — 平台与主题切换协议
-- `references/figma-execution-validation.md` — 结构化验收、属性回读和 Slot 验证
-- `agents/openai.yaml` — Codex 入口
-
-## 共享依赖
-
-- [`qifu-shared/references/component-map.md`](../qifu-shared/references/component-map.md)
-- [`qifu-shared/references/platform-yushu.md`](../qifu-shared/references/platform-yushu.md)
-
-## 不适用场景
-
-复杂看板、向导流(Wizard,将来 qifu-wizard)、带批量编辑的列表页(走 [qifu-list-page](../qifu-list-page/))。
+- [SKILL.md](SKILL.md)：输入契约、工作流、组件规则和验收清单。
+- [平台与主题切换协议](references/platform-theme-switching.md)：平台识别和主题变量约束。
+- [智能运营平台策略关联抽屉 Golden Sample](references/golden-sample-smartops-strategy-drawer.md)：本次智能运营抽屉的固定基线和完整提示词。
+- [Figma 执行与结构化验收](references/figma-execution-validation.md)：组件实例、Slot 和属性回读检查。
