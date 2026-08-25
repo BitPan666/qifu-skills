@@ -1,6 +1,6 @@
 ---
 name: qifu-drawer-form
-description: 根据业务描述、字段清单、截图或线框,在 Figma 中使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台右侧抽屉表单(新建/编辑/查看)。适用于按稳定名称调用 Simple Create / Sectioned Create / Advanced Create / Edit / Readonly / Data Detail with Table 六种组合，并完成 Header、Form Section、Footer 或摘要+筛选+内嵌表格结构；也支持以已验证的智客星列表页为底图叠加蒙层与抽屉。不要用于复杂看板、向导流(Wizard)、带批量编辑的列表页或高度定制的工作台。
+description: 根据业务描述、字段清单、截图或线框,在 Figma 中使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台右侧抽屉表单(新建/编辑/查看)。正式交付一律生成 1366×768 页面打开态:完整底图 + 蒙层 + 右侧抽屉。适用于按稳定名称调用 Simple Create / Sectioned Create / Advanced Create / Edit / Readonly / Data Detail with Table 六种组合，并完成 Header、Form Section、Footer 或摘要+筛选+内嵌表格结构。不要用于复杂看板、向导流(Wizard)、带批量编辑的列表页或高度定制的工作台。
 ---
 
 # Qifu Drawer Form
@@ -20,7 +20,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - [Figma 执行与结构化验收](references/figma-execution-validation.md):截图解析、组件解析闭环、Slot 验证、P0 失败即停和 PASS/BLOCKED/FAIL 判定。
 - 当抽屉包含“摘要信息 + 区块标题 + 筛选控件 + 内嵌表格/分页”时，完整读取[数据详情抽屉 Golden Sample](references/golden-sample-data-detail-drawer.md)，并使用 `Qifu Drawer Form / Data Detail with Table`。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
-- 当 `platform=zhikexing` 且 `presentationMode=OVERLAY_ON_ZHIKEXING_LIST` 时，完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料。
+- 当创建正式抽屉交付时，必须完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料；智客星默认使用该协议的模板底图。
 - 当用户指定 `PORTABLE_KIT` 或说明没有正式组件库权限时,完整读取[Portable Kit 模式](references/portable-kit.md)与[Portable 组件清单](references/portable-component-manifest.json)。
 - 组件名 / 节点 ID / 发布 Key 全部复用[组件映射](../qifu-shared/references/component-map.md),不在 `SKILL.md` 重复维护。
 
@@ -39,9 +39,9 @@ platformName     平台中文名:智客星 | 毓数 | 智能运营平台 | 奇�
 themeKey         主题标识:zhikexing-green | yushu-green | smartops-blue | custom
 themePrimary     主题主色;custom 必填,如 #1677FF
 themeMode        light;当前仅支持浅色后台
-presentationMode  展示模式:STANDALONE(默认) | OVERLAY_ON_ZHIKEXING_LIST
-background        仅 OVERLAY_ON_ZHIKEXING_LIST 使用
-  ├─ source       TEMPLATE(默认) | EXISTING_LIST_PAGE
+presentationMode  展示模式:DRAWER_OPEN_WITH_BACKGROUND(默认) | OVERLAY_ON_ZHIKEXING_LIST(智客星兼容别名) | STANDALONE_DEBUG(仅内部调试)
+background        正式交付必填或自动补全
+  ├─ source       TEMPLATE(智客星默认) | EXISTING_LIST_PAGE
   ├─ sourceNode   EXISTING_LIST_PAGE 时必填
   ├─ sidePath[]   底图菜单路径，仅修改模板中已存在的菜单状态
   └─ pageName     底图业务页名称，仅用于 Scene 命名
@@ -83,10 +83,10 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 
 - `platformKey` 决定平台壳、菜单、业务词汇、底图协议和平台缺口;不得用主题色当平台名。
 - `themeKey` / `themePrimary` 只决定主按钮、选中态、链接色、轻量标签和强调色;不得改变字段顺序、控件类型、间距、圆角、阴影或 Slot 结构。
-- 用户明确说“智客星”时,解析为 `platformKey=zhikexing` 与 `themeKey=zhikexing-green`;只有 `platformKey=zhikexing` 才允许 `OVERLAY_ON_ZHIKEXING_LIST`。
+- 用户明确说“智客星”时,解析为 `platformKey=zhikexing` 与 `themeKey=zhikexing-green`;默认 `presentationMode=DRAWER_OPEN_WITH_BACKGROUND`，等价使用已验证智客星列表页底图。
 - 用户明确说“毓数”时,解析为 `platformKey=yushu` 并读取 `platform-yushu.md`;不再把毓数作为跨平台默认值。
-- 用户明确说“智能运营平台”或“蓝色主题智能运营平台”时,解析为 `platformKey=zhineng-yunying`、`themeKey=smartops-blue`、`themePrimary=#1677FF`。
-- 用户未指定平台时,使用 `platformKey=qifu-generic` 只生成抽屉本体,不得套用任何平台菜单或业务壳。
+- 用户明确说“智能运营平台”或“蓝色主题智能运营平台”时,解析为 `platformKey=zhineng-yunying`、`themeKey=smartops-blue`、`themePrimary=#1677FF`；仍必须生成 `1366×768` 打开态，若缺少专属底图模板则停止并返回 `BACKGROUND_TEMPLATE_MISSING`。
+- 用户未指定平台时,使用 `platformKey=qifu-generic`；仍必须生成 `1366×768` 打开态，不得退回裸抽屉。若没有用户指定或已批准的通用底图，返回 `BACKGROUND_TEMPLATE_MISSING`。
 
 组件来源模式必须显式区分:
 
@@ -95,6 +95,14 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 - `VISUAL_FALLBACK`:只有用户明确选择时才允许页面级降级。所有降级节点必须命名为 `Fallback / ...`,并在抽屉外生成 `Audit / Missing Components`;它们不是正式组件实例。
 
 未指定 `componentMode` 时一律使用 `REAL_COMPONENT_ONLY`,不能根据导入失败自动切换到 `VISUAL_FALLBACK`。
+
+文本样式必须显式区分:
+
+- 正式交付 Scene 内所有新增 `TEXT` 节点都必须绑定组件库自带 Text Style，禁止手填 `fontName / fontSize / lineHeight / letterSpacing` 来近似。
+- 创建任何文字前先读取目标文件可用 Text Style，并形成 `TextStyleResolutionManifest`：`usage / requiredStyleName / styleId / fontFamily / fontSize / lineHeight / status`。
+- 默认映射：Header Title 使用 `标题/Medium`；Section Title 使用 `标题/Small`；Form label、帮助文字、说明正文、审计说明、规则区域中的连接文字使用 `Body/Regular`；表格正文通过真实 `Text-V2` 实例继承 `Body/Regular`。
+- 组件实例内部文字由组件母版管理，不 detach、不在实例层手工覆盖字体。若真实组件母版内部文字未绑定 Text Style，返回 `COMPONENT_SOURCE_GAP`，并说明需要回到组件母版修复。
+- `TextStyleResolutionManifest` 任一必需样式缺失时返回 `STYLE_MISSING`，不得继续生成游离字体或手工字号。
 
 仅在缺少的信息会改变抽屉主结构或带来高风险误导时提问。其余内容按常见后台表单场景补全,并在交付说明中列出假设。
 
@@ -109,10 +117,10 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 【可选】Footer 危险/次要动作。
 ```
 
-智客星列表页底图模式可追加：
+智客星完整打开态可追加；未写时也默认使用该模式：
 
 ```text
-展示方式：OVERLAY_ON_ZHIKEXING_LIST；底图使用智客星列表页模板；
+展示方式：完整页面打开态；底图使用智客星列表页模板；
 当前菜单：【一级菜单 / 二级菜单】。
 ```
 
@@ -134,7 +142,7 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 
 1. 从描述、截图或线框提取 `DrawerSpec`。
 2. 按[平台与主题切换协议](references/platform-theme-switching.md)解析 `platformKey / platformName / themeKey / themePrimary`。平台缺失时使用 `qifu-generic`,不得默认套用毓数。
-3. 解析 `presentationMode`：未指定时固定为 `STANDALONE`；只有 `platformKey=zhikexing` 才允许 `OVERLAY_ON_ZHIKEXING_LIST`。
+3. 解析 `presentationMode`：未指定时固定为 `DRAWER_OPEN_WITH_BACKGROUND`。`OVERLAY_ON_ZHIKEXING_LIST` 视为智客星旧提示词兼容别名；`STANDALONE_DEBUG` 只允许在用户明确说“内部调试抽屉本体/不交付”时使用。
 4. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。
 5. 含摘要、筛选和内嵌表格的数据详情抽屉使用 `Qifu Drawer Form / Data Detail with Table` 与 680px；其余抽屉按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480;7–15 字段默认 640;> 12 字段或显式双列用 840。
 6. 按 [field-control-map](references/field-control-map.md) 为每个字段分配控件与默认 widthTier。
@@ -147,7 +155,7 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 2. 凡提示词包含"测试""效果验证""试生成"或"Skill 回归",必须复用 Page `测试`(node `3497:651`),规则与 qifu-list-page 完全一致。
 3. 用户已指定 `targetPage`、当前画板或明确要求“只改这个画板”时，将该 Page 和画板 ID 视为唯一读写边界；不得因调试、审计、截图或 Skill 默认值切换到 `测试` 或其他 Page。
 4. 检查同文件已有抽屉,优先复用其宽度档位、变量、文字样式和 Section 节奏。
-5. `OVERLAY_ON_ZHIKEXING_LIST` 模式下，先确认 `platformKey=zhikexing`，再按[智客星列表页底图协议](references/zhikexing-list-background.md)解析并验证背景来源；背景模板或现有列表页不合格时停止并返回相应错误，未完成底图预检前不得创建 Drawer。
+5. 正式交付模式下，先按[智客星列表页底图协议](references/zhikexing-list-background.md)解析并验证背景来源；背景模板或现有列表页不合格时停止并返回相应错误，未完成底图预检前不得创建 Drawer。智客星可默认使用模板；其他平台必须有已批准模板或用户指定 `EXISTING_LIST_PAGE`，否则返回 `BACKGROUND_TEMPLATE_MISSING`。
 6. 先执行组件来源预检:
    - `REAL_COMPONENT_ONLY`:确认目标文件已启用奇富组件库,并逐项验证发布 Key 可导入;
    - `PORTABLE_KIT`:读取[Portable 组件清单](references/portable-component-manifest.json),使用 `figma.getLocalComponentsAsync()` 按精确名称解析;
@@ -158,12 +166,13 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 10. 形成 `ComponentResolutionManifest`：每项必须包含 `capability / exactName / sourceFile / nodeId 或 publishedKey / publicProperties / expectedCount / slotTarget / status / evidence`。
 11. 记录组件覆盖结果:`resolved`、`fallback`、`missing`、`ambiguous`、`unverified`。`REAL_COMPONENT_ONLY` 与 `PORTABLE_KIT` 下必需能力未全部 `resolved` 时停止写入业务画板。
 12. 主题来源预检必须在写入页面前完成：优先绑定目标文件现有变量或组件公开属性；无法绑定主题主色时返回 `THEME_VARIABLE_MISSING` 或记录 `COMPONENT_SOURCE_GAP`，不得 detach 组件手工改色。
+13. 文本样式预检必须在写入任何 `TEXT` 前完成：枚举并解析 `标题/Medium`、`标题/Small`、`Body/Regular` 等必需组件库 Text Style，形成 `TextStyleResolutionManifest`；任一缺失即返回 `STYLE_MISSING`。
 
 ### 3. 创建抽屉骨架
 
-`presentationMode=OVERLAY_ON_ZHIKEXING_LIST` 时，先确认 `platformKey=zhikexing`，再严格按[智客星列表页底图协议](references/zhikexing-list-background.md)创建 `1366 x 768` 的 Scene，复制完整列表页作为 Background，在其上创建绑定语义遮罩变量的 `Overlay Mask`，最后把本节 Drawer 放在最上层并右侧贴边。该模式不改变 `compositionName`、字段、Footer 或抽屉宽度规则。
+正式交付时必须先创建 `1366 x 768` 的 `Scene / Drawer / <pageName> / <drawerTitle>`，再按[智客星列表页底图协议](references/zhikexing-list-background.md)放入完整列表页 `Background`，其上创建绑定语义遮罩变量的 `Overlay Mask`，最后把本节 Drawer 放在最上层并右侧贴边。`presentationMode=OVERLAY_ON_ZHIKEXING_LIST` 仅作为智客星旧提示词兼容别名；该模式不改变 `compositionName`、字段、Footer 或抽屉宽度规则。`STANDALONE_DEBUG` 不得作为正式交付。
 
-先创建唯一顶层 Frame(Drawer),再把所有区域直接创建在 Frame 内部。使用 Auto Layout 表达结构关系。以 `Qifu Drawer Form / Sectioned Create` 为例:
+在 Scene 内创建唯一 Drawer Frame,再把所有区域直接创建在 Drawer 内部。使用 Auto Layout 表达结构关系。以 `Qifu Drawer Form / Sectioned Create` 为例:
 
 ```text
 Drawer / <pageName> / Create / <compositionName>
@@ -278,26 +287,28 @@ Drawer / <pageName> / Create / <compositionName>
 - 状态唯一:Data / Loading / Disabled / Error 只有一种。
 - 存在缺口时已生成 `Audit / Missing Components`。
 - 无文字截断、节点重叠、画板溢出。
-- `OVERLAY_ON_ZHIKEXING_LIST` 额外验证 Scene、Background、Overlay Mask 均为 `1366 x 768`，图层顺序为 Background < Overlay Mask < Drawer，Drawer 贴 Scene 右侧，且截图中底图被压暗而 Drawer 保持清晰。
+- 正式交付额外验证 Scene、Background、Overlay Mask 均为 `1366 x 768`，图层顺序为 Background < Overlay Mask < Drawer，Drawer 贴 Scene 右侧，且截图中底图被压暗而 Drawer 保持清晰。
 - 组合模式背景必须继续通过 `zhikexing-list-page` 的 Header、侧栏、Shell、Filter Bar、Table Shell 与 Pagination 结构检查；底图不得是截图、展平图层、裸 Text 或 Slot 覆盖物。
 - 抽屉外层 Frame 不叠加自定义 padding;所有留白来自 page-blueprint 第 7 节的 10 项铁律。
 - `Data Detail with Table` 额外通过 Golden Sample QA：抽屉 680px；Body 内容卡片距抽屉四周 16px；卡片使用纵向 Auto Layout、上下 20px/左右 24px；区块标题使用 `标题/Small`，品牌色 3×12 rail 与标题 gap=5；标题后 Tag gap 绑定 `--qifu-size/8`；标题与正文 gap=16；Form label 左对齐且各控件左边缘对齐，默认 label-control gap=24。
 - `Data Detail with Table` 的页面级普通正文与 Form label 必须绑定组件库 `Body/Regular`（PingFang SC Regular 14/22）；禁止使用 `Body/Medium`、Bold 或手填字体属性。Header Title、Section Title、表头和链接仍保持各自语义样式，不得为了“统一”一并改成 Regular。
 - 字体预检必须在写入文字前完成;`PingFang SC Regular` 与 `Body/Regular` 不可用时,`REAL_COMPONENT_ONLY` / `PORTABLE_KIT` 直接返回 `STYLE_MISSING`,不得仅加载字体后继续使用 Figma 默认字体。
+- 正式交付 Scene 内所有新增页面级 `TEXT` 必须有非空 `textStyleId`，且 `textStyleId` 来自 `TextStyleResolutionManifest`；禁止仅用相同字体名、字号或行高冒充组件库文本样式。
 - 表格正文必须由 `Data Display / Table / Cell Content / Text-V2` 的 `contentFont 内容字号=14px` 组件变体继承 `Body/Regular` 14/22；不得在 30 个页面实例上逐个覆盖。表头继续使用 Header Cell-V2 的 Semibold 层级。
 - 内嵌表格的 Table Shell-V2、Header Cell-V2、Row-V2、Content Cell-V2、Text-V2、Pagination-V2 必须全部为组件库真实实例；表格描边只包围表头与数据行，分页器位于描边外。
 - `Data Detail with Table` 的内容 Section 与 `Table Border / 四边完整` 统一使用 4px 圆角。Table Border 必须是单独 Frame：1px Inside 描边、`Clip content=true`；表头、数据行和列分割线放入其中，Pagination 不得成为该边框的可见内容。
 - 非 Empty / Loading 状态下，表格每个可见数据行的每个可见单元格必须有真实内容；表头与数据行逐列同宽，所有列宽之和必须精确等于 Table Border 内容宽度，不得依赖裁剪隐藏横向溢出。
 - 新建的页面组合层（Scene、Background、Overlay Mask、Drawer、内容卡片、Table Border、Pagination 容器）以及其自由布局属性的 x、y、width、height、padding、gap、圆角和描边宽度必须为整数；发现本次缩放造成的小数即 FAIL，替换为未缩放实例或整数重建。正式组件实例内部的 Vector、Text、Slot 或由母版 Auto Layout 计算出的分数值不做页面层修正，不得为凑整数 detach 或改写母版。
 - 自由文本必须应用组件库文本样式；组件实例内部文字由组件自身管理。组件库不存在指定文本样式时报告 `STYLE_MISSING`，不得自行生成近似字体。
+- 整页截图前必须扫描最终 Scene 内所有 `TEXT`：页面级 Text 无 `textStyleId`、使用非组件库 Text Style、或出现手填字体属性覆盖均为 `FAIL`；组件实例内部 Text 若未绑定样式，记录 `COMPONENT_SOURCE_GAP` 并保持实例关系。
 - 截图识别出的每个字段、操作和页面区域都有 `evidence`，且截图噪声未进入最终画板。
 - 平台与主题回读通过：交付结果中 `platformKey / platformName / themeKey / themePrimary` 与用户输入一致；主题主色只影响允许的语义颜色，不改变抽屉结构、控件高度、间距、圆角、阴影和 Slot 关系。
 
 ## 硬性约束
 
 - 不把参考图直接作为图片放进抽屉交付。
-- `OVERLAY_ON_ZHIKEXING_LIST` 不得临时手绘、截图化或缩放智客星底图；只允许复制已验证模板或用户指定并验收通过的现有列表页。
-- 不把 `yushu` 当作跨平台默认值；用户未指定平台时只使用 `qifu-generic` 独立抽屉。
+- 正式交付不得临时手绘、截图化或缩放底图；只允许复制已验证模板或用户指定并验收通过的现有列表页。
+- 不把 `yushu` 当作跨平台默认值；用户未指定平台时使用 `qifu-generic`，但仍必须生成 `1366×768` 打开态，不能退回裸抽屉。
 - 不把主题色当作平台,也不因为 `themeKey=smartops-blue` 改变业务字段、组件组合或页面结构。
 - 不为蓝色主题复制一套组件库、分离组件实例或手改组件内部颜色；主题切换只能走变量、公开属性或记录组件缺口。
 - 不重画已有组件,不分离实例来改外观。
@@ -310,6 +321,7 @@ Drawer / <pageName> / Create / <compositionName>
 - 不因发布 Key 导入失败而静默切换模式;模式只能由用户在 DrawerSpec 中显式指定。
 - 不允许 `Control Text Cover`、`Button Text Cover`、`Table / Clean` 或隐藏正式实例后展示手绘控件。
 - 组件属性、Slot、字体加载、权限和实例关系失败均不得降级为“视觉通过”；必须报告失败码和节点位置。
+- 不允许在最终 Scene 内出现未绑定组件库 Text Style 的页面级文字；不允许用手工字体参数替代组件库文本样式。
 
 ## 已知限制
 
@@ -319,7 +331,8 @@ Drawer / <pageName> / Create / <compositionName>
 ### 2026-08-25 · 平台与主题切换
 - 平台切换统一走 `platformKey`，当前支持 `zhikexing / yushu / zhineng-yunying / qifu-generic`；用户未指定平台时不再默认毓数。
 - 主题切换统一走 `themeKey / themePrimary`，当前支持 `zhikexing-green / yushu-green / smartops-blue / custom`；主题只改语义颜色，不改结构。
-- `zhineng-yunying` 是蓝色主题智能运营平台的预留平台壳；在专属导航与平台模板未补齐前，只能生成独立抽屉并记录平台壳缺口。
+- `zhineng-yunying` 是蓝色主题智能运营平台的预留平台壳；在专属导航与平台模板未补齐前，不得生成正式打开态，必须返回 `BACKGROUND_TEMPLATE_MISSING` 或使用用户明确指定并验收通过的 `EXISTING_LIST_PAGE`。
+- 正式交付 Scene 内所有新增页面级文字必须绑定组件库 Text Style；执行前形成 `TextStyleResolutionManifest`，执行后扫描 Scene 内 `TEXT.textStyleId`，无样式即 FAIL。
 
 ### 2026-08-21 · 数据详情抽屉 Golden Sample
 - 唯一 Golden Sample 为组件库文件 Page `02 From 训练过程` 的 `Golden Sample / Drawer / 数据详情 / 680 · 0821 根据手搓重生成`（node `4725:1548`）；未来同类抽屉先复用其 Scene、抽屉和表格结构，再替换业务数据。旧的 `4659:420` 仅作历史对照。
@@ -353,6 +366,7 @@ Drawer / <pageName> / Create / <compositionName>
 - 对输入描述做出的假设;
 - 组件缺口及建议补充项;
 - 组件来源模式与预检结果;
+- `TextStyleResolutionManifest` 摘要与整页 Text Style 扫描结果;
 - `ComponentResolutionManifest` 摘要、属性回读结果、Slot 验证结果;
 - `structuralValidation` 与 `visualValidation` 状态;
 - 实例、变量、布局、滚动、原型和截图验证结果。

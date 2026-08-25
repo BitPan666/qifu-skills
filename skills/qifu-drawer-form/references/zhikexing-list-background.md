@@ -1,13 +1,13 @@
 # 智客星列表页底图协议
 
-仅当 `platform=zhikexing` 且 `presentationMode=OVERLAY_ON_ZHIKEXING_LIST` 时启用。本协议不是新的抽屉组合；抽屉仍按 `drawer-compositions.md` 选择 `compositionName`。未指定展示方式时固定为 `STANDALONE`，只生成抽屉。
+正式抽屉交付默认启用本协议：先生成完整 `1366×768` 页面打开态，再把右侧抽屉放在底图和蒙层之上。本协议不是新的抽屉组合；抽屉仍按 `drawer-compositions.md` 选择 `compositionName`。`STANDALONE_DEBUG` 仅用于用户明确要求“内部调试抽屉本体/不交付”时检查抽屉结构，不能作为正式交付结果。
 
 ## 输入
 
 ```text
-presentationMode  STANDALONE | OVERLAY_ON_ZHIKEXING_LIST
+presentationMode  DRAWER_OPEN_WITH_BACKGROUND(默认) | OVERLAY_ON_ZHIKEXING_LIST(智客星兼容别名) | STANDALONE_DEBUG
 background
-  source          TEMPLATE(默认) | EXISTING_LIST_PAGE
+  source          TEMPLATE(智客星默认) | EXISTING_LIST_PAGE
   sourceNode      EXISTING_LIST_PAGE 时必填
   sidePath[]      仅控制底图已有菜单的展开与选中
   pageName        仅用于 Scene 命名
@@ -15,7 +15,8 @@ background
 
 - `TEMPLATE` 复制 `zhikexing-list-page` 的人工基线 `4892:34812`，即 `Template / List Page / 智客星 / 1440 / 手动调整`；真实尺寸必须为 `1366 x 768`。
 - `EXISTING_LIST_PAGE` 必须是用户明确指定、已通过 `zhikexing-list-page` 结构化验收的 `1366 x 768` 页面。
-- 模板或背景页面不可解析时返回 `BACKGROUND_TEMPLATE_MISSING`，不得手绘、截图化或展平底图。
+- 智客星未提供 `background` 时，`TEMPLATE` 为默认来源。模板或背景页面不可解析时返回 `BACKGROUND_TEMPLATE_MISSING`，不得手绘、截图化或展平底图。
+- 非智客星平台未提供已批准平台模板或 `EXISTING_LIST_PAGE` 时，返回 `BACKGROUND_TEMPLATE_MISSING`；不得退回裸抽屉，也不得借用其他平台菜单冒充。
 
 ## 读取与边界
 
@@ -27,7 +28,7 @@ background
 
 ```text
 Scene / Drawer / <pageName> / <drawerTitle>       1366 x 768, clip content=true
-├── Background / Zhikexing List Page              1366 x 768, whole-frame clone
+├── Background / <Platform> List Page             1366 x 768, whole-frame clone
 ├── Overlay Mask                                  1366 x 768, semantic overlay variable
 └── Drawer / <object> / <action>                  right aligned, width=DrawerSpec.widthTier
 ```

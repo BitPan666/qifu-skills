@@ -19,13 +19,16 @@ platformKey=zhikexing, themeKey=zhikexing-green。
 分区 3【任务规则】:触发事件、任务目标、任务有效期、强制提醒、任务说明。
 ```
 
-**输出**:Figma Frame 中
+**输出**:Figma `1366×768` 完整打开态画板中
+- Background:平台列表页底图
+- Overlay Mask:覆盖完整画板的蒙层
 - Drawer 宽度 640px(Standard 档)
 - Header:标题"新建触发式任务" + 关闭按钮,56px
 - Body(padding 24,gap 24):
   - Section × 3,每个 Section 有标题 + FormItem ×N
 - Footer(pin 底):取消 + 确定(Primary)
 - 控件全部 32px 高,真实组件 INSTANCE
+- 页面级文字全部绑定组件库 Text Style，不手填字体、字号或行高
 
 ## 6 个注册组合
 
@@ -55,10 +58,10 @@ platformKey=zhikexing, themeKey=zhikexing-green。
 
 | platformKey | 平台 | 默认主题 | 说明 |
 |---|---|---|---|
-| `zhikexing` | 智客星 | `zhikexing-green` | 当前主平台；可独立抽屉，也可叠加智客星列表页底图。 |
+| `zhikexing` | 智客星 | `zhikexing-green` | 当前主平台；正式交付默认生成 `1366×768` 完整打开态，使用智客星列表页模板底图 + 蒙层 + 右侧抽屉。 |
 | `yushu` | 毓数 | `yushu-green` | 只有明确指定毓数时使用，不再作为默认平台。 |
-| `zhineng-yunying` | 智能运营平台 | `smartops-blue` | 预留蓝色主题平台；平台壳未补齐时先生成独立抽屉。 |
-| `qifu-generic` | 奇富通用后台 | `zhikexing-green` | 未指定平台时使用，只生成抽屉本体。 |
+| `zhineng-yunying` | 智能运营平台 | `smartops-blue` | 预留蓝色主题平台；正式交付仍必须是 `1366×768` 完整打开态，缺少专属底图时返回 `BACKGROUND_TEMPLATE_MISSING`。 |
+| `qifu-generic` | 奇富通用后台 | `zhikexing-green` | 未指定平台时使用；仍必须生成 `1366×768` 完整打开态，缺少通用底图时返回 `BACKGROUND_TEMPLATE_MISSING`。 |
 
 | themeKey | 主色 | 说明 |
 |---|---:|---|
@@ -77,14 +80,17 @@ platformKey=zhikexing, themeKey=zhikexing-green。
 使用 qifu-drawer-form，在智客星平台生成“超频流控配置”右侧抽屉。
 platformKey：zhikexing
 themeKey：zhikexing-green
-presentationMode：STANDALONE
+展示方式：完整页面打开态
+画板：1366×768
+底图：使用智客星列表页模板
+蒙层：自动生成
 componentMode：REAL_COMPONENT_ONLY
 compositionName：Qifu Drawer Form / Simple Create
 widthTier：840
 
 字段：规则名称 Select 必填；超频人群 Radio.Group 必填，选项为人群包/客群；选择人群 Custom(SelectedAudienceTag)；有效期 DateRange 必填；触达方式 Select 必填；超频规则 Custom(OverFrequencyRuleBuilder)。
 Footer：取消 + 确定。
-完成后返回 platformKey/themeKey 回读、ComponentResolutionManifest、Slot 验证、structuralValidation 和 visualValidation。
+完成后返回 platformKey/themeKey 回读、ComponentResolutionManifest、TextStyleResolutionManifest、Slot 验证、structuralValidation 和 visualValidation。
 ```
 
 ### 蓝色主题智能运营平台
@@ -95,11 +101,14 @@ platformKey：zhineng-yunying
 platformName：智能运营平台
 themeKey：smartops-blue
 themePrimary：#1677FF
-presentationMode：STANDALONE
+展示方式：完整页面打开态
+画板：1366×768
+底图：使用已验收的智能运营平台列表页节点；没有节点时返回 BACKGROUND_TEMPLATE_MISSING
+蒙层：自动生成
 componentMode：REAL_COMPONENT_ONLY
 
 字段与智客星超频流控配置一致。只把主按钮、Radio 选中态、链接色、轻量标签和强调色切换为蓝色主题；不得改变字段、布局、控件实例、间距、圆角、阴影或 Slot 结构。
-如果智能运营平台专属导航壳缺失，记录 PLATFORM_PROFILE_MISSING，不要借用毓数菜单冒充。
+如果智能运营平台专属导航壳或已验收底图缺失，返回 BACKGROUND_TEMPLATE_MISSING；不要生成裸抽屉，也不要借用毓数菜单冒充。
 ```
 
 ### 智客星列表页叠加抽屉
@@ -112,6 +121,8 @@ presentationMode：OVERLAY_ON_ZHIKEXING_LIST
 background.source：TEMPLATE
 当前菜单：客户运营 / 流控管理
 ```
+
+> 旧写法 `OVERLAY_ON_ZHIKEXING_LIST` 继续兼容；正式交付与“完整页面打开态”含义一致。
 
 ## 关键铁律(踩过的坑 — 2026-08-12)
 
