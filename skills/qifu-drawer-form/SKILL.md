@@ -401,7 +401,7 @@ Control / overFrequencyRule
 ### 2026-08-25 · 平台与主题切换
 - 平台切换统一走 `platformKey`，当前支持 `zhikexing / yushu / zhineng-yunying / qifu-generic`；用户未指定平台时不再默认毓数。
 - 主题切换统一走 `themeKey / themePrimary`，当前支持 `zhikexing-green / yushu-green / smartops-blue / custom`；主题只改语义颜色，不改结构。
-- `zhineng-yunying` 是蓝色主题智能运营平台的预留平台壳；在专属导航与平台模板未补齐前，不得生成正式打开态，必须返回 `BACKGROUND_TEMPLATE_MISSING` 或使用用户明确指定并验收通过的 `EXISTING_LIST_PAGE`。
+- `zhineng-yunying` 是蓝色主题智能运营平台的预留平台壳；在专属导航与平台模板未补齐前，正式平台页面验收为 `BACKGROUND_TEMPLATE_MISSING`，但默认 `background.source=AUTO` 仍生成 `STRUCTURE_PREVIEW + Overlay Mask + Drawer`；用户指定并验收通过的 `EXISTING_LIST_PAGE` 后再升级为正式底图。
 - 正式交付 Scene 内所有新增页面级文字必须绑定组件库 Text Style；执行前形成 `TextStyleResolutionManifest`，执行后扫描 Scene 内 `TEXT.textStyleId`，无样式即 FAIL。
 
 ### 2026-08-25 · 默认打开态底图
