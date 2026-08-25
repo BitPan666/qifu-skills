@@ -123,7 +123,7 @@ Pagination = showPagination ? 1 : 0
 | `COMPONENT_MISSING` | 目标库没有能力 | 严格模式停止该区域；宽松模式才评估 Fallback |
 | `COMPONENT_AMBIGUOUS` | 候选不唯一 | 停止，报告候选完整名称 |
 | `PLATFORM_PROFILE_MISSING` | 指定平台缺少平台壳或导航协议 | 停止平台壳交付，记录缺口 |
-| `BACKGROUND_TEMPLATE_MISSING` | 正式打开态缺少可用的 1366×768 底图模板或指定列表页 | 停止写入，不生成裸抽屉或假底图 |
+| `BACKGROUND_TEMPLATE_MISSING` | 缺少可验收的正式平台 1366×768 底图模板或指定列表页 | 正式平台页面验收为 BLOCKED；`background.source=AUTO` 仍生成 `STRUCTURE_PREVIEW + Overlay Mask + Drawer`，不生成裸抽屉或假平台底图 |
 | `THEME_VARIABLE_MISSING` | 主题主色无法绑定到变量或组件公开属性 | 停止改色，不 detach 组件手工覆盖 |
 | `PORTABLE_COMPONENT_MISSING` | Portable Kit 缺少本地组件 | 停止，报告缺失能力 |
 | `STYLE_MISSING` | 必需文本样式或字体不可用 | 停止，不手填近似样式 |

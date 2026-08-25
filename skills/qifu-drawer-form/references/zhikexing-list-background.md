@@ -20,7 +20,7 @@ background
 - `TEMPLATE`：复制 `zhikexing-list-page` 的人工基线 `4892:34812`，即 `Template / List Page / 智客星 / 1440 / 手动调整`，真实尺寸必须为 `1366 x 768`。
 - `EXISTING_LIST_PAGE`：复制用户明确提供的已完成智客星列表页；创建前必须验证其为 `1366 x 768`，并通过 `zhikexing-list-page` 的结构化验收。
 - 智客星未提供 `background` 时，`TEMPLATE` 为默认来源；若模板不可解析，返回 `BACKGROUND_TEMPLATE_MISSING`，不得临时手绘底图。
-- 非智客星平台未提供已批准平台模板或 `EXISTING_LIST_PAGE` 时，返回 `BACKGROUND_TEMPLATE_MISSING`；不得退回裸抽屉，也不得借用其他平台菜单冒充。
+- 非智客星平台未提供已批准平台模板或 `EXISTING_LIST_PAGE` 时，正式平台页面验收返回 `BACKGROUND_TEMPLATE_MISSING`；默认 `background.source=AUTO` 则生成中性 `STRUCTURE_PREVIEW + Overlay Mask + Drawer`，不得退回裸抽屉，也不得借用其他平台菜单冒充。
 
 ## 读取与边界
 

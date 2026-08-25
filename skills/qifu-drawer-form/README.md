@@ -35,8 +35,8 @@ Skill 会自动补全默认组合、宽度和 Footer。字段较多或有明确�
 | --- | --- | --- | --- |
 | 智客星 | `zhikexing` | `zhikexing-green` | 可使用已验证的智客星列表页模板。 |
 | 毓数 | `yushu` | `yushu-green` | 使用毓数平台基线；需指定或验收底图。 |
-| 智能运营平台 | `zhineng-yunying` | `smartops-blue` | 正式页面必须指定已验收的智能运营列表页节点。 |
-| 奇富通用后台 | `qifu-generic` | `zhikexing-green` | 没有已批准通用底图时只做内部调试，正式交付需先提供底图。 |
+| 智能运营平台 | `zhineng-yunying` | `smartops-blue` | 默认先生成 `1366×768` 结构预览底图 + 蒙层；提供已验收列表页后升级为正式页面。 |
+| 奇富通用后台 | `qifu-generic` | `zhikexing-green` | 默认生成中性结构预览底图 + 蒙层，不套用其他平台菜单。 |
 
 | 主题 | `themeKey` | 主色 |
 | --- | --- | --- |
@@ -51,9 +51,9 @@ Skill 会自动补全默认组合、宽度和 Footer。字段较多或有明确�
 
 智能运营平台目前已有抽屉 Golden Sample，但没有已批准的原生列表页模板。因此：
 
-- 只做抽屉本体，直接使用“智能运营平台策略关联抽屉 Golden Sample”。
-- 做正式完整页面，必须提供 `background.source=EXISTING_LIST_PAGE` 和 `background.sourceNode=<已验收列表页节点 ID>`。
-- 图片背景只能用于视觉对照，不能作为正式页面底图。
+- 默认使用 `background.source=AUTO`，先生成 `1366×768` 的结构预览底图 + 蒙层 + 右侧抽屉，不再生成裸抽屉。
+- 提供 `background.source=EXISTING_LIST_PAGE` 和 `background.sourceNode=<已验收列表页节点 ID>` 后，自动替换为正式列表页底图。
+- 结构预览不借用智客星或毓数菜单；图片背景只能用于视觉对照，不能作为正式页面底图。
 
 ## 示例提示词
 
@@ -120,6 +120,18 @@ background.sourceNode：<已验收的智能运营平台列表页节点 ID>
 
 在该列表页右侧打开“新增短信模板策略”抽屉。
 不要复用智客星或毓数菜单；不要使用截图或图片作为正式底图。
+```
+
+### 默认结构预览（不需要底图节点）
+
+```text
+使用 qifu-drawer-form，在智能运营平台生成“新增短信模板策略”右侧抽屉。
+platformKey：zhineng-yunying
+themeKey：smartops-blue
+background.source：AUTO
+
+未提供正式列表页时，先生成 1366×768 Scene：中性结构预览底图 + Overlay Mask + 右侧 680px 抽屉。
+不要生成裸抽屉，不要借用智客星或毓数菜单。
 ```
 
 ## SmartOps Golden Sample 的固定规则

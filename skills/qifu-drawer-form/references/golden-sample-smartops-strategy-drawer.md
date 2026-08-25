@@ -13,7 +13,7 @@ themeKey: smartops-blue
 widthTier: 680
 ```
 
-本 Golden Sample 是抽屉本体的结构和组件基线，不包含智能运营平台的正式列表页底图。页面预览例位于 `5047:9582`，其背景来自人工参考图片，只能用于视觉对照。正式完整页面仍必须提供已验收的智能运营平台 `EXISTING_LIST_PAGE`；没有该底图时返回 `BACKGROUND_TEMPLATE_MISSING`，不得把图片背景当作平台模板。
+本 Golden Sample 是抽屉本体的结构和组件基线。默认打开态样例位于 `5066:9446`：它使用 `1366×768` 的中性结构预览底图 + Overlay Mask + 右侧 680px 抽屉，用来先验证抽屉打开态，且不借用智客星或毓数菜单。该预览不是智能运营平台正式列表页；用户提供已验收的智能运营平台 `EXISTING_LIST_PAGE` 后，才用真实底图替换预览背景。不得把图片背景当作平台模板。
 
 ## 固定结构
 
@@ -83,7 +83,7 @@ platformKey：zhineng-yunying。
 themeKey：smartops-blue。
 componentMode：REAL_COMPONENT_ONLY。
 展示方式：完整页面打开态。
-底图：background.source=EXISTING_LIST_PAGE；background.sourceNode=<已验收的智能运营平台列表页节点ID>。
+底图：background.source=AUTO。没有已验收智能运营平台列表页时，自动生成 STRUCTURE_PREVIEW + Overlay Mask；有列表页时，改为 background.source=EXISTING_LIST_PAGE；background.sourceNode=<已验收的智能运营平台列表页节点ID>。
 
 在底图右侧打开“新增短信模板策略”抽屉，抽屉内容、组件、样式、表格、Tag、表头内阴影和 Footer 均严格复用“智能运营平台策略关联抽屉 Golden Sample”。
 不要复制智客星或毓数菜单；不要使用截图或图片作为正式底图；抽屉外不新增解释性文字或审计卡片。
@@ -95,4 +95,4 @@ componentMode：REAL_COMPONENT_ONLY。
 2. 所有 Input、DateRange、Select、Tag、Close、Button、Header Cell 和 Content Cell 均为真实 INSTANCE。
 3. Header Title、关联运营策略标签、Tag 尺寸、关闭图标颜色、两组 8px 组合间距和 Footer 变体均回读通过。
 4. 两张明细表无外层描边，仅 Table Header 有单层内阴影。
-5. 正式页面另行验证真实智能运营平台底图；图片背景的预览稿不得标记为正式页面验收通过。
+5. 默认打开态必须有 `1366×768` Scene、结构预览底图和 Overlay Mask；提供真实智能运营平台列表页后，才标记为正式平台页面验收通过。
