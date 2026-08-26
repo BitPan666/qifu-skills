@@ -77,11 +77,17 @@ embeddedTable    仅 Data Detail with Table 使用(可选)
   ├─ tableType      默认 bordered
   ├─ selection      默认 off
   └─ pagination     total / pageSize / current / showPageSize / showJumper
-targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 Page `测试`(node 3497:651)
+targetFileUrl     Figma 目标文件或节点链接;决定写入哪个 Figma 文件
+targetPage        Figma 目标 Page 名称;决定在哪个画布写入
+targetAnchor      可选的参考 Frame 名称或节点 ID;仅用于定位相对位置,不代表覆盖该 Frame
+targetPlacement   生成落点:画布空白处 | 参考 Frame 右侧空白处 | 指定坐标附近;必须明确
 ```
 
 平台与主题必须分开处理:
 
+- `targetFileUrl / targetPage / targetAnchor / targetPlacement` 是**生成位置**：决定在 Figma 的哪个文件、哪个 Page、哪个画布位置创建新 Scene。它们与平台无关。
+- `platformKey / platformName` 是**页面平台**：只决定导航壳、业务术语、底图协议和平台缺口，绝不是生成位置。不得把“在智能运营平台生成”当作 Figma 落点。
+- 用户给出 Figma 链接但未说明目标 Page 或落点时，必须先根据链接节点读取其所属 Page；仍无法唯一确定时询问用户，不得猜测或新建 Page。
 - `platformKey` 决定平台壳、菜单、业务词汇、底图协议和平台缺口;不得用主题色当平台名。
 - `themeKey` / `themePrimary` 只决定主按钮、选中态、链接色、轻量标签和强调色;不得改变字段顺序、控件类型、间距、圆角、阴影或 Slot 结构。
 - 用户明确说“智客星”时,解析为 `platformKey=zhikexing` 与 `themeKey=zhikexing-green`;默认 `presentationMode=DRAWER_OPEN_WITH_BACKGROUND`，等价使用已验证智客星列表页底图。
@@ -110,9 +116,8 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 推荐用户按以下自然语言顺序描述;字段可省略:
 
 ```text
-在【平台】上【新建/编辑/查看】【对象】,
-平台标识为【platformKey】,主题为【themeKey / themePrimary】。
-抽屉标题为【标题】。
+使用 qifu-drawer-form，并调用 @figma 插件，在【Figma 链接】的【目标 Page】画布中【指定落点】生成“【新建/编辑/查看】【对象】”右侧抽屉。
+页面平台：【平台名称】；platformKey：【platformKey】；themeKey：【themeKey / themePrimary】。
 分区【1】【名称】包含字段:【标签 + 控件 + 必填?】...
 分区【2】【名称】包含字段:...
 【可选】Footer 危险/次要动作。
@@ -141,7 +146,7 @@ targetPage       Figma 目标 Page;默认与 qifu-list-page 相同,测试固定 
 
 ### 1. 形成 DrawerSpec
 
-1. 从描述、截图或线框提取 `DrawerSpec`。
+1. 从描述、截图或线框提取 `DrawerSpec`，先解析 `targetFileUrl / targetPage / targetAnchor / targetPlacement`；它们构成唯一写入边界，平台名称不能替代其中任何一项。
 2. 按[平台与主题切换协议](references/platform-theme-switching.md)解析 `platformKey / platformName / themeKey / themePrimary`。平台缺失时使用 `qifu-generic`,不得默认套用毓数。
 3. 解析 `presentationMode`：未指定时固定为 `DRAWER_OPEN_WITH_BACKGROUND`。同时解析 `background.source`：`AUTO` 按“已验收 EXISTING_LIST_PAGE → 平台 TEMPLATE → STRUCTURE_PREVIEW”顺序选择；`OVERLAY_ON_ZHIKEXING_LIST` 视为智客星旧提示词兼容别名；`STANDALONE_DEBUG` 只允许在用户明确说“内部调试抽屉本体/不交付”时使用。
 4. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。

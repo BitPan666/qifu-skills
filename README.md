@@ -179,8 +179,8 @@ done
 ### 抽屉提示词最小结构
 
 ```text
-使用 qifu-drawer-form，在【平台】生成“【新建 / 编辑 / 查看】【业务对象】”右侧抽屉。
-platformKey：【平台标识】；themeKey：【主题标识】；background.source：AUTO。
+使用 qifu-drawer-form，并调用 @figma 插件，在【目标 Figma 链接】的【目标 Page 画布】中【指定落点】生成“【新建 / 编辑 / 查看】【业务对象】”右侧抽屉。
+页面平台：【平台名称】；platformKey：【平台标识】；themeKey：【主题标识】；background.source：AUTO。
 分区【基础信息】：【字段标签】 【Input / Select / DateRange / Textarea】 【必填 / 选填】。
 分区【任务规则】：【字段标签】 【控件】 【必填 / 选填】。
 底部按钮：【取消 / 关闭】、【确定 / 保存】。
@@ -189,8 +189,8 @@ platformKey：【平台标识】；themeKey：【主题标识】；background.so
 示例：
 
 ```text
-使用 qifu-drawer-form，在智能运营平台生成“新增短信模板策略”右侧抽屉。
-platformKey：zhineng-yunying；themeKey：smartops-blue；background.source：AUTO。
+使用 qifu-drawer-form，并调用 @figma 插件，在【目标 Figma 链接】的【目标 Page 画布】中【指定落点】生成“新增短信模板策略”右侧抽屉。
+页面平台：智能运营平台；platformKey：zhineng-yunying；themeKey：smartops-blue；background.source：AUTO。
 分区基础信息：策略名称 Input 必填；有效期 DateRange 必填。
 分区策略配置：主模板 Select 必填并在下方展示模板明细表；关联运营策略 Multiple Select 必填并在下方展示策略明细表；灰度比例 Select 必填，默认值“100%”。
 底部按钮：关闭、保存。

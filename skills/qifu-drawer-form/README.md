@@ -57,21 +57,18 @@ ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.claude/skills/qifu-dr
 
 `目标画布` 和 `background.source` 是两件事：前者是**把新 Scene 放到 Figma 哪个 Page 的哪里**；后者是**Scene 中抽屉背后显示什么底图**。链接指向某个 Frame 时，它只是定位锚点；仍请写出该 Frame 所在的 Page 名称和“放在它的右侧空白处”或“放在画布空白处”。
 
+提示词首句固定使用下面的句式：`使用 Skill，并调用 @figma 插件，在 <Figma 链接> 的 <Page 画布> 中 <落点> 生成 <内容>`。**不要写“在智能运营平台生成”**；“智能运营平台”应写在下一行的 `页面平台`，它只决定平台壳、主题和业务术语。
+
 ### 推荐直接复制的日常提示词
 
 ```text
-使用 qifu-drawer-form，在 Figma 中生成右侧抽屉。
-
-目标 Figma 文件：<粘贴 Figma 文件或节点链接>
-目标画布：<Figma Page 名称，例如 测试>
-落点：<画布空白处创建新的 1366×768 Scene / 放在 <参考 Frame 名称> 的右侧空白处>。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <粘贴 Figma 文件或节点链接> 的 <Figma Page 名称，例如 测试> 画布中 <画布空白处创建新的 1366×768 Scene / 放在参考 Frame 名称的右侧空白处> 生成“<新建 / 编辑 / 查看><业务对象>”右侧抽屉。
 不要新建 Figma Page；只在上述目标画布内生成。
 
-平台：<智客星 / 毓数 / 智能运营平台>
+页面平台：<智客星 / 毓数 / 智能运营平台>
 platformKey：<zhikexing / yushu / zhineng-yunying>
 themeKey：<zhikexing-green / yushu-green / smartops-blue>
 
-抽屉标题：<新建 / 编辑 / 查看><业务对象>。
 字段：<字段名> <控件> <必填或选填>；<字段名> <控件> <必填或选填，默认值“...”或选项“...”>。
 底部按钮：<取消 / 关闭>、<确定 / 保存>。
 background.source：AUTO。
@@ -80,16 +77,12 @@ background.source：AUTO。
 例如，最普通的“新建活动”可以直接这样写：
 
 ```text
-使用 qifu-drawer-form，在 Figma 中生成右侧抽屉。
-目标 Figma 文件：https://www.figma.com/design/<文件 ID>
-目标画布：测试
-落点：画布空白处创建新的 1366×768 Scene。
+使用 qifu-drawer-form，并调用 @figma 插件，在 https://www.figma.com/design/<文件 ID> 的“测试”画布中，画布空白处创建新的 1366×768 Scene，生成“新建活动”右侧抽屉。
 不要新建 Figma Page；只在“测试”画布内生成。
 
-平台：智客星
+页面平台：智客星
 platformKey：zhikexing
 themeKey：zhikexing-green
-抽屉标题：新建活动。
 字段：活动名称 Input 必填，placeholder“请输入活动名称”；活动类型 Select 必填，选项“拉新/促活/召回”；活动有效期 DateRange 必填；活动说明 Textarea 选填。
 底部按钮：取消、确定。
 background.source：AUTO。
@@ -100,8 +93,8 @@ background.source：AUTO。
 快速试做仍需说清四件事：**目标画布、平台、抽屉标题、字段**。例如：
 
 ```text
-使用 qifu-drawer-form，在智客星生成“新建活动”右侧抽屉。
-目标 Figma 文件：<链接>；目标画布：<Page 名称>；落点：画布空白处。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <Figma 链接> 的 <Page 名称> 画布中、画布空白处生成“新建活动”右侧抽屉。
+页面平台：智客星。
 字段：活动名称 Input 必填；活动类型 Select 必填；有效期 DateRange 必填。
 ```
 
@@ -129,7 +122,8 @@ Skill 会自动补全默认组合、宽度和 Footer。字段较多或有明确�
 下面这段可原样复制。只替换 `<...>` 中的业务值；没有的字段或分区直接删掉，不要留占位符。
 
 ```text
-使用 qifu-drawer-form，在<平台名称>生成“<新建 / 编辑 / 查看><业务对象>”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在<目标 Figma 文件>的<目标画布>画布中<落点>生成“<新建 / 编辑 / 查看><业务对象>”右侧抽屉。
+页面平台：<平台名称>。
 
 platformKey：<zhikexing | yushu | zhineng-yunying | qifu-generic>
 themeKey：<zhikexing-green | yushu-green | smartops-blue | custom>
@@ -139,11 +133,6 @@ presentationMode：DRAWER_OPEN_WITH_BACKGROUND
 background.source：AUTO
 <已有正式列表页时填写> background.sourceNode：<已验收列表页节点 ID>
 
-目标 Figma 文件：<粘贴 Figma 文件或节点链接>
-目标画布：<Figma Page 名称>
-落点：<画布空白处创建新的 1366×768 Scene / 放在参考 Frame 右侧空白处>
-
-抽屉标题：<新建 / 编辑 / 查看><业务对象>。
 业务页面：<当前列表页或业务模块名称>。
 
 分区：
@@ -227,14 +216,16 @@ background.source：AUTO
 ### 1. 通用抽屉，最短写法
 
 ```text
-使用 qifu-drawer-form，生成“新建活动”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <Figma 链接> 的 <Page 名称> 画布中、画布空白处生成“新建活动”右侧抽屉。
+页面平台：智客星。
 字段：活动名称 Input 必填；活动类型 Select 必填；活动有效期 DateRange 必填；活动说明 Textarea。
 ```
 
 ### 2. 智客星完整页面
 
 ```text
-使用 qifu-drawer-form，在智客星生成“新建活动”右侧抽屉的完整打开态页面。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <Figma 链接> 的 <Page 名称> 画布中、<参考 Frame> 的右侧空白处生成“新建活动”右侧抽屉的完整打开态页面。
+页面平台：智客星。
 platformKey：zhikexing
 themeKey：zhikexing-green
 componentMode：REAL_COMPONENT_ONLY
@@ -248,7 +239,8 @@ background.source：TEMPLATE
 ### 3. 毓数平台
 
 ```text
-使用 qifu-drawer-form，在毓数生成“编辑数据任务”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <Figma 链接> 的 <Page 名称> 画布中、画布空白处生成“编辑数据任务”右侧抽屉。
+页面平台：毓数。
 platformKey：yushu
 themeKey：yushu-green
 componentMode：REAL_COMPONENT_ONLY
@@ -261,7 +253,8 @@ compositionName：Qifu Drawer Form / Edit
 ### 4. 智能运营 Golden Sample 抽屉
 
 ```text
-使用 qifu-drawer-form，在智能运营平台生成“新增短信模板策略”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 链接> 的 <目标 Page 名称> 画布中、<指定落点> 生成“新增短信模板策略”右侧抽屉。
+页面平台：智能运营平台。
 platformKey：zhineng-yunying
 platformName：智能运营平台
 themeKey：smartops-blue
@@ -282,7 +275,8 @@ background.source：AUTO
 ### 5. 智能运营正式完整页面
 
 ```text
-使用 qifu-drawer-form，根据“智能运营平台策略关联抽屉 Golden Sample”生成完整打开态页面。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 链接> 的 <目标 Page 名称> 画布中、<指定落点> 根据“智能运营平台策略关联抽屉 Golden Sample”生成完整打开态页面。
+页面平台：智能运营平台。
 platformKey：zhineng-yunying
 themeKey：smartops-blue
 componentMode：REAL_COMPONENT_ONLY
@@ -296,7 +290,8 @@ background.sourceNode：<已验收的智能运营平台列表页节点 ID>
 ### 默认结构预览（不需要底图节点）
 
 ```text
-使用 qifu-drawer-form，在智能运营平台生成“新增短信模板策略”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 链接> 的 <目标 Page 名称> 画布中、<指定落点> 生成“新增短信模板策略”右侧抽屉。
+页面平台：智能运营平台。
 platformKey：zhineng-yunying
 themeKey：smartops-blue
 background.source：AUTO
@@ -310,7 +305,8 @@ background.source：AUTO
 当业务需要“摘要信息 + 筛选控件 + 明细表 + 分页”时，使用这个提示词，不使用普通新建表单：
 
 ```text
-使用 qifu-drawer-form，在智客星查看“数据质量告警记录”右侧数据详情抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 链接> 的 <目标 Page 名称> 画布中、<指定落点> 生成“查看数据质量告警记录”右侧数据详情抽屉。
+页面平台：智客星。
 platformKey：zhikexing
 themeKey：zhikexing-green
 componentMode：REAL_COMPONENT_ONLY
