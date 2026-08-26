@@ -166,6 +166,20 @@ done
 
 安装后新开一个 Codex 或 Claude Code 任务，让客户端重新发现 Skill。更新时回到仓库目录执行 `git pull`，软链不需要重新创建。
 
+### 同步策略
+
+GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组件映射、平台基线和主题变量；Nutstore 与本地 Codex 运行目录不再各自保留一套引用路径。
+
+```bash
+# 同步抽屉及其直接依赖
+./sync.sh qifu-drawer-form qifu-shared zhikexing-list-page
+
+# 同步仓库管理的全部 Skill
+./sync.sh
+```
+
+脚本固定从当前 GitHub 工作树分发到 Nutstore 与 `~/.codex/skills`，并在每个 Skill 同步后执行目录差异检查。修改规则时先改仓库、校验并提交，再运行同步脚本。
+
 ## 提示词结构与示例
 
 先选择页面类型，再复制相应模板；组件名、节点 ID、菜单层级、Slot 和属性写入规则已经在 Skill 内，不需要在提示词里重复。

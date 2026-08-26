@@ -63,14 +63,15 @@ _(还没有记录,第一次跑通后写在下面)_
   > 分区 1【基础信息】:任务名称(Input 必填)、所属项目(Select 必填)。
   > 分区 2【选择客群】:人群圈选(Custom,必填)。
   > 分区 3【任务规则】:触发事件(Select)、任务目标(Select)、任务有效期(Select)、强制提醒(Radio.Group 是/否)、任务说明(Textarea)。
-- **目标 Page**:测试(实际写到业务 page 中,具体待补)
-- **执行 AI**:Claude Code(具体模型版本待补)
+- **目标 Page**:原记录未保留确切 Page;补截图前不得作为完整回归证据
+- **执行 AI**:Claude Code;具体模型版本未记录
 - **结果**:⚠️ pass-with-fixes
 - **验收清单全过?**:否,2 条没过(见下)
 - **遇到的偏差**:
   1. **AI 把控件 INSTANCE 丢到 Page 根级**,而不是嵌套进 Drawer Frame → 我做的是手动在 Figma 里把 12 个组件拖回 Section 容器;skill 应该做的是生成时主动归位
   2. **Drawer Frame 内残留与已嵌实例位置/尺寸几乎一致的重复节点**(疑似 AI 重复创建未清理)→ 我写了 `qifu-drawer-cleanup` 插件兜底清理;skill 应该做的是生成后自检并删除重复
-- **截图**:`../screenshots/validation/qifu-drawer-form/2026-08-12-trigger-task-drawer.png`(待补)
+- **截图**:待补 `../screenshots/validation/qifu-drawer-form/2026-08-12-trigger-task-drawer.png`;补图后再纳入 README 展示
+- **证据状态**:缺截图,当前只作为历史问题回溯记录
 - **AI 自检准确率**:SKILL.md 验证清单 25+ 条,人工发现 2 条未覆盖(层级归属 + 重复节点),已加入验证清单
 - **是否人工干预**:是,Figma 里手动归位 + 调用清理插件删除 12 个重复节点
 - **沉淀建议**:
@@ -96,6 +97,8 @@ _(还没有记录,第一次跑通后写在下面)_
 | qifu-list-page | 0 | 0 | 0 | 0 | — | 0 |
 | qifu-drawer-form | 1 | 0 | **1** | 0 | 2026-08-12 | **2** |
 | qifu-detail-page | 0 | 0 | 0 | 0 | — | 0 |
+
+> 注:`qifu-drawer-form` 的 1 条为历史补填记录,截图证据仍缺失;补齐前只作为问题回溯,不作为完整回归证据。
 
 **指标口径说明**:
 - `pass`:SKILL.md 验证清单 100% 全过,无人工修复

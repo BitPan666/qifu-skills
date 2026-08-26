@@ -6,7 +6,8 @@
 | --- | --- | --- |
 | 页面外壳 | `Templates / List Page Shell-V2` | 保留已有 pageHeader、filterBar、table Slot 内容，不直接写 Slot。 |
 | 筛选栏 | `Filter Bar / <pageName> / 按钮触发` | 保留按钮触发、展开两行状态。 |
-| 筛选项 | `Filter / <field>` | 使用既有 Input、Select、DateRange 实例和标题，改字前回读属性。 |
+| 筛选项 | `Filter / <field>` | 使用既有 Input、Select、DateRange 实例和标题，改字前回读属性；外置标题用 `display 显示形式=带标题筛选项`，内置标签用 `display 显示形式=直接筛选框`。 |
+| 筛选控件文案 | `Input / <field>`、`Select / <field>`、`DateRange / <field>` | 内置标签模式下将控件的 `value 文本` 或 `placeholder 提示` 写成字段名；切换 Filter Item 变体后重新发现控件实例，不复用旧 Slot 子节点 ID。 |
 | 操作按钮 | `Button / <action>` | 使用现有 Button 实例，校验 `text`、`variant`、`size`。 |
 | 表格 | `Table Shell / <pageName> / Selectable` | 保留 `selection=on`、44px、bordered 与完整 Slot 层级。 |
 | 表头 | `Header / <field>` | 继承表头文字样式与列宽。 |

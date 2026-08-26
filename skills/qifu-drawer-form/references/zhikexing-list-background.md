@@ -26,10 +26,10 @@ background
 
 启用前必须完整读取：
 
-- `../zhikexing-list-page/SKILL.md`
-- `../zhikexing-list-page/references/platform-zhikexing.md`
-- `../zhikexing-list-page/references/component-invocation-contract.md`
-- `../zhikexing-list-page/references/structural-validation.md`
+- `../../zhikexing-list-page/SKILL.md`
+- `../../zhikexing-list-page/references/platform-zhikexing.md`
+- `../../zhikexing-list-page/references/component-invocation-contract.md`
+- `../../zhikexing-list-page/references/structural-validation.md`
 
 不得写入列表页组件的 `pageHeaderSlot`、`filterBarSlot`、`tableSlot`、`rowsSlot`、`cellsSlot` 或 `paginationSlot`。底图业务内容需要调整时，先按 `zhikexing-list-page` 单独生成并验收，再用 `EXISTING_LIST_PAGE` 引用它。
 

@@ -11,6 +11,8 @@
 
 - `Filter / <field>` 可见数量为 5；首行 4 个、第二行 1 个。
 - Filter Bar=76px，所有控件=32px，确定和重置各 1 个。
+- `filterTitleMode=externalLabel` 时，Filter Item 的 `display 显示形式=带标题筛选项`，外置 Label 文本与控件文案分别可见。
+- `filterTitleMode=internalLabel` 时，Filter Item 的 `display 显示形式=直接筛选框`，外置 Label 不可见，Input/Select/DateRange 内部可见文本必须为字段名；不得出现 `Control Text Cover` 或裸 Text 覆盖。
 - 筛选栏到 List Action Bar=16px；List Action Bar 到 Table Shell=12px。
 - List Action Bar 只存在一个主操作，且位于最右侧。
 

@@ -48,6 +48,7 @@ pageName / pageTitle
 targetPage / insertPosition
 sidePath[] / sideActive / sideExpanded[]
 filters[]: field, control, placeholder, defaultValue
+filterTitleMode=externalLabel|internalLabel
 filterTrigger=按钮触发
 listActions.left[] / primaryAction
 columns[] / rowActions[] / status
@@ -55,7 +56,7 @@ tableSelection=true|false
 pagination / data
 ```
 
-当前模板对应 `Zhikexing List / Filtered Selectable Table / 1366`：4 个首行筛选、1 个第二行日期筛选、按钮触发、左侧批量操作、右侧单一主操作、可选择表格和分页。
+当前模板对应 `Zhikexing List / Filtered Selectable Table / 1366`：4 个首行筛选、1 个第二行日期筛选、按钮触发、左侧批量操作、右侧单一主操作、可选择表格和分页。筛选标题默认使用 `externalLabel`；用户要求“内置标签”“标题在框内”或参考图为纯输入框时，使用 `internalLabel`。
 
 当 PageSpec 的筛选数量、是否多选、列数、表格密度或状态与该模板不同，先寻找同文件中已人工确认的匹配智客星模板；找不到时停止并报告 `BLOCKED_TEMPLATE`。不得为满足业务字段改写 Slot、手绘表格或临时拼装另一套页面。
 
@@ -65,9 +66,10 @@ pagination / data
 2. 解析 PageSpec。`sidePath` 只控制左侧菜单；页面标题、筛选、列表操作、表格列、行操作和分页互不推断。
 3. 在用户指定 Page 的空白区域复制**整个基线顶层 Frame**，命名为 `Page / List / <pageName> / Default`。不覆盖、移动或改名基线模板。
 4. 只修改复制页中可回读成功的文字、布尔、变体与 INSTANCE_SWAP 属性；每次遵循“读取真实 Key -> 校验类型 -> 写入 -> 回读”。
-5. 禁止直接写入 `pageHeaderSlot`、`filterBarSlot`、`tableSlot`、`controlSlot`、`headerSlot`、`rowsSlot`、`cellsSlot`、`contentSlot` 或 `paginationSlot`。当前 Connector 对这些写入失败时，复制后的既有内容仍保持有效。
-6. 需要变更 Slot 内结构时，标记 `BLOCKED_TEMPLATE`，说明缺少哪一种人工模板；不以裸 Text、Frame、Group、覆盖层或截图补齐。
-7. 按结构化验收和截图检查通过后交付；失败则明确返回 `FAIL` 或 `BLOCKED_TEMPLATE`，不得称为完成。
+5. 当 `filterTitleMode=internalLabel` 时，将 `Data Display / Filter Item-V2` 的 `display 显示形式` 变体切到 `直接筛选框`，再把内部 Input/Select/DateRange 的占位或文本属性写成字段名；切换变体后必须重新在该 Filter 内发现控件实例，因为 Slot 子节点 ID 会变化。
+6. 禁止直接写入 `pageHeaderSlot`、`filterBarSlot`、`tableSlot`、`controlSlot`、`headerSlot`、`rowsSlot`、`cellsSlot`、`contentSlot` 或 `paginationSlot`。当前 Connector 对这些写入失败时，复制后的既有内容仍保持有效。
+7. 需要变更 Slot 内结构时，标记 `BLOCKED_TEMPLATE`，说明缺少哪一种人工模板；不以裸 Text、Frame、Group、覆盖层或截图补齐。
+8. 按结构化验收和截图检查通过后交付；失败则明确返回 `FAIL` 或 `BLOCKED_TEMPLATE`，不得称为完成。
 
 ## 硬性约束
 
