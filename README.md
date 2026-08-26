@@ -199,7 +199,7 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 
 ### 抽屉提示词
 
-`qifu-drawer-form` 的公开文档只保留智能运营平台的一套模板和一份“新增短信模板策略”示例，避免多个平台和场景的提示词混在一起。请直接查看 [抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)。
+`qifu-drawer-form` 的公开文档保留一套共享模板，以及两个已验证案例：“新增短信模板策略”和“超频流控配置”。请直接查看 [抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)。
 
 ### 在 Figma 中使用
 
@@ -257,11 +257,12 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 
 ## 截图展示
 
-> 已提交两张可追溯到 Figma Golden Sample 的抽屉截图。它们用于展示真实生成结果，不替代组件实例、结构或平台底图验收。
+> 已提交两张可追溯的抽屉案例截图：智能运营案例来自 Figma Golden Sample，智客星案例来自可交互业务页面的真实打开态。它们用于展示目标结果，不替代组件实例、结构或平台底图验收。
 
 | 缩略 | 说明 | 来源 |
 |---|---|---|
 | [`smartops-strategy-drawer.png`](./skills/qifu-drawer-form/assets/screenshots/smartops-strategy-drawer.png) | 智能运营平台“新增短信模板策略”打开态 | [Figma node 5066:9446](https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/%E5%A5%87%E5%AF%8C%E7%A7%91%E6%8A%80%E4%B8%AD%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E5%BA%93-%E6%96%B0?node-id=5066-9446) |
+| [`zhikexing-overfrequency-drawer.png`](./skills/qifu-drawer-form/assets/screenshots/zhikexing-overfrequency-drawer.png) | 智客星“超频流控配置”打开态 | 本机可交互业务页面截图 |
 
 ## 边界声明
 
