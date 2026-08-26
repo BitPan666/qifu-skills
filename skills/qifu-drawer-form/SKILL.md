@@ -20,6 +20,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - [Figma 执行与结构化验收](references/figma-execution-validation.md):截图解析、组件解析闭环、Slot 验证、P0 失败即停和 PASS/BLOCKED/FAIL 判定。
 - 当抽屉包含“摘要信息 + 区块标题 + 筛选控件 + 内嵌表格/分页”时，完整读取[数据详情抽屉 Golden Sample](references/golden-sample-data-detail-drawer.md)，并使用 `Qifu Drawer Form / Data Detail with Table`。
 - 当 `platformKey=zhineng-yunying` 且表单包含“主模板 + 模板明细表”或“关联运营策略 + 多选选择器 + 策略明细表”时，完整读取[智能运营策略关联抽屉 Golden Sample](references/golden-sample-smartops-strategy-drawer.md)，并使用 `Qifu Drawer Form / Sectioned Create`。
+- 当 `platformKey=zhikexing` 且抽屉标题或字段包含“超频流控配置 / 超频规则 / 频控规则 / 触达频次规则”时，完整读取[智客星超频流控配置抽屉 Golden Sample](references/golden-sample-zhikexing-overfrequency-drawer.md)，并使用 `Qifu Drawer Form / Sectioned Create`；该 Golden Sample 优先级高于 README 通用示例和普通 Sectioned Create 推断。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
 - 当创建正式抽屉交付时，必须完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料；智客星默认按该协议的 `AUTO` 链路解析底图。
 - 当用户指定 `PORTABLE_KIT` 或说明没有正式组件库权限时,完整读取[Portable Kit 模式](references/portable-kit.md)与[Portable 组件清单](references/portable-component-manifest.json)。
@@ -46,7 +47,7 @@ background        默认 AUTO，必须先创建 1366 x 768 Scene；不允许默�
   ├─ sourceNode   EXISTING_LIST_PAGE 时必填
   ├─ sidePath[]   底图菜单路径，仅修改模板中已存在的菜单状态
   └─ pageName     底图业务页名称，仅用于 Scene 命名
-widthTier        480 / 600 / 680 / 840 / 960;普通表单默认 600，数据详情表格组合固定 680
+widthTier        480 / 640 / 680 / 840 / 960;普通表单默认 640，数据详情表格组合固定 680
 maskClosable     默认 false
 escClosable      默认 false
 sections[]       1..N 个分区,按业务顺序排列
@@ -150,7 +151,7 @@ targetPlacement   生成落点:画布空白处 | 参考 Frame 右侧空白处 | 
 2. 按[平台与主题切换协议](references/platform-theme-switching.md)解析 `platformKey / platformName / themeKey / themePrimary`。平台缺失时使用 `qifu-generic`,不得默认套用毓数。
 3. 解析 `presentationMode`：未指定时固定为 `DRAWER_OPEN_WITH_BACKGROUND`。同时解析 `background.source`：`AUTO` 按“已验收 EXISTING_LIST_PAGE → 平台 TEMPLATE → STRUCTURE_PREVIEW”顺序选择；`OVERLAY_ON_ZHIKEXING_LIST` 视为智客星旧提示词兼容别名；`STANDALONE_DEBUG` 只允许在用户明确说“内部调试抽屉本体/不交付”时使用。
 4. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。
-5. 含摘要、筛选和内嵌表格的数据详情抽屉使用 `Qifu Drawer Form / Data Detail with Table` 与 680px；智能运营策略关联 Golden Sample 也固定 680px。其余抽屉按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480；7–15 字段默认 600；显式双列或 13–18 字段用 840；多个复合规则区、双列表格或超过 18 字段用 960。
+5. 含摘要、筛选和内嵌表格的数据详情抽屉使用 `Qifu Drawer Form / Data Detail with Table` 与 680px；智能运营策略关联 Golden Sample 也固定 680px；智客星超频流控 Golden Sample 固定 640px。其余抽屉按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480；7–15 字段默认 640；显式双列或 13–18 字段用 840；多个复合规则区、双列表格或超过 18 字段用 960。
 6. 按 [field-control-map](references/field-control-map.md) 为每个字段分配控件与默认 widthTier。
 7. 将操作分为 Header 关闭、Body 局部操作、Footer 次操作和唯一主操作；同一动作只出现一次。
 8. 在 DrawerSpec 中**显式列出**哪些字段是必填,哪些是禁用态及其条件,不允许留空让 AI 自行猜。
@@ -176,7 +177,7 @@ targetPlacement   生成落点:画布空白处 | 参考 Frame 右侧空白处 | 
 
 ### 3. 创建抽屉骨架
 
-正式交付时必须先创建 `1366 x 768` 的 `Scene / Drawer / <pageName> / <drawerTitle>`，再放入 `Background`、其上创建 `Overlay Mask`，最后把 Drawer 放在最上层并右侧贴边。默认 `background.source=AUTO`，不得生成只有 480/600/680/840/960px 的顶层裸抽屉。
+正式交付时必须先创建 `1366 x 768` 的 `Scene / Drawer / <pageName> / <drawerTitle>`，再放入 `Background`、其上创建 `Overlay Mask`，最后把 Drawer 放在最上层并右侧贴边。默认 `background.source=AUTO`，不得生成只有 480/640/680/840/960px 的顶层裸抽屉。
 
 - `EXISTING_LIST_PAGE` / `TEMPLATE`：Background 必须是完整真实列表页，按[智客星列表页底图协议](references/zhikexing-list-background.md)验证。
 - `STRUCTURE_PREVIEW`：Background 必须是同一 Scene 内的中性后台结构预览，至少包含 Header、左侧导航区、内容标题区、筛选区、表格区和分页区的布局边界；Overlay Mask 覆盖完整 Scene。预览背景只表达页面结构，不写其他平台菜单、不放业务控件截图，也不标记为目标平台正式页面。
@@ -230,6 +231,18 @@ Drawer / <pageName> / Create / <compositionName>
 - Select 与其下方关联明细表属于同一个“选择器-明细组合模块”：内部 gap 固定 8px，高度随真实表格行数自动撑开；不得用固定空白或额外 margin 撑开画面。
 - 明细表的外层不增加整表描边。仅 Table Header 增加 `INNER_SHADOW`（x=0, y=1, blur=2, spread=0, rgba(0,0,0,0.08)）；表头与数据行继续使用真实 Table 组件实例。
 - Footer 的“保存”使用无描边主按钮；“关闭”使用无描边文字按钮。两者均为真实 Button 实例，不为保持视觉而叠加页面级边框或文字。
+
+#### 智客星平台 / 超频流控配置抽屉
+
+当 `platformKey=zhikexing`，且抽屉标题或字段包含“超频流控配置 / 超频规则 / 频控规则 / 触达频次规则”时，必须完整读取并遵循[智客星超频流控配置抽屉 Golden Sample](references/golden-sample-zhikexing-overfrequency-drawer.md)。该场景是固定业务样例，不按 README 通用字段示例扩写。
+
+- Drawer 宽度固定 640，Header 56，Footer 52，Body padding 24，右侧贴边；不得改成 600 或套用智能运营策略关联抽屉的 680。
+- 只生成 6 个字段：规则名称、超频人群、选择人群、有效期、触达方式、超频规则。不得新增适用人群类型、适用人群 Search、触达间隔、单日上限、生效时间、优先级、状态、规则说明。
+- `规则名称` 和 `触达方式` 使用 Select；`选择人群` 使用 Tag；`有效期` 使用 DateRange；`超频规则` 使用 `Custom(OverFrequencyRule)`。
+- 本场景不显示 SectionTitle，`Section / 基础信息` 只作为字段容器；字段从 Body 左上 24px 处开始。
+- Form label 左对齐，label 宽 96，label-control gap 12，Control 宽 484 且右边距 24。
+- Footer 固定为描边 `取消` + 主按钮 `确定`，不得改成 `取消 / 保存` 或智能运营的 `关闭 / 保存`。
+- 添加/减少图标固定为 `Icon/basic/plus-square` 与 `Icon/basic/Minus-Square`；不得替换成智能运营蓝色样例的 `Icon/basic/icon_add`。
 
 ### 5. 组装 Form Section
 
@@ -340,12 +353,12 @@ Control / overFrequencyRule
 - 所有设计系统元素仍为 `INSTANCE`,且主组件名称正确。
 - `REAL_COMPONENT_ONLY` 下不得出现任何 `Fallback /` 节点;`PORTABLE_KIT` 下所有控件 INSTANCE 的 `mainComponent` 必须属于当前文件本地组件;`VISUAL_FALLBACK` 下必须存在对应审计。
 - `compositionName` 与注册表完全一致,且 Section 数、列模式、Footer 按钮组、默认状态符合该组合;没有出现未注册别名。
-- 抽屉宽度属于 `480 / 600 / 680 / 840 / 960` 五档；普通表单默认 600，680 仅用于数据详情或已批准的 Golden Sample。
+- 抽屉宽度属于 `480 / 640 / 680 / 840 / 960` 五档；普通表单默认 640，680 仅用于数据详情或已批准的智能运营策略关联 Golden Sample。
 - Header 仅含 Title + CloseBtn,无面包屑/tabs;Title 使用动宾且与 `drawerTitle` 一致。
 - Footer 按钮顺序正确,主操作唯一;危险动作使用 `Popconfirm / Danger` 且位于最左。
 - Section 间距 24px、字段间距 16px、SectionTitle padding-bottom 12px 且下边 1px。
 - Section 顺序符合"基础信息 → 业务规则 → 范围/对象 → 高级"。
-- 每个字段 label 宽 96px、右对齐,label 与 control 间距 12px。
+- 每个字段 label 宽 96px、左对齐,label 与 control 间距 12px；仅当特定 Golden Sample 明确要求右对齐时才可右对齐。
 - 必填字段的 `*` 位于 label 左侧、色 `#dc2626`。
 - 控件可见宽度属于 `200 / 304 / 408 / FULL` 阶梯,默认值符合 field-control-map。
 - 所有控件高度均为 32px;同抽屉不混 28/32px。
@@ -372,6 +385,7 @@ Control / overFrequencyRule
 - `Data Detail with Table` 的内容 Section 与 `Table Border / 四边完整` 统一使用 4px 圆角。Table Border 必须是单独 Frame：1px Inside 描边、`Clip content=true`；表头、数据行和列分割线放入其中，Pagination 不得成为该边框的可见内容。
 - 智能运营平台的策略关联型抽屉额外验证：Header Title 为 `标题/Large` 18/26；Close 图形 Fill 绑定 `图标颜色/--qifu-icon-color-secondary`；“关联运营策略”标签为 `Body/Regular` 14/22；已选 Tag 为真实 `Data Display / Tag / Tag / small 小尺寸` 且其关闭图标来自 Tag 子树。
 - 智能运营平台的策略关联型抽屉中，两个“选择器-明细组合模块”均为 `Select → 8px gap → 明细表` 的垂直结构，整体高度随内容撑开；明细表外层无描边，只有 Table Header 带单层 `INNER_SHADOW`（x=0, y=1, blur=2, spread=0, rgba(0,0,0,0.08)）。Footer 的关闭按钮为 `variant 类型=text 文字`，保存按钮为无描边 `variant 类型=base 基础`。
+- 智客星超频流控配置抽屉额外验证：必须命中 [智客星超频流控配置抽屉 Golden Sample](references/golden-sample-zhikexing-overfrequency-drawer.md)；Drawer 宽度 640；字段只有 6 项且顺序一致；`规则名称` 为 Select；`选择人群` 为 Tag；Footer 为 `取消 / 确定`；不得出现旧提示词字段或智能运营平台专属结构。
 - 非 Empty / Loading 状态下，表格每个可见数据行的每个可见单元格必须有真实内容；表头与数据行逐列同宽，所有列宽之和必须精确等于 Table Border 内容宽度，不得依赖裁剪隐藏横向溢出。
 - 新建的页面组合层（Scene、Background、Overlay Mask、Drawer、内容卡片、Table Border、Pagination 容器）以及其自由布局属性的 x、y、width、height、padding、gap、圆角和描边宽度必须为整数；发现本次缩放造成的小数即 FAIL，替换为未缩放实例或整数重建。正式组件实例内部的 Vector、Text、Slot 或由母版 Auto Layout 计算出的分数值不做页面层修正，不得为凑整数 detach 或改写母版。
 - 自由文本必须应用组件库文本样式；组件实例内部文字由组件自身管理。组件库不存在指定文本样式时报告 `STYLE_MISSING`，不得自行生成近似字体。

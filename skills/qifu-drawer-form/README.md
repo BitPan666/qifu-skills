@@ -14,8 +14,8 @@
 
 ![智客星超频流控配置](assets/screenshots/zhikexing-overfrequency-drawer.png)
 
-- 智客星“超频流控配置”：`1366 × 768` 打开态，包含智客星列表页底图、蒙层和右侧抽屉。
-- 已验证组合：规则名称、适用人群类型、适用人群、策略类型、触达间隔、单日上限、生效时间、优先级、状态和规则说明，以及“取消 / 保存”Footer。
+- 智客星“超频流控配置”：`1366 × 768` 打开态，包含智客星列表页底图、蒙层和右侧 `640px` 抽屉。
+- 已验证组合：规则名称、超频人群、选择人群、有效期、触达方式、超频规则灰底面板，以及“取消 / 确定”Footer。
 - 截图来自本机可交互页面的真实打开态，用于说明业务结构与视觉目标；正式 Figma 交付仍需按 Skill 的组件实例和结构化验收执行。
 
 ## 安装到个人 Skills
@@ -55,7 +55,7 @@ platformKey：<zhineng-yunying / zhikexing>
 themeKey：<smartops-blue / zhikexing-green>
 componentMode：REAL_COMPONENT_ONLY
 compositionName：Qifu Drawer Form / Sectioned Create
-widthTier：600
+widthTier：640
 presentationMode：DRAWER_OPEN_WITH_BACKGROUND
 background.source：<AUTO / TEMPLATE / EXISTING_LIST_PAGE / STRUCTURE_PREVIEW>
 <使用已有已验收列表页时填写> background.sourceNode：<列表页节点 ID>
@@ -72,7 +72,7 @@ background.source：<AUTO / TEMPLATE / EXISTING_LIST_PAGE / STRUCTURE_PREVIEW>
 
 `background.source=AUTO` 会优先使用已验收列表页；未提供时生成 `1366 × 768` 的结构预览底图 + 蒙层 + 抽屉，不会生成裸抽屉。
 
-普通表单默认 `widthTier：600`；`680` 仅用于数据详情和智能运营策略关联 Golden Sample，复杂双列使用 `840`，多个复合规则区或双列表格使用 `960`。
+普通表单默认 `widthTier：640`；`680` 仅用于数据详情和智能运营策略关联 Golden Sample，复杂双列使用 `840`，多个复合规则区或双列表格使用 `960`。智客星“超频流控配置”固定使用 `640`。
 
 ## 两份案例提示词
 
@@ -106,21 +106,37 @@ background.source：AUTO
 使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 文件或节点链接> 的 <目标 Page 画布> 中 <指定落点> 生成“超频流控配置”右侧抽屉。
 不要新建 Figma Page；只在上述目标画布内生成。
 
+使用“智客星超频流控配置抽屉 Golden Sample”。
 页面平台：智客星。
 platformKey：zhikexing
 themeKey：zhikexing-green
 componentMode：REAL_COMPONENT_ONLY
 compositionName：Qifu Drawer Form / Sectioned Create
-widthTier：600
+widthTier：640
 presentationMode：DRAWER_OPEN_WITH_BACKGROUND
 background.source：TEMPLATE
 
-分区：
-- 基础信息：规则名称 Input 必填；适用人群类型 Radio.Group 必填，选项“人群包/客群标签”；适用人群 Search 必填。
-- 策略配置：策略类型 Select 必填；触达间隔 InputNumber 必填，单位“分钟”；单日上限 InputNumber 必填，单位“次/日”；生效时间 Radio.Group 必填，选项“全天/指定时间段”；优先级 Select 必填。
-- 状态与说明：状态 Switch 选填，默认“启用”；规则说明 Textarea 选填，rows=4。
+只生成一个 1366×768 的完整打开态 Scene，内部层级为：
+1. Background / 智客星列表页底图
+2. Overlay Mask / 蒙层
+3. Drawer / 右侧抽屉 / 超频流控配置
 
-底部按钮：取消、保存。
+字段按以下顺序生成，不要新增其他字段：
+1. 规则名称：Select，必填，占位文字“请选择”。
+2. 超频人群：Radio.Group，必填，选项“人群包、客群”，默认选中“人群包”。
+3. 选择人群：Tag，展示“26年企微活动 - 3K-2W新客250721 - 3K-2W新客250721 S102180”，文字左对齐。
+4. 有效期：DateRange，必填，占位文字“开始日期 至 结束日期”，日历图标在组件内部最右侧。
+5. 触达方式：Select，必填，占位文字“请选择”。
+6. 超频规则：Custom(OverFrequencyRule)，必填，浅灰底 #F5F7FA，面板内边距 top/bottom 16px、left 24px、right 不贴边；策略类型标签与 Select 间距 8px；规则行间距 12px。
+
+超频规则内包含：
+- 策略类型 Select，占位“请选择”。
+- 第一行：每【Input】天，触达【Input】条，右侧 Icon/basic/plus-square。
+- 第二行：每【Input】天，触达【Input】条，右侧 Icon/basic/plus-square 和 Icon/basic/Minus-Square。
+
+验收：必须与“Scene / Drawer / 超频流控配置 / Skill规则回归版”保持一致；Drawer 宽度 640，Header 56，Footer 52，Body padding 24，标签左对齐，控件右边距 24，所有控件和图标使用组件库真实实例，所有页面级文字绑定组件库 Text Style。
+
+底部按钮：取消、确定。
 ```
 
 ## 字段怎么写
@@ -161,4 +177,5 @@ visualValidation     = PASS | BLOCKED | FAIL
 
 - [SKILL.md](SKILL.md)：输入契约、工作流、组件规则和验收清单。
 - [智能运营平台策略关联抽屉 Golden Sample](references/golden-sample-smartops-strategy-drawer.md)：完整字段与验收基线。
+- [智客星超频流控配置抽屉 Golden Sample](references/golden-sample-zhikexing-overfrequency-drawer.md)：固定字段、640px 宽度、超频规则面板与隔离规则。
 - [Figma 执行与结构化验收](references/figma-execution-validation.md)：组件实例、Slot 和属性回读检查。

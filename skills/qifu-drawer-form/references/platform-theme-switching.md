@@ -82,6 +82,8 @@ themeKey：zhikexing-green
 展示方式：完整页面打开态
 底图：使用智客星列表页模板
 componentMode：REAL_COMPONENT_ONLY
+使用“智客星超频流控配置抽屉 Golden Sample”
+widthTier：640
 ```
 
 ### 智客星旧写法兼容
@@ -94,6 +96,8 @@ themeKey：zhikexing-green
 presentationMode：OVERLAY_ON_ZHIKEXING_LIST
 background.source：TEMPLATE
 当前菜单：客户运营 / 流控管理
+使用“智客星超频流控配置抽屉 Golden Sample”
+widthTier：640
 ```
 
 ### 蓝色主题智能运营平台
