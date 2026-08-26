@@ -173,7 +173,7 @@ done
 | 你要生成什么 | 使用哪个 Skill | 从哪里复制提示词 |
 | --- | --- | --- |
 | 筛选、表格、批量操作的列表页 | `qifu-list-page` | [列表页 README](./skills/qifu-list-page/README.md) |
-| 新建、编辑、查看的右侧抽屉 | `qifu-drawer-form` | [抽屉 README](./skills/qifu-drawer-form/README.md#通用可替换模板) |
+| 新建、编辑、查看的右侧抽屉 | `qifu-drawer-form` | 先看[抽屉 README](./skills/qifu-drawer-form/README.md)的“从这里开始”，再复制模板 |
 | 摘要、信息分组和局部操作的详情页 | `qifu-detail-page` | [详情页 README](./skills/qifu-detail-page/README.md) |
 
 ### 抽屉提示词最小结构

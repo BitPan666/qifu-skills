@@ -43,12 +43,65 @@ ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.claude/skills/qifu-dr
 
 完成后新开一个任务，再在输入框里使用 `$qifu-drawer-form` 或直接说“使用 qifu-drawer-form”。更新时进入 `~/Documents/qifu-skills` 执行 `git pull`；软链不需要重新创建。
 
-## 最短调用方式
+## 从这里开始：一张抽屉写清 5 件事
 
-普通场景只需要说清三件事：**平台、抽屉标题、字段**。例如：
+不要从后面的 Golden Sample 开始读。日常生成只需要按下面顺序提供信息；第 1 项和第 4 项最容易漏。
+
+| 要写什么 | 为什么要写 | 怎么写 |
+| --- | --- | --- |
+| 1. 目标 Figma 文件和画布 | 告诉 AI 在哪里创建，而不是只描述页面长相 | `目标 Figma 文件：<链接>`；`目标画布：<Page 名称>`；`落点：画布空白处` |
+| 2. 平台和主题 | 决定页面壳和强调色 | `platformKey：zhikexing`；`themeKey：zhikexing-green` |
+| 3. 抽屉任务 | 决定标题和默认 Footer | `生成“新建活动”右侧抽屉` |
+| 4. 字段和控件 | 决定表单内容和真实组件实例 | `活动名称 Input 必填；活动类型 Select 必填，选项“拉新/促活”` |
+| 5. 背景方式 | 决定是否生成完整的打开态页面 | `background.source：AUTO`；已有正式列表页时再写 `sourceNode` |
+
+`目标画布` 和 `background.source` 是两件事：前者是**把新 Scene 放到 Figma 哪个 Page 的哪里**；后者是**Scene 中抽屉背后显示什么底图**。链接指向某个 Frame 时，它只是定位锚点；仍请写出该 Frame 所在的 Page 名称和“放在它的右侧空白处”或“放在画布空白处”。
+
+### 推荐直接复制的日常提示词
+
+```text
+使用 qifu-drawer-form，在 Figma 中生成右侧抽屉。
+
+目标 Figma 文件：<粘贴 Figma 文件或节点链接>
+目标画布：<Figma Page 名称，例如 测试>
+落点：<画布空白处创建新的 1366×768 Scene / 放在 <参考 Frame 名称> 的右侧空白处>。
+不要新建 Figma Page；只在上述目标画布内生成。
+
+平台：<智客星 / 毓数 / 智能运营平台>
+platformKey：<zhikexing / yushu / zhineng-yunying>
+themeKey：<zhikexing-green / yushu-green / smartops-blue>
+
+抽屉标题：<新建 / 编辑 / 查看><业务对象>。
+字段：<字段名> <控件> <必填或选填>；<字段名> <控件> <必填或选填，默认值“...”或选项“...”>。
+底部按钮：<取消 / 关闭>、<确定 / 保存>。
+background.source：AUTO。
+```
+
+例如，最普通的“新建活动”可以直接这样写：
+
+```text
+使用 qifu-drawer-form，在 Figma 中生成右侧抽屉。
+目标 Figma 文件：https://www.figma.com/design/<文件 ID>
+目标画布：测试
+落点：画布空白处创建新的 1366×768 Scene。
+不要新建 Figma Page；只在“测试”画布内生成。
+
+平台：智客星
+platformKey：zhikexing
+themeKey：zhikexing-green
+抽屉标题：新建活动。
+字段：活动名称 Input 必填，placeholder“请输入活动名称”；活动类型 Select 必填，选项“拉新/促活/召回”；活动有效期 DateRange 必填；活动说明 Textarea 选填。
+底部按钮：取消、确定。
+background.source：AUTO。
+```
+
+## 最短调用方式（只用于快速试做）
+
+快速试做仍需说清四件事：**目标画布、平台、抽屉标题、字段**。例如：
 
 ```text
 使用 qifu-drawer-form，在智客星生成“新建活动”右侧抽屉。
+目标 Figma 文件：<链接>；目标画布：<Page 名称>；落点：画布空白处。
 字段：活动名称 Input 必填；活动类型 Select 必填；有效期 DateRange 必填。
 ```
 
@@ -86,6 +139,10 @@ presentationMode：DRAWER_OPEN_WITH_BACKGROUND
 background.source：AUTO
 <已有正式列表页时填写> background.sourceNode：<已验收列表页节点 ID>
 
+目标 Figma 文件：<粘贴 Figma 文件或节点链接>
+目标画布：<Figma Page 名称>
+落点：<画布空白处创建新的 1366×768 Scene / 放在参考 Frame 右侧空白处>
+
 抽屉标题：<新建 / 编辑 / 查看><业务对象>。
 业务页面：<当前列表页或业务模块名称>。
 
@@ -107,8 +164,32 @@ background.source：AUTO
 | `<字段标签>` | 用户在页面上看到的字段名 | 策略名称、有效期 |
 | `<控件>` | 从 `Input / Select / DateRange / Textarea` 等已支持类型中选 | `DateRange` |
 | `background.sourceNode` | 仅已有验收通过的真实列表页时填写 | `5079:9729` |
+| `<目标 Figma 文件>` | 粘贴目标设计文件或具体节点链接 | `https://www.figma.com/design/...` |
+| `<目标画布>` | 写 Figma 左侧图层面板中的 Page 名称，不写抽屉标题 | `测试` |
+| `<落点>` | 说明新 Scene 相对现有内容的位置 | `放在“活动管理”Frame 的右侧空白处` |
 
 `background.source=AUTO` 是默认安全写法：优先使用你提供的真实列表页，其次使用平台模板；都没有时仍生成带中性结构预览底图和蒙层的 `1366 × 768` 打开态，不会只留下裸抽屉。正式平台页面是否通过，仍以真实列表页底图验收为准。
+
+## 字段和组件怎么写
+
+提示词里不需要写 Figma 节点 ID，也不需要背完整组件路径。只要按“**字段名 + 控件类型 + 必填/选填 + 可选的默认值、placeholder、选项**”写，Skill 会把控件类型映射为真实组件实例。需要严格指定时，使用下表中的控件类型英文名。
+
+| 业务字段 | 在提示词中这样写 | Skill 使用的真实组件 | 补充规则 |
+| --- | --- | --- | --- |
+| 名称、编码、短文本 | `策略名称 Input 必填，placeholder“请输入策略名称”` | `Input / Base-V2` | 默认 304px，单行文本 |
+| 描述、备注 | `策略说明 Textarea 选填，rows=4` | `Textarea` | 默认整行宽度 |
+| 连续数字、金额 | `预算金额 InputNumber 必填，范围 0-100000，精度 2 位` | `InputNumber` | 写清单位、范围和精度 |
+| 固定比例、固定档位 | `灰度比例 Select 必填，选项“10%/30%/50%/100%”` | `Select / Base` | 只能从预设档位中选择时使用 |
+| 少量单选 | `触达方式 Radio.Group 必填，选项“短信/站内信/电话”` | `Radio.Group` | 选项 4 个以内且文案短时使用 |
+| 下拉单选 | `活动类型 Select 必填，选项“拉新/促活/召回”` | `Select / Base` | 选项多或文案长时使用 |
+| 下拉多选 | `关联运营策略 Multiple Select 必填，已选项显示可关闭 Tag` | `Select / Base` 多选 + `Tag / small` | 多选时明确写 `Multiple Select` |
+| 单日、日期范围 | `生效日期 DatePicker 必填`；`有效期 DateRange 必填` | `DatePicker / Date`；`DatePicker / DateRange` | 日期范围不要手画日历图标 |
+| 开关、勾选 | `是否启用 Switch，默认值“开启”`；`同意协议 Checkbox 必填` | `Switch`；`Checkbox` | 只表达 true/false 时使用 |
+| 地区、组织层级 | `所属组织 Cascader 必填` | `Cascader / Base` | 写清层级对象 |
+| 人员、客户搜索 | `负责人 Search 必填，按姓名或工号搜索` | `Search / Base` 或带搜索的 `Select` | 写清搜索对象和搜索条件 |
+| 文件 | `素材 Upload 选填，限制 JPG/PNG，最大 10MB` | `Upload` | 上传说明和预览来自真实组件 |
+
+表格不是普通字段。需要“选择器下方展示明细”时，直接写成组合句：`主模板 Select 必填；选择后在下方展示模板明细表`。需要分页时，再补：`分页：共 42 条，每页 10 条`。这会触发对应的表格组合，而不是把表格当成 Input。
 
 ## 平台和主题是两件事
 
