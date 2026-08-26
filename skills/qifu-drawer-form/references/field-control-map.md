@@ -133,6 +133,6 @@ FormItem / overFrequencyRule
 - DatePicker → `size=M`
 - Radio.Group / Checkbox → 行高 32px
 
-**铁律**:同一抽屉内不允许混用 28px 和 32px 两种高度;在 840px `Wide` 抽屉中也不调到 36px——保持 32px 统一。
+**铁律**:同一抽屉内不允许混用 28px 和 32px 两种高度;在 840px `Wide` 或 960px `Extra Wide` 抽屉中也不调到 36px——保持 32px 统一。
 
 明确要求"紧凑模式"时,改用 28px 全联动:`Input size=S`、`Select size=MD`、`Button size=small`。

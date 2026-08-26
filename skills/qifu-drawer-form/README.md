@@ -55,9 +55,9 @@ platformKey：<zhineng-yunying / zhikexing>
 themeKey：<smartops-blue / zhikexing-green>
 componentMode：REAL_COMPONENT_ONLY
 compositionName：Qifu Drawer Form / Sectioned Create
-widthTier：680
+widthTier：600
 presentationMode：DRAWER_OPEN_WITH_BACKGROUND
-background.source：<AUTO / TEMPLATE / EXISTING_LIST_PAGE>
+background.source：<AUTO / TEMPLATE / EXISTING_LIST_PAGE / STRUCTURE_PREVIEW>
 <使用已有已验收列表页时填写> background.sourceNode：<列表页节点 ID>
 
 分区：
@@ -71,6 +71,8 @@ background.source：<AUTO / TEMPLATE / EXISTING_LIST_PAGE>
 `目标 Figma 文件 + 目标 Page + 指定落点` 决定生成到哪里；`页面平台 / platformKey / themeKey` 只决定页面壳、业务术语和主题，不能代替 Figma 生成位置。
 
 `background.source=AUTO` 会优先使用已验收列表页；未提供时生成 `1366 × 768` 的结构预览底图 + 蒙层 + 抽屉，不会生成裸抽屉。
+
+普通表单默认 `widthTier：600`；`680` 仅用于数据详情和智能运营策略关联 Golden Sample，复杂双列使用 `840`，多个复合规则区或双列表格使用 `960`。
 
 ## 两份案例提示词
 
@@ -109,7 +111,7 @@ platformKey：zhikexing
 themeKey：zhikexing-green
 componentMode：REAL_COMPONENT_ONLY
 compositionName：Qifu Drawer Form / Sectioned Create
-widthTier：680
+widthTier：600
 presentationMode：DRAWER_OPEN_WITH_BACKGROUND
 background.source：TEMPLATE
 

@@ -1,6 +1,6 @@
 # 标准抽屉表单页蓝图
 
-> `Qifu Drawer Form / Data Detail with Table` 是本蓝图的专用例外：完整结构、680px 宽度、16px Body 安全边距、20/24 内容卡片、文本样式和表格外框规则以 [数据详情抽屉 Golden Sample](golden-sample-data-detail-drawer.md) 为准。不要把下文普通 Create/Edit 表单的 640px、24px Body padding 或 Footer 规则覆盖到该组合。
+> `Qifu Drawer Form / Data Detail with Table` 是本蓝图的专用例外：完整结构、680px 宽度、16px Body 安全边距、20/24 内容卡片、文本样式和表格外框规则以 [数据详情抽屉 Golden Sample](golden-sample-data-detail-drawer.md) 为准。不要把下文普通 Create/Edit 表单的 600px、24px Body padding 或 Footer 规则覆盖到该组合。
 
 ## 目录
 
@@ -52,16 +52,17 @@ Drawer (position=right, width=widthTier, mask=true, maskClosable=false)
 
 ## 3. 宽度阶梯
 
-抽屉宽度只允许从 3 档选择,不任意取值:
+抽屉宽度只允许从 5 档选择,不任意取值:
 
 | 档位 | 宽度 | 适用场景 | 典型 columnMode |
 | --- | ---: | --- | --- |
 | Narrow | 480px | 字段少、控件短、无说明文案 | single |
-| Standard | 640px | 默认;普通新建/编辑抽屉 | single(可 double 列于宽字段) |
+| Standard | 600px | 默认;普通新建/编辑抽屉 | single |
 | Data Detail | 680px | 摘要 + 筛选 + 内嵌表格的详情抽屉 | single + table |
 | Wide | 840px | 含双列布局、复杂表格/树、说明文案多 | double |
+| Extra Wide | 960px | 多个复合规则区、双列表格或超长字段组 | double + composite |
 
-普通表单默认使用 **Standard 640px**；`Data Detail with Table` 固定使用 **Data Detail 680px**；字段超过 12 个或显式要求分双列时使用 Wide。Narrow 只用于 4–6 个纯文字字段的极简单场景。
+普通表单默认使用 **Standard 600px**；`Data Detail with Table` 和已批准的智能运营策略关联 Golden Sample 固定使用 **Data Detail 680px**；显式双列或 13–18 字段使用 Wide；多个复合规则区、双列表格或超过 18 字段使用 Extra Wide。Narrow 只用于 4–6 个纯文字字段的极简单场景。
 
 ## 4. Header 与 Footer
 

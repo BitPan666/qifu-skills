@@ -21,7 +21,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 - 当抽屉包含“摘要信息 + 区块标题 + 筛选控件 + 内嵌表格/分页”时，完整读取[数据详情抽屉 Golden Sample](references/golden-sample-data-detail-drawer.md)，并使用 `Qifu Drawer Form / Data Detail with Table`。
 - 当 `platformKey=zhineng-yunying` 且表单包含“主模板 + 模板明细表”或“关联运营策略 + 多选选择器 + 策略明细表”时，完整读取[智能运营策略关联抽屉 Golden Sample](references/golden-sample-smartops-strategy-drawer.md)，并使用 `Qifu Drawer Form / Sectioned Create`。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
-- 当创建正式抽屉交付时，必须完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料；智客星默认使用该协议的模板底图。
+- 当创建正式抽屉交付时，必须完整读取[智客星列表页底图协议](references/zhikexing-list-background.md)，以及其中列出的 `zhikexing-list-page` 资料；智客星默认按该协议的 `AUTO` 链路解析底图。
 - 当用户指定 `PORTABLE_KIT` 或说明没有正式组件库权限时,完整读取[Portable Kit 模式](references/portable-kit.md)与[Portable 组件清单](references/portable-component-manifest.json)。
 - 组件名 / 节点 ID / 发布 Key 全部复用[组件映射](../qifu-shared/references/component-map.md),不在 `SKILL.md` 重复维护。
 
@@ -46,7 +46,7 @@ background        默认 AUTO，必须先创建 1366 x 768 Scene；不允许默�
   ├─ sourceNode   EXISTING_LIST_PAGE 时必填
   ├─ sidePath[]   底图菜单路径，仅修改模板中已存在的菜单状态
   └─ pageName     底图业务页名称，仅用于 Scene 命名
-widthTier        480 / 640 / 680 / 840;普通表单默认 640，数据详情表格组合固定 680
+widthTier        480 / 600 / 680 / 840 / 960;普通表单默认 600，数据详情表格组合固定 680
 maskClosable     默认 false
 escClosable      默认 false
 sections[]       1..N 个分区,按业务顺序排列
@@ -150,7 +150,7 @@ targetPlacement   生成落点:画布空白处 | 参考 Frame 右侧空白处 | 
 2. 按[平台与主题切换协议](references/platform-theme-switching.md)解析 `platformKey / platformName / themeKey / themePrimary`。平台缺失时使用 `qifu-generic`,不得默认套用毓数。
 3. 解析 `presentationMode`：未指定时固定为 `DRAWER_OPEN_WITH_BACKGROUND`。同时解析 `background.source`：`AUTO` 按“已验收 EXISTING_LIST_PAGE → 平台 TEMPLATE → STRUCTURE_PREVIEW”顺序选择；`OVERLAY_ON_ZHIKEXING_LIST` 视为智客星旧提示词兼容别名；`STANDALONE_DEBUG` 只允许在用户明确说“内部调试抽屉本体/不交付”时使用。
 4. 先从[抽屉组合注册表](references/drawer-compositions.md)确定唯一的 `compositionName`:精确匹配的优先,其次按规则推断,无法区分默认 `Sectioned Create`。不得临时创造近义名称或把业务对象名写进组合名。
-5. 含摘要、筛选和内嵌表格的数据详情抽屉使用 `Qifu Drawer Form / Data Detail with Table` 与 680px；其余抽屉按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480;7–15 字段默认 640;> 12 字段或显式双列用 840。
+5. 含摘要、筛选和内嵌表格的数据详情抽屉使用 `Qifu Drawer Form / Data Detail with Table` 与 680px；智能运营策略关联 Golden Sample 也固定 680px。其余抽屉按字段数与分组判断 `widthTier`:≤ 6 字段无分组可选 480；7–15 字段默认 600；显式双列或 13–18 字段用 840；多个复合规则区、双列表格或超过 18 字段用 960。
 6. 按 [field-control-map](references/field-control-map.md) 为每个字段分配控件与默认 widthTier。
 7. 将操作分为 Header 关闭、Body 局部操作、Footer 次操作和唯一主操作；同一动作只出现一次。
 8. 在 DrawerSpec 中**显式列出**哪些字段是必填,哪些是禁用态及其条件,不允许留空让 AI 自行猜。
@@ -176,7 +176,7 @@ targetPlacement   生成落点:画布空白处 | 参考 Frame 右侧空白处 | 
 
 ### 3. 创建抽屉骨架
 
-正式交付时必须先创建 `1366 x 768` 的 `Scene / Drawer / <pageName> / <drawerTitle>`，再放入 `Background`、其上创建 `Overlay Mask`，最后把 Drawer 放在最上层并右侧贴边。默认 `background.source=AUTO`，不得生成只有 480/640/680/840px 的顶层裸抽屉。
+正式交付时必须先创建 `1366 x 768` 的 `Scene / Drawer / <pageName> / <drawerTitle>`，再放入 `Background`、其上创建 `Overlay Mask`，最后把 Drawer 放在最上层并右侧贴边。默认 `background.source=AUTO`，不得生成只有 480/600/680/840/960px 的顶层裸抽屉。
 
 - `EXISTING_LIST_PAGE` / `TEMPLATE`：Background 必须是完整真实列表页，按[智客星列表页底图协议](references/zhikexing-list-background.md)验证。
 - `STRUCTURE_PREVIEW`：Background 必须是同一 Scene 内的中性后台结构预览，至少包含 Header、左侧导航区、内容标题区、筛选区、表格区和分页区的布局边界；Overlay Mask 覆盖完整 Scene。预览背景只表达页面结构，不写其他平台菜单、不放业务控件截图，也不标记为目标平台正式页面。
@@ -203,7 +203,7 @@ Drawer / <pageName> / Create / <compositionName>
 └── Audit / Missing Components(仅有缺口时,放 Drawer 外右侧)
 ```
 
-抽屉外层用 `frame` 直接管理,不创建"DrawerShell"母版;抽屉宽度档位 = [page-blueprint](references/page-blueprint.md) 中的 Narrow/Standard/Wide。
+抽屉外层用 `frame` 直接管理,不创建"DrawerShell"母版;抽屉宽度必须命中 [page-blueprint](references/page-blueprint.md) 中的 Narrow/Standard/Data Detail/Wide/Extra Wide 五档之一。
 
 `Qifu Drawer Form / Data Detail with Table` 不套用上面的通用表单 Section 骨架。必须按 [Golden Sample](references/golden-sample-data-detail-drawer.md) 创建 `1366×768` Scene：完整真实列表页底图 < Overlay Mask < 右侧 680px 抽屉；不得用 IMAGE 矩形或截图充当底图。抽屉内部使用 16px 内容安全边距、20/24 内容卡片、真实 Select / Table Shell-V2 / Pagination-V2 实例，以及分页器与表格描边分离的结构。
 
@@ -340,7 +340,7 @@ Control / overFrequencyRule
 - 所有设计系统元素仍为 `INSTANCE`,且主组件名称正确。
 - `REAL_COMPONENT_ONLY` 下不得出现任何 `Fallback /` 节点;`PORTABLE_KIT` 下所有控件 INSTANCE 的 `mainComponent` 必须属于当前文件本地组件;`VISUAL_FALLBACK` 下必须存在对应审计。
 - `compositionName` 与注册表完全一致,且 Section 数、列模式、Footer 按钮组、默认状态符合该组合;没有出现未注册别名。
-- 抽屉宽度属于 `480 / 640 / 840` 三档。
+- 抽屉宽度属于 `480 / 600 / 680 / 840 / 960` 五档；普通表单默认 600，680 仅用于数据详情或已批准的 Golden Sample。
 - Header 仅含 Title + CloseBtn,无面包屑/tabs;Title 使用动宾且与 `drawerTitle` 一致。
 - Footer 按钮顺序正确,主操作唯一;危险动作使用 `Popconfirm / Danger` 且位于最左。
 - Section 间距 24px、字段间距 16px、SectionTitle padding-bottom 12px 且下边 1px。

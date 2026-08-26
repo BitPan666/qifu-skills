@@ -49,7 +49,8 @@ Drawer / 新增短信模板策略
 ## 完整抽屉提示词
 
 ```text
-使用 qifu-drawer-form，在智能运营平台生成“新增短信模板策略”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 文件或节点链接> 的 <目标 Page 画布> 中 <指定落点> 生成“新增短信模板策略”右侧抽屉。
+不要新建 Figma Page；只在上述目标画布内生成。
 platformKey：zhineng-yunying
 platformName：智能运营平台
 themeKey：smartops-blue
@@ -76,7 +77,8 @@ widthTier：680
 ## 完整页面生成示例提示词
 
 ```text
-使用 qifu-drawer-form，根据“智能运营平台策略关联抽屉 Golden Sample”生成一个完整打开态页面。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 文件或节点链接> 的 <目标 Page 画布> 中 <指定落点>，根据“智能运营平台策略关联抽屉 Golden Sample”生成一个完整打开态页面。
+不要新建 Figma Page；只在上述目标画布内生成。
 
 平台：智能运营平台。
 platformKey：zhineng-yunying。

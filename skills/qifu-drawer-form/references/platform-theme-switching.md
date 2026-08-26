@@ -66,7 +66,7 @@ background.source AUTO(默认) | TEMPLATE | EXISTING_LIST_PAGE | STRUCTURE_PREVI
 - 主题切换只影响颜色变量、选中态、主按钮和轻量强调，不影响间距、字号、圆角、阴影、控件高度或 Slot 结构。
 - 正式交付必须生成 `1366×768` 完整打开态，结构固定为 `Background < Overlay Mask < Drawer`，不得交付裸抽屉。
 - `background.source=AUTO` 是默认值：优先使用已验收 `EXISTING_LIST_PAGE`，其次平台 `TEMPLATE`，均不可用时创建 `STRUCTURE_PREVIEW`。预览背景只展示 Header、导航、筛选、表格、分页五类结构，不是正式平台页面。
-- 智客星未指定 `background` 时，默认使用已验证智客星列表页模板；`OVERLAY_ON_ZHIKEXING_LIST` 作为旧提示词兼容写法等同完整打开态。
+- 智客星未指定 `background` 时同样使用 `AUTO`：优先使用用户指定且已验收的智客星列表页，其次使用智客星模板，均不可用时使用 `STRUCTURE_PREVIEW`；`OVERLAY_ON_ZHIKEXING_LIST` 作为旧提示词兼容写法等同完整打开态。
 - 智能运营平台在平台壳尚未建立前，默认以 `STRUCTURE_PREVIEW` 交付打开态结构；用户提供已验收 `EXISTING_LIST_PAGE` 后才升级为正式平台页面。不得借用毓数或智客星菜单冒充。
 - 交付结果必须回报 `platformKey / platformName / themeKey / themePrimary` 和主题变量回读结果。
 
@@ -75,7 +75,8 @@ background.source AUTO(默认) | TEMPLATE | EXISTING_LIST_PAGE | STRUCTURE_PREVI
 ### 智客星绿色主题完整打开态
 
 ```text
-使用 qifu-drawer-form，在智客星平台生成“超频流控配置”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 文件或节点链接> 的 <目标 Page 画布> 中 <指定落点> 生成“超频流控配置”右侧抽屉。
+不要新建 Figma Page；只在上述目标画布内生成。
 platformKey：zhikexing
 themeKey：zhikexing-green
 展示方式：完整页面打开态
@@ -86,7 +87,8 @@ componentMode：REAL_COMPONENT_ONLY
 ### 智客星旧写法兼容
 
 ```text
-使用 qifu-drawer-form，在智客星平台生成“超频流控配置”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 文件或节点链接> 的 <目标 Page 画布> 中 <指定落点> 生成“超频流控配置”右侧抽屉。
+不要新建 Figma Page；只在上述目标画布内生成。
 platformKey：zhikexing
 themeKey：zhikexing-green
 presentationMode：OVERLAY_ON_ZHIKEXING_LIST
@@ -97,7 +99,8 @@ background.source：TEMPLATE
 ### 蓝色主题智能运营平台
 
 ```text
-使用 qifu-drawer-form，在智能运营平台生成“超频流控配置”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 文件或节点链接> 的 <目标 Page 画布> 中 <指定落点> 生成“超频流控配置”右侧抽屉。
+不要新建 Figma Page；只在上述目标画布内生成。
 platformKey：zhineng-yunying
 platformName：智能运营平台
 themeKey：smartops-blue
