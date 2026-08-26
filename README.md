@@ -46,9 +46,9 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 ### 页面 Archetype Skills
 
 | Skill | 覆盖场景 | 配方数 | 标准组合 |
-|---|---|---|---:|---|
+|---|---|---:|---|
 | [qifu-list-page](./skills/qifu-list-page/) | 列表 + 筛选 + 表格 + 批量 | 6 | Basic Table / Basic Filter / Advanced Filter / Selectable / Loading / Empty |
-| [qifu-drawer-form](./skills/qifu-drawer-form/) | 右侧抽屉内新建 / 编辑 / 查看 | 5 | Simple Create / Sectioned Create / Advanced Create / Edit / Readonly |
+| [qifu-drawer-form](./skills/qifu-drawer-form/) | 右侧抽屉内新建 / 编辑 / 查看 | 6 | Simple Create / Sectioned Create / Advanced Create / Edit / Readonly / Data Detail with Table |
 | [qifu-detail-page](./skills/qifu-detail-page/) | 详情查看 + 局部操作 | 4 | Flat / Tabbed / Master Detail / Readonly |
 
 **真实业务流串起来**:
@@ -87,7 +87,8 @@ qifu-skills-repo/
 │   │   └── README.md                ← 单个 skill 的详细说明
 │   ├── qifu-drawer-form/            ← 同结构
 │   └── qifu-detail-page/            ← 同结构
-└── screenshots/                     ← 全仓库统一效果截图(待补)
+└── skills/qifu-drawer-form/assets/
+    └── screenshots/                 ← 已验证的 Figma 场景截图
 ```
 
 
@@ -109,17 +110,40 @@ qifu-skills-repo/
 
 ## 快速开始
 
+### 使用前提
+
+- 使用支持 Figma Connector / `use_figma` 的 Codex 或 Claude Code；
+- 已在自己的 AI 客户端连接个人 Figma 账号；
+- 对目标业务文件拥有编辑权限，并能访问「奇富科技中后台组件库 新」；
+- 目标文件需要能使用组件库已发布的组件实例。
+
+GitHub 只提供 Skill、规则、示例和截图，不会提供 Figma 登录状态、设计文件权限或任何个人凭证。
+
+### 方式一：直接在仓库中使用
+
+适合希望持续接收更新、同时使用多个 Skill 的同事：
+
+```bash
+git clone https://github.com/jingjingtu/qifu-skills.git
+cd qifu-skills
+```
+
+用 Codex 或 Claude Code 打开该目录；在提示词中写明要使用的 Skill 和目标 Figma 文件。仓库内的 `AGENTS.md` 与共享资料会一起被读取。
+
+### 方式二：安装到个人 Skills（推荐）
+
+先克隆一次仓库，再把需要的 Skill 和 `qifu-shared` 软链到个人目录。`qifu-shared` 是组件映射和平台资料，不能只安装一个页面 Skill 而漏掉它。
+
 ### 安装到 Claude Code
 
 ```bash
-# 1. 克隆
-git clone git@github.com:jingjingtu/qifu-skills.git
-cd qifu-skills
+# 假设仓库已克隆到 ~/Documents/qifu-skills
+cd ~/Documents/qifu-skills
 
-# 2. 逐个把 skill 软链到 ~/.claude/skills（qifu-shared 是共享依赖包，必须一并链入）
+# 安装全部 Skill；只安装抽屉时保留 qifu-shared 和 qifu-drawer-form
 mkdir -p ~/.claude/skills
 for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
-  ln -sf "$(pwd)/skills/$s" ~/.claude/skills/$s
+  ln -sfn "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 
 # 3. 在 Claude Code 中触发
@@ -129,15 +153,50 @@ done
 ### 安装到 Codex
 
 ```bash
-# 1. 同上克隆
+# 假设仓库已克隆到 ~/Documents/qifu-skills
+cd ~/Documents/qifu-skills
 
-# 2. 软链到 Codex skills 目录（qifu-shared 是共享依赖包，必须一并链入）
+# 安装全部 Skill；只安装抽屉时保留 qifu-shared 和 qifu-drawer-form
 mkdir -p ~/.codex/skills
 for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
-  ln -sf "$(pwd)/skills/$s" ~/.codex/skills/$s
+  ln -sfn "$(pwd)/skills/$s" ~/.codex/skills/$s
 done
 # Codex 通过每个 skill 下的 agents/openai.yaml 识别入口
 ```
+
+安装后新开一个 Codex 或 Claude Code 任务，让客户端重新发现 Skill。更新时回到仓库目录执行 `git pull`，软链不需要重新创建。
+
+## 提示词结构与示例
+
+先选择页面类型，再复制相应模板；组件名、节点 ID、菜单层级、Slot 和属性写入规则已经在 Skill 内，不需要在提示词里重复。
+
+| 你要生成什么 | 使用哪个 Skill | 从哪里复制提示词 |
+| --- | --- | --- |
+| 筛选、表格、批量操作的列表页 | `qifu-list-page` | [列表页 README](./skills/qifu-list-page/README.md) |
+| 新建、编辑、查看的右侧抽屉 | `qifu-drawer-form` | [抽屉 README](./skills/qifu-drawer-form/README.md#通用可替换模板) |
+| 摘要、信息分组和局部操作的详情页 | `qifu-detail-page` | [详情页 README](./skills/qifu-detail-page/README.md) |
+
+### 抽屉提示词最小结构
+
+```text
+使用 qifu-drawer-form，在【平台】生成“【新建 / 编辑 / 查看】【业务对象】”右侧抽屉。
+platformKey：【平台标识】；themeKey：【主题标识】；background.source：AUTO。
+分区【基础信息】：【字段标签】 【Input / Select / DateRange / Textarea】 【必填 / 选填】。
+分区【任务规则】：【字段标签】 【控件】 【必填 / 选填】。
+底部按钮：【取消 / 关闭】、【确定 / 保存】。
+```
+
+示例：
+
+```text
+使用 qifu-drawer-form，在智能运营平台生成“新增短信模板策略”右侧抽屉。
+platformKey：zhineng-yunying；themeKey：smartops-blue；background.source：AUTO。
+分区基础信息：策略名称 Input 必填；有效期 DateRange 必填。
+分区策略配置：主模板 Select 必填并在下方展示模板明细表；关联运营策略 Multiple Select 必填并在下方展示策略明细表；灰度比例 Select 必填，默认值“100%”。
+底部按钮：关闭、保存。
+```
+
+普通表单使用最小结构即可；存在“选择器 + 明细表”、多个 Tag、分页或平台固定细节时，改用 [抽屉 README 的 Golden Sample 提示词](./skills/qifu-drawer-form/README.md#示例提示词)。
 
 ### 在 Figma 中使用
 
@@ -151,15 +210,12 @@ done
 
 ## 截图展示
 
-> 待补充。首次上传后,请按以下排列添加:
+> 已提交两张可追溯到 Figma Golden Sample 的抽屉截图。它们用于展示真实生成结果，不替代组件实例、结构或平台底图验收。
 
 | 缩略 | 说明 | 来源 |
 |---|---|---|
-| `screenshots/01-list-page.png` | qifu-list-page 在毓数平台生成的列表页全景 | 真实 prompt 跑一次后截图 |
-| `screenshots/02-drawer-form.png` | qifu-drawer-form 生成的"新建触发式任务"抽屉 | 已有 Figma 文件 |
-| `screenshots/03-detail-page.png` | qifu-detail-page 生成的任务详情页 | 真实 prompt 跑一次后截图 |
-| `screenshots/04-component-tree.png` | Figma 内的组件实例结构(展示"非手绘") | 任一页面右侧 Inspector 截图 |
-| `screenshots/05-audit-missing.png` | Audit / Missing Components 缺口清单 | 跑出 Fallback 时截图 |
+| [`smartops-strategy-drawer.png`](./skills/qifu-drawer-form/assets/screenshots/smartops-strategy-drawer.png) | 智能运营平台“新增短信模板策略”打开态 | [Figma node 5066:9446](https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/%E5%A5%87%E5%AF%8C%E7%A7%91%E6%8A%80%E4%B8%AD%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E5%BA%93-%E6%96%B0?node-id=5066-9446) |
+| [`data-detail-drawer.png`](./skills/qifu-drawer-form/assets/screenshots/data-detail-drawer.png) | 数据详情抽屉：摘要、筛选、明细表与分页 | [Figma node 4725:1548](https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/%E5%A5%87%E5%AF%8C%E7%A7%91%E6%8A%80%E4%B8%AD%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E5%BA%93-%E6%96%B0?node-id=4725-1548) |
 
 ## 边界声明
 

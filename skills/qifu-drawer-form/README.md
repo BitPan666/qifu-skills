@@ -28,7 +28,7 @@
 ```bash
 git clone https://github.com/jingjingtu/qifu-skills.git ~/Documents/qifu-skills
 mkdir -p ~/.codex/skills
-ln -sfn ~/Documents/qifu-skills/shared ~/.codex/shared
+ln -sfn ~/Documents/qifu-skills/skills/qifu-shared ~/.codex/skills/qifu-shared
 ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.codex/skills/qifu-drawer-form
 ```
 
@@ -37,7 +37,7 @@ ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.codex/skills/qifu-dra
 ```bash
 git clone https://github.com/jingjingtu/qifu-skills.git ~/Documents/qifu-skills
 mkdir -p ~/.claude/skills
-ln -sfn ~/Documents/qifu-skills/shared ~/.claude/shared
+ln -sfn ~/Documents/qifu-skills/skills/qifu-shared ~/.claude/skills/qifu-shared
 ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.claude/skills/qifu-drawer-form
 ```
 
