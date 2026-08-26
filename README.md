@@ -30,7 +30,7 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 |---|---|---|---|
 | L1 | Design Token | 颜色 / 字体 / 圆角 / 间距 / 边框 | `qifu-shared/references/component-map.md` 第一段 |
 | L2 | Component | 真实组件实例 + 节点 ID + 发布 Key | `qifu-shared/references/component-map.md` |
-| L3 | Pattern | Filter Bar / Action Bar / DetailBlock 等组合区块 | 各 skill 的 `references/page-blueprint.md` |
+| L3 | Pattern | Filter Bar / Action Bar / DetailBlock 等组合区块 | 各 skill 的 `references/page-rules.md` / `references/page-blueprint.md` |
 | L4 | Page Archetype | 列表 / 抽屉表单 / 详情 / 向导… | `skills/qifu-*`(本仓库主资产) |
 | L5 | Platform Adapter | 平台导航、品牌、术语、权限、业务槽位 | `qifu-shared/references/platform-*.md` |
 | L6 | Business Page | 业务菜单树、用户上下文、业务名词 | 具体交付页面 |
@@ -76,13 +76,20 @@ qifu-skills-repo/
 │   │   ├── references/
 │   │   │   ├── component-map.md     ← 全部真实组件的节点 ID / 发布 Key / 属性
 │   │   │   ├── platform-yushu.md    ← 毓数平台导航基线 / 菜单树 / 图标映射
+│   │   │   ├── platform-zhikexing.md← 智客星平台基线 / copyTemplate 模板策略
 │   │   │   └── platform-generic.md  ← 通用平台适配器
 │   │   └── theme/                   ← Figma 变量快照(tokens.json / source / less)
 │   ├── qifu-list-page/
 │   │   ├── SKILL.md
 │   │   ├── references/
-│   │   │   ├── page-blueprint.md
-│   │   │   └── table-compositions.md
+│   │   │   ├── page-rules.md
+│   │   │   ├── component-map.md
+│   │   │   ├── component-invocation-contract.md
+│   │   │   ├── structural-validation.md
+│   │   │   ├── platform-yushu.md
+│   │   │   └── platform-zhikexing.md
+│   │   ├── scripts/
+│   │   ├── tests/
 │   │   ├── agents/openai.yaml
 │   │   └── README.md                ← 单个 skill 的详细说明
 │   ├── qifu-drawer-form/            ← 同结构
@@ -140,9 +147,9 @@ cd qifu-skills
 # 假设仓库已克隆到 ~/Documents/qifu-skills
 cd ~/Documents/qifu-skills
 
-# 安装全部 Skill；只安装抽屉时保留 qifu-shared 和 qifu-drawer-form
+# 安装全部 Skill；只安装抽屉时保留 qifu-shared、qifu-drawer-form 和 zhikexing-list-page
 mkdir -p ~/.claude/skills
-for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page zhikexing-list-page; do
   ln -sfn "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 
@@ -156,9 +163,9 @@ done
 # 假设仓库已克隆到 ~/Documents/qifu-skills
 cd ~/Documents/qifu-skills
 
-# 安装全部 Skill；只安装抽屉时保留 qifu-shared 和 qifu-drawer-form
+# 安装全部 Skill；只安装抽屉时保留 qifu-shared、qifu-drawer-form 和 zhikexing-list-page
 mkdir -p ~/.codex/skills
-for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page zhikexing-list-page; do
   ln -sfn "$(pwd)/skills/$s" ~/.codex/skills/$s
 done
 # Codex 通过每个 skill 下的 agents/openai.yaml 识别入口
@@ -203,6 +210,50 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 - AI 客户端已配置 Figma MCP 工具(`use_figma`、`figma-generate-design` 等)
 
 测试 / 效果验证 / Skill 回归时,统一放入 Page **测试**(node `3497:651`),禁止新建近义 Page。
+
+## 提示词示例
+
+列表页标准模板:
+
+```text
+使用 qifu-list-page Skill，并调用 @figma 插件，在【Figma 地址】的【目标 Page】生成【页面名称】。
+平台：【yushu / zhikexing / generic】。
+当前菜单路径：【一级菜单 > 二级菜单 > 三级菜单】。
+页面标题：【显示 / 不显示】，标题文案：【标题】。
+筛选字段：【字段名 + 控件类型】。
+左侧是否有多选框：【是 / 否，不填默认否】。
+列表操作栏左侧：【按钮】。
+列表操作栏右侧：【按钮】。
+主操作：【按钮文案】，位置：【列表最左侧 / 列表最右侧】。
+表格列：【列名】。
+行操作：【操作】。
+状态枚举：【状态名】。
+示例数据：【条数】；分页：【总数、每页条数】；画板尺寸：【1366×768 / 1920×1080】。
+补充要求：【菜单路径只控制左侧菜单 / 不生成面包屑 / 其他要求】。
+```
+
+完整示例:
+
+```text
+使用 qifu-list-page Skill，并调用 @figma 插件，在【https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/奇富科技中后台组件库-新?node-id=3497-651】的“测试”Page 生成“数据质量告警记录列表页”。
+平台：yushu。
+当前菜单路径：风险监控 > 数据质量监控 > 告警记录。
+页面标题：显示“数据质量告警记录”。
+筛选字段：告警名称、所属项目、告警级别、处置状态、发生时间。
+表格左侧是否有多选框：是。
+列表操作栏左侧“批量确认、批量关闭”。
+主操作：“新建质量规则”，位置：列表最右侧。
+表格列：告警名称、所属项目、告警级别、负责人、处置状态、发生时间、操作。
+行操作：查看、立即处理、关闭。
+告警级别：提示、一般、严重。
+处置状态：待处理、处理中、已解决、已关闭。
+示例数据：8条；分页：总数126、每页20条；画板尺寸：1366×768。
+当前菜单路径只用于生成和选中左侧菜单层级，不在内容区域生成面包屑。
+```
+
+## 更新
+
+修改规则时先改仓库，跑完校验后再用 `./sync.sh` 同步到 Nutstore 与本地 Codex 运行目录。
 
 ## 截图展示
 
@@ -260,7 +311,7 @@ The Qifu page skills share component and navigation references. Install all four
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo jingjingtu/qifu-skills \
-  --path skills/qifu-shared skills/qifu-list-page skills/qifu-detail-page skills/qifu-drawer-form \
+  --path skills/qifu-b-end-design-system skills/qifu-shared skills/qifu-list-page skills/qifu-detail-page skills/qifu-drawer-form skills/zhikexing-list-page \
   --method git
 ```
 

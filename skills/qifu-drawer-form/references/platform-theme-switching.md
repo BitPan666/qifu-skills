@@ -86,7 +86,7 @@ componentMode：REAL_COMPONENT_ONLY
 ### 智客星旧写法兼容
 
 ```text
-使用 qifu-drawer-form 和 zhikexing-list-page，在智客星平台生成“超频流控配置”右侧抽屉。
+使用 qifu-drawer-form，在智客星平台生成“超频流控配置”右侧抽屉。
 platformKey：zhikexing
 themeKey：zhikexing-green
 presentationMode：OVERLAY_ON_ZHIKEXING_LIST

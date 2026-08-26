@@ -7,7 +7,7 @@ description: 根据业务描述、字段清单、截图或线框,在 Figma 中�
 
 将简短业务描述转换为结构清楚、可编辑、保持组件实例关系的右侧滑出抽屉表单。把参考图作为信息架构基线,不机械复刻其中的品牌、业务名称或固定字段数。
 
-本 Skill 与 [qifu-list-page](https://github.com/BitPan666/qifu-list-page) 共享同一套 5 层 AI 设计体系;L1 Token、L2 Component、L5 业务上下文是跨原型共享资产,L4 抽屉蓝图是本 Skill 独有。
+本 Skill 与 [qifu-list-page](../qifu-list-page/SKILL.md) 共享同一套 5 层 AI 设计体系;L1 Token、L2 Component、L5 业务上下文是跨原型共享资产,L4 抽屉蓝图是本 Skill 独有。
 
 ## 必读资料
 

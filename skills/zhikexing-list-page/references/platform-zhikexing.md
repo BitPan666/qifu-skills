@@ -1,5 +1,7 @@
 # 智客星平台基线
 
+> 本文件已随 `zhikexing-list-page` 并入 `qifu-list-page` 保留为兼容参考。智客星列表页的权威平台规则在 [`qifu-shared/references/platform-zhikexing.md`](../../qifu-shared/references/platform-zhikexing.md)。本文件仅供 `qifu-drawer-form` 的底图协议引用与历史兼容，请勿在本文件新增落图规则。
+
 ## 平台外壳
 
 - 顶部栏 48px，使用模板中已有的智客星 Logo、帮助、通知、头像和用户信息；不重新绘制 Logo 或用户区。

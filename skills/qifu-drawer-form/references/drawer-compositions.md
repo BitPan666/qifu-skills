@@ -4,7 +4,7 @@
 
 用稳定名称描述右侧滑出的表单抽屉结构。后续调用必须使用下表中的完整 `compositionName`;这些名称属于 Skill 的调用协议,不是 Figma 组件母版名称。
 
-与 `qifu-list-page/references/table-compositions.md` 的关系:同一份"配方协议"思想在不同原型上的复用;不得把列表页的 6 个组合名搬到抽屉,也不得临时创造第 7 个抽屉组合。
+与 `qifu-list-page/references/page-rules.md` 中列表页组合注册表的关系:同一份"配方协议"思想在不同原型上的复用;不得把列表页的 6 个组合名搬到抽屉,也不得临时创造第 7 个抽屉组合。
 
 ## 已注册组合
 

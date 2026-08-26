@@ -17,8 +17,8 @@ background
   pageName        底图业务页名称；仅用于 Scene 命名
 ```
 
-- `TEMPLATE`：复制 `zhikexing-list-page` 的人工基线 `4892:34812`，即 `Template / List Page / 智客星 / 1440 / 手动调整`，真实尺寸必须为 `1366 x 768`。
-- `EXISTING_LIST_PAGE`：复制用户明确提供的已完成智客星列表页；创建前必须验证其为 `1366 x 768`，并通过 `zhikexing-list-page` 的结构化验收。
+- `TEMPLATE`：按 `qifu-list-page` 的 `platform=zhikexing / generationStrategy=copyTemplate` 复制人工基线 `4892:34812`，即 `Template / List Page / 智客星 / 1440 / 手动调整`，真实尺寸必须为 `1366 x 768`。
+- `EXISTING_LIST_PAGE`：复制用户明确提供的已完成智客星列表页；创建前必须验证其为 `1366 x 768`，并通过 `qifu-list-page` 的智客星结构化验收。
 - 智客星未提供 `background` 时，`TEMPLATE` 为默认来源；若模板不可解析，返回 `BACKGROUND_TEMPLATE_MISSING`，不得临时手绘底图。
 - 非智客星平台未提供已批准平台模板或 `EXISTING_LIST_PAGE` 时，正式平台页面验收返回 `BACKGROUND_TEMPLATE_MISSING`；默认 `background.source=AUTO` 则生成中性 `STRUCTURE_PREVIEW + Overlay Mask + Drawer`，不得退回裸抽屉，也不得借用其他平台菜单冒充。
 
@@ -26,12 +26,13 @@ background
 
 启用前必须完整读取：
 
-- `../../zhikexing-list-page/SKILL.md`
-- `../../zhikexing-list-page/references/platform-zhikexing.md`
-- `../../zhikexing-list-page/references/component-invocation-contract.md`
-- `../../zhikexing-list-page/references/structural-validation.md`
+- `../../qifu-list-page/SKILL.md`
+- `../../qifu-list-page/references/platform-zhikexing.md`
+- `../../qifu-list-page/references/component-invocation-contract.md`
+- `../../qifu-list-page/references/structural-validation.md`
+- `../../zhikexing-list-page/SKILL.md`（兼容旧入口时读取）
 
-不得写入列表页组件的 `pageHeaderSlot`、`filterBarSlot`、`tableSlot`、`rowsSlot`、`cellsSlot` 或 `paginationSlot`。底图业务内容需要调整时，先按 `zhikexing-list-page` 单独生成并验收，再用 `EXISTING_LIST_PAGE` 引用它。
+不得写入列表页组件的 `pageHeaderSlot`、`filterBarSlot`、`tableSlot`、`rowsSlot`、`cellsSlot` 或 `paginationSlot`。底图业务内容需要调整时，先按 `qifu-list-page platform=zhikexing` 单独生成并验收，再用 `EXISTING_LIST_PAGE` 引用它。
 
 ## 场景结构
 
@@ -60,7 +61,7 @@ Scene / Drawer / <pageName> / <drawerTitle>       1366 x 768, clip content=true
 ## 调用示例
 
 ```text
-使用 qifu-drawer-form 和 zhikexing-list-page，在智客星平台查看加微方式。
+使用 qifu-drawer-form，在智客星平台查看加微方式。
 展示方式：完整页面打开态；底图使用智客星列表页模板；
 当前菜单：客户添加 / 加微方式；抽屉标题：加微方式详情；宽度：680。
 ```
