@@ -187,30 +187,12 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 | 你要生成什么 | 使用哪个 Skill | 从哪里复制提示词 |
 | --- | --- | --- |
 | 筛选、表格、批量操作的列表页 | `qifu-list-page` | [列表页 README](./skills/qifu-list-page/README.md) |
-| 新建、编辑、查看的右侧抽屉 | `qifu-drawer-form` | 先看[抽屉 README](./skills/qifu-drawer-form/README.md)的“从这里开始”，再复制模板 |
+| 新建、编辑、查看的右侧抽屉 | `qifu-drawer-form` | 直接复制[抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)中的唯一模板 |
 | 摘要、信息分组和局部操作的详情页 | `qifu-detail-page` | [详情页 README](./skills/qifu-detail-page/README.md) |
 
-### 抽屉提示词最小结构
+### 抽屉提示词
 
-```text
-使用 qifu-drawer-form，并调用 @figma 插件，在【目标 Figma 链接】的【目标 Page 画布】中【指定落点】生成“【新建 / 编辑 / 查看】【业务对象】”右侧抽屉。
-页面平台：【平台名称】；platformKey：【平台标识】；themeKey：【主题标识】；background.source：AUTO。
-分区【基础信息】：【字段标签】 【Input / Select / DateRange / Textarea】 【必填 / 选填】。
-分区【任务规则】：【字段标签】 【控件】 【必填 / 选填】。
-底部按钮：【取消 / 关闭】、【确定 / 保存】。
-```
-
-示例：
-
-```text
-使用 qifu-drawer-form，并调用 @figma 插件，在【目标 Figma 链接】的【目标 Page 画布】中【指定落点】生成“新增短信模板策略”右侧抽屉。
-页面平台：智能运营平台；platformKey：zhineng-yunying；themeKey：smartops-blue；background.source：AUTO。
-分区基础信息：策略名称 Input 必填；有效期 DateRange 必填。
-分区策略配置：主模板 Select 必填并在下方展示模板明细表；关联运营策略 Multiple Select 必填并在下方展示策略明细表；灰度比例 Select 必填，默认值“100%”。
-底部按钮：关闭、保存。
-```
-
-普通表单使用最小结构即可；存在“选择器 + 明细表”、多个 Tag、分页或平台固定细节时，改用 [抽屉 README 的 Golden Sample 提示词](./skills/qifu-drawer-form/README.md#示例提示词)。
+`qifu-drawer-form` 的公开文档只保留智能运营平台的一套模板和一份“新增短信模板策略”示例，避免多个平台和场景的提示词混在一起。请直接查看 [抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)。
 
 ### 在 Figma 中使用
 
@@ -229,7 +211,6 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 | 缩略 | 说明 | 来源 |
 |---|---|---|
 | [`smartops-strategy-drawer.png`](./skills/qifu-drawer-form/assets/screenshots/smartops-strategy-drawer.png) | 智能运营平台“新增短信模板策略”打开态 | [Figma node 5066:9446](https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/%E5%A5%87%E5%AF%8C%E7%A7%91%E6%8A%80%E4%B8%AD%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E5%BA%93-%E6%96%B0?node-id=5066-9446) |
-| [`data-detail-drawer.png`](./skills/qifu-drawer-form/assets/screenshots/data-detail-drawer.png) | 数据详情抽屉：摘要、筛选、明细表与分页 | [Figma node 4725:1548](https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/%E5%A5%87%E5%AF%8C%E7%A7%91%E6%8A%80%E4%B8%AD%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E5%BA%93-%E6%96%B0?node-id=4725-1548) |
 
 ## 边界声明
 
