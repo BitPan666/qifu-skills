@@ -59,72 +59,13 @@ ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.claude/skills/qifu-dr
 
 提示词首句固定使用下面的句式：`使用 Skill，并调用 @figma 插件，在 <Figma 链接> 的 <Page 画布> 中 <落点> 生成 <内容>`。**不要写“在智能运营平台生成”**；“智能运营平台”应写在下一行的 `页面平台`，它只决定平台壳、主题和业务术语。
 
-### 推荐直接复制的日常提示词
+### 唯一的通用提示词
 
 ```text
-使用 qifu-drawer-form，并调用 @figma 插件，在 <粘贴 Figma 文件或节点链接> 的 <Figma Page 名称，例如 测试> 画布中 <画布空白处创建新的 1366×768 Scene / 放在参考 Frame 名称的右侧空白处> 生成“<新建 / 编辑 / 查看><业务对象>”右侧抽屉。
+使用 qifu-drawer-form，并调用 @figma 插件，在 <目标 Figma 文件或节点链接> 的 <目标 Page 画布> 中 <指定落点> 生成“<新建 / 编辑 / 查看><业务对象>”右侧抽屉。
 不要新建 Figma Page；只在上述目标画布内生成。
 
 页面平台：<智客星 / 毓数 / 智能运营平台>
-platformKey：<zhikexing / yushu / zhineng-yunying>
-themeKey：<zhikexing-green / yushu-green / smartops-blue>
-
-字段：<字段名> <控件> <必填或选填>；<字段名> <控件> <必填或选填，默认值“...”或选项“...”>。
-底部按钮：<取消 / 关闭>、<确定 / 保存>。
-background.source：AUTO。
-```
-
-例如，最普通的“新建活动”可以直接这样写：
-
-```text
-使用 qifu-drawer-form，并调用 @figma 插件，在 https://www.figma.com/design/<文件 ID> 的“测试”画布中，画布空白处创建新的 1366×768 Scene，生成“新建活动”右侧抽屉。
-不要新建 Figma Page；只在“测试”画布内生成。
-
-页面平台：智客星
-platformKey：zhikexing
-themeKey：zhikexing-green
-字段：活动名称 Input 必填，placeholder“请输入活动名称”；活动类型 Select 必填，选项“拉新/促活/召回”；活动有效期 DateRange 必填；活动说明 Textarea 选填。
-底部按钮：取消、确定。
-background.source：AUTO。
-```
-
-## 最短调用方式（只用于快速试做）
-
-快速试做仍需说清四件事：**目标画布、平台、抽屉标题、字段**。例如：
-
-```text
-使用 qifu-drawer-form，并调用 @figma 插件，在 <Figma 链接> 的 <Page 名称> 画布中、画布空白处生成“新建活动”右侧抽屉。
-页面平台：智客星。
-字段：活动名称 Input 必填；活动类型 Select 必填；有效期 DateRange 必填。
-```
-
-Skill 会自动补全默认组合、宽度和 Footer。字段较多或有明确交付要求时，再补充下列可选项：
-
-| 可选项 | 何时需要写 | 示例 |
-| --- | --- | --- |
-| `platformKey` | 要准确切换平台时 | `zhikexing` |
-| `themeKey` | 要明确切换主题色时 | `smartops-blue` |
-| `compositionName` | 已确定抽屉组合时 | `Qifu Drawer Form / Sectioned Create` |
-| `widthTier` | 有固定宽度要求时 | `680` |
-| `componentMode` | 没有正式组件库权限时 | `PORTABLE_KIT` |
-| `background` | 需要交付完整打开态页面时 | `EXISTING_LIST_PAGE + 节点 ID` |
-
-默认 `componentMode=REAL_COMPONENT_ONLY`。没有正式组件库时，请明确写 `componentMode=PORTABLE_KIT`；不要让 Skill 用手绘控件替代组件。
-
-## 给别人使用时，先选这三种写法
-
-1. **最短描述**：只适合普通新建或编辑表单。写平台、标题和字段，Skill 补齐默认分区、宽度和 Footer。
-2. **通用替换模板**：适合需要稳定复用、需要把业务值交给其他同事替换的场景。直接复制下一节，只替换 `<尖括号>` 内的内容。
-3. **Golden Sample 提示词**：字段下面还需要明细表、分页、多个 Tag 或平台固定样式时，选本 README 的智能运营或数据详情示例，不要硬塞进普通模板。
-
-## 通用可替换模板
-
-下面这段可原样复制。只替换 `<...>` 中的业务值；没有的字段或分区直接删掉，不要留占位符。
-
-```text
-使用 qifu-drawer-form，并调用 @figma 插件，在<目标 Figma 文件>的<目标画布>画布中<落点>生成“<新建 / 编辑 / 查看><业务对象>”右侧抽屉。
-页面平台：<平台名称>。
-
 platformKey：<zhikexing | yushu | zhineng-yunying | qifu-generic>
 themeKey：<zhikexing-green | yushu-green | smartops-blue | custom>
 <仅 custom 填写> themePrimary：<#主色>
@@ -143,21 +84,34 @@ background.source：AUTO
 底部按钮：<取消 / 关闭>、<确定 / 保存>。
 ```
 
-| 需要替换的值 | 怎么填写 | 示例 |
-| --- | --- | --- |
-| `<平台名称>` | 使用业务里实际的平台名 | 智能运营平台 |
-| `platformKey` | 用固定英文标识，不要自行翻译 | `zhineng-yunying` |
-| `themeKey` | 只决定主题色，不决定平台 | `smartops-blue` |
-| `<业务对象>` | 用业务对象名，不写“表单” | 短信模板策略 |
-| `<分区>` | 2 至 4 个字的名词短语 | 基础信息、任务规则 |
-| `<字段标签>` | 用户在页面上看到的字段名 | 策略名称、有效期 |
-| `<控件>` | 从 `Input / Select / DateRange / Textarea` 等已支持类型中选 | `DateRange` |
-| `background.sourceNode` | 仅已有验收通过的真实列表页时填写 | `5079:9729` |
-| `<目标 Figma 文件>` | 粘贴目标设计文件或具体节点链接 | `https://www.figma.com/design/...` |
-| `<目标画布>` | 写 Figma 左侧图层面板中的 Page 名称，不写抽屉标题 | `测试` |
-| `<落点>` | 说明新 Scene 相对现有内容的位置 | `放在“活动管理”Frame 的右侧空白处` |
+例如，最普通的“新建活动”可以直接这样写：
 
-`background.source=AUTO` 是默认安全写法：优先使用你提供的真实列表页，其次使用平台模板；都没有时仍生成带中性结构预览底图和蒙层的 `1366 × 768` 打开态，不会只留下裸抽屉。正式平台页面是否通过，仍以真实列表页底图验收为准。
+```text
+使用 qifu-drawer-form，并调用 @figma 插件，在 https://www.figma.com/design/<文件 ID> 的“测试”画布中，画布空白处创建新的 1366×768 Scene，生成“新建活动”右侧抽屉。
+不要新建 Figma Page；只在“测试”画布内生成。
+
+页面平台：智客星
+platformKey：zhikexing
+themeKey：zhikexing-green
+字段：活动名称 Input 必填，placeholder“请输入活动名称”；活动类型 Select 必填，选项“拉新/促活/召回”；活动有效期 DateRange 必填；活动说明 Textarea 选填。
+底部按钮：取消、确定。
+background.source：AUTO。
+```
+
+这就是唯一需要复制的模板。普通新建、编辑和查看都从它开始；Skill 会自动补全组合、宽度和 Footer。字段较多或有明确交付要求时，再补充下列可选项：
+
+| 可选项 | 何时需要写 | 示例 |
+| --- | --- | --- |
+| `platformKey` | 要准确切换平台时 | `zhikexing` |
+| `themeKey` | 要明确切换主题色时 | `smartops-blue` |
+| `compositionName` | 已确定抽屉组合时 | `Qifu Drawer Form / Sectioned Create` |
+| `widthTier` | 有固定宽度要求时 | `680` |
+| `componentMode` | 没有正式组件库权限时 | `PORTABLE_KIT` |
+| `background` | 需要交付完整打开态页面时 | `EXISTING_LIST_PAGE + 节点 ID` |
+
+默认 `componentMode=REAL_COMPONENT_ONLY`。没有正式组件库时，请明确写 `componentMode=PORTABLE_KIT`；不要让 Skill 用手绘控件替代组件。
+
+`background.source=AUTO` 是默认安全写法：优先使用你提供的真实列表页，其次使用平台模板；都没有时仍生成带中性结构预览底图和蒙层的 `1366 × 768` 打开态，不会只留下裸抽屉。复杂的“选择器 + 明细表”、多个 Tag 或分页场景，直接使用下方对应的 Golden Sample，不再另选其他通用写法。
 
 ## 字段和组件怎么写
 
@@ -213,7 +167,7 @@ background.source：AUTO
 
 ## 示例提示词
 
-### 1. 通用抽屉，最短写法
+### 1. 通用抽屉：新建活动示例
 
 ```text
 使用 qifu-drawer-form，并调用 @figma 插件，在 <Figma 链接> 的 <Page 名称> 画布中、画布空白处生成“新建活动”右侧抽屉。
