@@ -36,11 +36,11 @@ description: 公司级 B 端界面设计系统与 Figma 组件调用规范。用
 | 层 | 名称 | AI 需要知道什么 | 本仓库位置 |
 |---|---|---|---|
 | L0 | Governance | 命名、版本、发布、缺口和验证规则 | 本 Skill + audit |
-| L1 | Token | 颜色、字体、间距、圆角、阴影、尺寸、状态 | `qifu-shared/references/component-map.md` 与组件库变量 |
-| L2 | Component | 组件集、节点 ID、发布 Key、属性、状态、可组合关系 | `qifu-shared/references/component-map.md` |
+| L1 | Token | 颜色、字体、间距、圆角、阴影、尺寸、状态 | `../qifu-shared/references/component-map.md` 与组件库变量 |
+| L2 | Component | 组件集、节点 ID、发布 Key、属性、状态、可组合关系 | `../qifu-shared/references/component-map.md` |
 | L3 | Pattern | 筛选栏、操作栏、详情块、表单分区、指标卡、时间线 | 各页面 Skill 的 references |
 | L4 | Page Archetype | 列表、详情、抽屉、工作台、树表、向导、看板等 | `skills/` 下的页面 Skill |
-| L5 | Platform Adapter | 导航、品牌、术语、权限、业务槽位、平台特有组件 | `qifu-shared/references/platform-*.md` |
+| L5 | Platform Adapter | 导航、品牌、术语、权限、业务槽位、平台特有组件 | `../qifu-shared/references/platform-*.md` |
 | L6 | Business Page | 某个平台某菜单下的一张具体页面 | 业务交付页面，不反向污染共享层 |
 
 **约束：**业务差异向下通过 Adapter 和 Slot 注入；共享层不写平台名，页面交付不复制组件库规则。
@@ -81,7 +81,7 @@ contentDensity: compact | normal | spacious
 
 ### 3. 选择 Pattern 与组件
 
-使用 `qifu-shared/references/component-map.md` 做组件发现：
+使用 `../qifu-shared/references/component-map.md` 做组件发现：
 
 - 先匹配语义（例如“筛选单选”），再匹配视觉；
 - 优先使用已发布组件 Key 创建实例；同文件生成时优先使用节点 ID；

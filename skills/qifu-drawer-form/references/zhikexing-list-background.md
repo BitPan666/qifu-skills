@@ -27,10 +27,11 @@ background
 启用前必须完整读取：
 
 - `../../qifu-list-page/SKILL.md`
-- `../../qifu-list-page/references/platform-zhikexing.md`
+- `../../qifu-shared/references/platform-zhikexing.md`（智客星平台基线唯一权威；list-page 与 zhikexing-list-page 共用此源）
 - `../../qifu-list-page/references/component-invocation-contract.md`
 - `../../qifu-list-page/references/structural-validation.md`
-- `../../zhikexing-list-page/SKILL.md`（兼容旧入口时读取）
+
+> `zhikexing-list-page` 已于 2026-09-11 归档为历史兼容入口，`references/` 已删除；底图协议不再依赖该目录。
 
 不得写入列表页组件的 `pageHeaderSlot`、`filterBarSlot`、`tableSlot`、`rowsSlot`、`cellsSlot` 或 `paginationSlot`。底图业务内容需要调整时，先按 `qifu-list-page platform=zhikexing` 单独生成并验收，再用 `EXISTING_LIST_PAGE` 引用它。
 

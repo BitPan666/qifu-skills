@@ -9,6 +9,7 @@ from pathlib import Path
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 VALIDATOR = SKILL_ROOT / "scripts" / "validate_skill_contract.py"
 README = SKILL_ROOT.parents[1] / "README.md"
+SHARED_ROOT = SKILL_ROOT.parent / "qifu-shared"
 
 
 class SkillContractValidatorTest(unittest.TestCase):
@@ -25,6 +26,8 @@ class SkillContractValidatorTest(unittest.TestCase):
         temp_dir = tempfile.TemporaryDirectory()
         copied_root = Path(temp_dir.name) / "qifu-list-page"
         shutil.copytree(SKILL_ROOT, copied_root)
+        # 把共享依赖一并复制，保证 SHARED_REFERENCES 校验能在副本里命中
+        shutil.copytree(SHARED_ROOT, Path(temp_dir.name) / "qifu-shared")
         return temp_dir, copied_root
 
     def test_published_skill_satisfies_executable_contract(self) -> None:
@@ -177,7 +180,7 @@ class SkillContractValidatorTest(unittest.TestCase):
     def test_missing_selection_header_canvas_contract_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()
         self.addCleanup(temp_dir.cleanup)
-        component_map = copied_root / "references" / "component-map.md"
+        component_map = copied_root.parent / "qifu-shared" / "references" / "component-map.md"
         component_text = component_map.read_text(encoding="utf-8")
         component_map.write_text(
             component_text.replace(
@@ -210,7 +213,7 @@ class SkillContractValidatorTest(unittest.TestCase):
     def test_missing_all_list_tag_contract_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()
         self.addCleanup(temp_dir.cleanup)
-        component_map = copied_root / "references" / "component-map.md"
+        component_map = copied_root.parent / "qifu-shared" / "references" / "component-map.md"
         component_text = component_map.read_text(encoding="utf-8")
         component_map.write_text(
             component_text.replace("所有列表状态标签：", ""),
@@ -221,6 +224,17 @@ class SkillContractValidatorTest(unittest.TestCase):
 
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("所有列表状态标签", result.stdout)
+
+    def test_missing_shared_component_map_is_rejected(self) -> None:
+        temp_dir, copied_root = self.copy_skill()
+        self.addCleanup(temp_dir.cleanup)
+        shared_map = copied_root.parent / "qifu-shared" / "references" / "component-map.md"
+        shared_map.unlink()
+
+        result = self.run_validator(copied_root)
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("missing shared reference", result.stdout)
 
     def test_missing_ancestor_selected_state_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()

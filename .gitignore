@@ -14,5 +14,10 @@
 # Node(将来脚本需要时)
 node_modules/
 
+# Python 测试缓存
+__pycache__/
+*.pyc
+.pytest_cache/
+
 # 大文件截图可选忽略(首次上传后再决定)
 # screenshots/*.png

@@ -1,4 +1,4 @@
 interface:
-  display_name: "Zhikexing List Page"
-  short_description: "智客星列表页兼容入口，现已并入 qifu-list-page（platform=zhikexing / copyTemplate）"
-  default_prompt: "使用 $qifu-list-page 并调用 @figma 插件，platform=zhikexing，基于智客星 1366 标准模板（node 4892:34812）在指定 Figma Page 的空白处生成可编辑列表页；复制基线整页、保留真实组件实例和已有 Slot 结构，只改可回读属性，不直接写 Slot，不覆盖人工模板。"
+  display_name: "Zhikexing List Page（归档入口）"
+  short_description: "已并入 qifu-list-page 的兼容入口；不要作为独立工作流使用。"
+  default_prompt: "使用 $qifu-list-page 并调用 @figma 插件，platform=zhikexing，基于智客星 1366 标准模板（node 4892:34812）在指定 Figma Page 的空白处生成可编辑列表页；不要直接调用本 skill，本入口已无独立落图逻辑。"

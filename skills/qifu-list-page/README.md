@@ -68,18 +68,18 @@ $qifu-list-page 在毓数平台的权限管理 > 用户授权下新建用户授�
 - `SKILL.md` — 双策略工作流(assemble + copyTemplate)、输入契约、失败关闭和交付规则
 - `VERSION` — 当前 Skill 版本
 - `references/page-rules.md` — 组合注册表、画板骨架、筛选、操作栏、表格、分页和页面级验收
-- `references/component-map.md` — 列表页运行时组件映射、节点 ID、发布 Key、属性和已知缺口
 - `references/component-invocation-contract.md` — 属性 Key 解析、INSTANCE_SWAP、Slot 写入和回读验证
 - `references/structural-validation.md` — 结构化验收、禁止特征和 PASS/BLOCKED/FAIL 判定
 - `references/platform-yushu.md` — 毓数平台基线
-- `references/platform-zhikexing.md` — 智客星平台基线(copyTemplate 权威规则)
 - `scripts/validate_skill_contract.py` — 文档契约校验
 - `tests/test_validate_skill_contract.py` — 契约测试
 - `agents/openai.yaml` — Codex 入口
 
 ## 共享依赖
 
-`qifu-shared` 仍是抽屉、详情页和公司级设计系统的共享依赖；列表页目录内同时保留一份运行时所需的组件映射和平台基线，保证通过 GitHub 单独安装 `qifu-list-page` 时也能完整运行。更新公共平台规则时，需要同步检查 `qifu-shared/references/` 与本目录 `references/` 是否一致。
+- `qifu-shared/references/component-map.md` — 组件映射唯一权威（2026-09-11 起从本目录移除，避免与 shared 双份冲突）。
+- `qifu-shared/references/platform-zhikexing.md` — 智客星平台基线唯一权威。
+- 本目录不再保留 `component-map.md` / `platform-zhikexing.md` 副本；新增规则请直接改 shared。
 
 ## 不适用场景
 
@@ -94,5 +94,5 @@ $qifu-list-page 在毓数平台的权限管理 > 用户授权下新建用户授�
 - 操作列右侧固定 20px
 - `pagination 右边缘 == table 右边缘`
 - 选择列开启时 Selection Cell 数量 = 数据行数 + 1
-- 启用/禁用 Tag 严格按 `light/success/medium/square`(启)/`light/danger/medium/square`(禁)
+- 启用/禁用 Tag 严格按全量 `light/{success|danger|warning|primary}/medium/square` 映射（详见 shared `component-map.md`）
 - `generationStrategy` 与 `platform` 一致:zhikexing=copyTemplate,yushu/generic=assemble

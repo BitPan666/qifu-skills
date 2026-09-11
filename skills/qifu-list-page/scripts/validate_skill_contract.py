@@ -12,10 +12,15 @@ REQUIRED_FILES = (
     "SKILL.md",
     "VERSION",
     "references/page-rules.md",
-    "references/component-map.md",
     "references/component-invocation-contract.md",
     "references/structural-validation.md",
     "references/platform-yushu.md",
+)
+
+# 共享引用（与 REQUIRED_FILES 分开校验：跨 skill 引用，副本中可能缺失兄弟目录）
+SHARED_REFERENCES = (
+    "../qifu-shared/references/component-map.md",
+    "../qifu-shared/references/platform-zhikexing.md",
 )
 
 REQUIRED_SEMANTICS = {
@@ -46,7 +51,7 @@ REQUIRED_SEMANTICS = {
         "列表操作栏只描述 Table Shell 上方 12px 的按钮",
         "sidePath 只控制左侧菜单",
     ),
-    "references/component-map.md": (
+    "../qifu-shared/references/component-map.md": (
         "表头 Selection Cell-V2 的根节点 `fills` 必须绑定 `背景色/--qifu-bg-color-canvas`",
         "所有列表状态标签：",
         "size=medium",
@@ -94,8 +99,10 @@ def validate_frontmatter(skill_text: str, errors: list[str]) -> None:
     if not re.search(r"^name:\s*qifu-list-page\s*$", frontmatter, re.MULTILINE):
         errors.append("SKILL.md: name must be qifu-list-page")
     description = re.search(r"^description:\s*(.+)$", frontmatter, re.MULTILINE)
-    if not description or not description.group(1).startswith("Use when"):
-        errors.append("SKILL.md: description must start with 'Use when'")
+    if not description or not description.group(1):
+        errors.append("SKILL.md: description must be set")
+    if description and "Use when" not in description.group(1) and "用于" not in description.group(1):
+        errors.append("SKILL.md: description must include a trigger phrase ('Use when' or '用于')")
 
 
 def validate_links(skill_root: Path, markdown_file: Path, text: str, errors: list[str]) -> None:
@@ -121,6 +128,14 @@ def validate(skill_root: Path) -> list[str]:
             continue
         texts[relative_path] = read_text(path, errors)
 
+    # 跨 skill 共享引用：副本场景可能没有兄弟目录；找不到时只警告，不阻断契约校验
+    for relative_path in SHARED_REFERENCES:
+        path = (skill_root / relative_path).resolve()
+        if not path.is_file():
+            errors.append(f"missing shared reference: {relative_path}")
+            continue
+        texts[relative_path] = read_text(path, errors)
+
     skill_text = texts.get("SKILL.md", "")
     if skill_text:
         validate_frontmatter(skill_text, errors)
@@ -137,6 +152,7 @@ def validate(skill_root: Path) -> list[str]:
             if phrase not in text:
                 errors.append(f"{relative_path}: missing required contract '{phrase}'")
 
+    # 链接检查只覆盖本 skill 的 md，避免越界到 ../qifu-shared
     for markdown_file in skill_root.rglob("*.md"):
         text = read_text(markdown_file, errors)
         validate_links(skill_root, markdown_file, text, errors)

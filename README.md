@@ -147,9 +147,10 @@ cd qifu-skills
 # 假设仓库已克隆到 ~/Documents/qifu-skills
 cd ~/Documents/qifu-skills
 
-# 安装全部 Skill；只安装抽屉时保留 qifu-shared、qifu-drawer-form 和 zhikexing-list-page
+# 安装活跃 Skill：保留 qifu-shared 作为共享依赖；只安装抽屉时去掉 qifu-list-page / qifu-detail-page
+# zhikexing-list-page 已于 2026-09-11 归档，不要安装
 mkdir -p ~/.claude/skills
-for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page zhikexing-list-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
   ln -sfn "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 
@@ -163,9 +164,10 @@ done
 # 假设仓库已克隆到 ~/Documents/qifu-skills
 cd ~/Documents/qifu-skills
 
-# 安装全部 Skill；只安装抽屉时保留 qifu-shared、qifu-drawer-form 和 zhikexing-list-page
+# 安装活跃 Skill：保留 qifu-shared 作为共享依赖；只安装抽屉时去掉 qifu-list-page / qifu-detail-page
+# zhikexing-list-page 已于 2026-09-11 归档，不要安装
 mkdir -p ~/.codex/skills
-for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page zhikexing-list-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
   ln -sfn "$(pwd)/skills/$s" ~/.codex/skills/$s
 done
 # Codex 通过每个 skill 下的 agents/openai.yaml 识别入口
@@ -178,10 +180,10 @@ done
 GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组件映射、平台基线和主题变量；Nutstore 与本地 Codex 运行目录不再各自保留一套引用路径。
 
 ```bash
-# 同步抽屉及其直接依赖
-./sync.sh qifu-drawer-form qifu-shared zhikexing-list-page
+# 同步抽屉及其直接依赖（zhikexing-list-page 已归档，从这里去掉）
+./sync.sh qifu-drawer-form qifu-shared
 
-# 同步仓库管理的全部 Skill
+# 同步仓库管理的全部活跃 Skill
 ./sync.sh
 ```
 
@@ -288,10 +290,13 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 - [x] qifu-list-page(2026-08-12 前已有)
 - [x] qifu-drawer-form(2026-08-12)
 - [x] qifu-detail-page(2026-08-12)
+- [x] qifu-b-end-design-system(2026-08)
+- [x] zhikexing-list-page 已于 2026-09-11 归档，落图逻辑并入 `qifu-list-page`
+- [ ] 共享层收敛（`qifu-list-page` 的 `component-map.md` / `platform-zhikexing.md` 已并入 `qifu-shared`）
+- [ ] 补齐 `_docs/validation-log.md` 截图与至少 1 条 list/detail 真实跑通记录
 - [ ] qifu-wizard(分步向导,如 AB 实验创建)
 - [ ] qifu-workbench(工作台)
 - [ ] qifu-page-form(整页表单,非抽屉)
-- [ ] 用真实业务跑通 3 个 skill 并沉淀"已知限制"清单
 
 ## 相关链接
 
@@ -312,11 +317,11 @@ The Qifu page skills share component and navigation references. Install all four
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo jingjingtu/qifu-skills \
-  --path skills/qifu-b-end-design-system skills/qifu-shared skills/qifu-list-page skills/qifu-detail-page skills/qifu-drawer-form skills/zhikexing-list-page \
+  --path skills/qifu-b-end-design-system skills/qifu-shared skills/qifu-list-page skills/qifu-detail-page skills/qifu-drawer-form \
   --method git
 ```
 
-`qifu-shared` is an internal dependency package; it should remain installed beside the three page-generation skills.
+`qifu-shared` is an internal dependency package; it should remain installed beside the three page-generation skills. `zhikexing-list-page` was archived on 2026-09-11 and should not be installed.
 
 ## Figma 真实语义变量（2026-08-20）
 

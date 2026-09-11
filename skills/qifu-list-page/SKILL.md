@@ -1,6 +1,6 @@
 ---
 name: qifu-list-page
-description: Use when creating, updating, or auditing standard Qifu desktop list pages in Figma from business descriptions, fields, screenshots, or wireframes. 跨平台通过 platform 切换：yushu/generic 走 assemble 组件组装，zhikexing 走 copyTemplate 复制人工基线模板。适用于列表、筛选、操作栏、表格、状态、分页和组件缺口检查；不要用于看板、表单、详情页、树表或高度定制工作台。
+description: 用于在 Figma 中创建、更新或审查奇富中后台标准桌面列表页。输入业务描述、字段、截图或线框均可。跨平台通过 platform 切换：yushu/generic 走 assemble 组件组装，zhikexing 走 copyTemplate 复制人工基线模板。覆盖列表、筛选、操作栏、表格、状态、分页与组件缺口检查。Not for: 看板、表单、详情页、树表或高度定制工作台。
 ---
 
 # Qifu List Page
@@ -12,7 +12,7 @@ description: Use when creating, updating, or auditing standard Qifu desktop list
 每次完整读取：
 
 - [通用页面规则](references/page-rules.md)：页面组合、布局、筛选、操作栏、表格、状态与验收规则。
-- [公共组件映射](references/component-map.md)：真实组件名称、节点、发布键、属性、Slot 同步方式和已知缺口。
+- [公共组件映射](../qifu-shared/references/component-map.md)：真实组件名称、节点、发布键、属性、Slot 同步方式和已知缺口（仓库唯一权威，不要复制）。
 - [组件调用契约](references/component-invocation-contract.md)：真实属性 Key 动态解析、属性类型、INSTANCE_SWAP、Slot 写入和回读验证。
 - [结构化验收契约](references/structural-validation.md)：实例关系、数量、变量、禁止特征和交付门禁。
 
@@ -24,7 +24,7 @@ description: Use when creating, updating, or auditing standard Qifu desktop list
 | --- | --- | --- |
 | `yushu` | [毓数平台基线](references/platform-yushu.md) | `assemble` |
 | `generic` | 通用平台，继承通用规则 | `assemble` |
-| `zhikexing` | [智客星平台基线](references/platform-zhikexing.md) | `copyTemplate` |
+| `zhikexing` | [智客星平台基线](../qifu-shared/references/platform-zhikexing.md) | `copyTemplate` |
 | `dianxiao` | `references/platform-dianxiao.md`，仅在文件存在时读取 | `assemble` |
 | `jinyumeng` | `references/platform-jinyumeng.md`，仅在文件存在时读取 | `assemble` |
 
@@ -119,7 +119,7 @@ pagination / viewport / targetPage / data
 
 `platform=zhikexing` 时固定使用本节。核心原则：复制人工精修的完整列表页模板，只修改可写入且可回读成功的属性，不直接改写 Slot，也不手绘补齐结构。
 
-1. 读取 [智客星平台基线](references/platform-zhikexing.md)，确认基线模板 `4892:34812` 真实尺寸为 `1366 x 768`。
+1. 读取 [智客星平台基线](../qifu-shared/references/platform-zhikexing.md)，确认基线模板 `4892:34812` 真实尺寸为 `1366 x 768`。
 2. 复制整个基线顶层 Frame，命名为 `Page / List / <pageName> / Default`，放到用户指定 Page 的空白区域；不得覆盖、移动或改名 Golden Sample。
 3. 复制后保留模板内 Header、SideNavigation、List Page Shell、Filter Bar、Table Shell、Pagination、变量、文本样式和实例关系。
 4. 只修改复制页中可回读成功的文字、布尔、变体与 INSTANCE_SWAP 属性。每次都按“读取真实 Key → 校验类型和值域 → 写入 → 回读”闭环执行。
