@@ -1,5 +1,7 @@
 # 标准详情页蓝图
 
+本文中的十六进制颜色和字号是历史视觉核对值。正式生成必须优先绑定 `qifu-shared/theme` 中的语义变量与组件库 Text Style，不得用手填颜色或字体参数代替可用 Token。
+
 ## 目录
 
 - [参考图的可复用信息](#1-参考图的可复用信息)
@@ -45,7 +47,7 @@ Root (1366 × 768 | 1920 × 1080)
 **规则**:
 
 - 只复用 List Page Shell 的"外壳层"(Header/SideMenu/Content/Page Surface),**不复用**其 `pageHeaderSlot / filterBarSlot / tableSlot`;详情页有独立骨架命名 Detail Page Shell。
-- 平台导航与 sidePath 解析规则完全沿用 [platform-yushu.md](../../qifu-shared/references/platform-yushu.md)。
+- 平台导航与 sidePath 只使用当前已注册 Adapter；仅 `platform=yushu` 时读取 [platform-yushu.md](../../qifu-shared/references/platform-yushu.md)，`generic` 使用中性 Adapter，其他未支持平台失败关闭。
 - Shell 与 Page Surface 间距规则与 list-page 相同:Page Surface ↔ Content 12px,Shell ↔ Page Surface 16px。
 
 ## 3. PageHead 详情头
@@ -55,16 +57,16 @@ Root (1366 × 768 | 1920 × 1080)
 固定高度 96px,三段布局:
 
 ```text
-PageHead (Horizontal, 96px, padding 16 24, border-bottom 1px, bg #fff)
+PageHead (Horizontal, 96px, padding 16 24, border-bottom 1px, bg `背景色/--qifu-bg-color-surface`)
 ├── Left: 对象身份(Horizontal, gap 12)
 │   ├── [可选 avatar / icon 48×48]
 │   └── Meta(Vertical)
 │       ├── Title row(Horizontal, gap 8)
-│       │   ├── Name         20px / 700 / #111827
+│       │   ├── Name         组件库标题 Text Style / `文本颜色/--qifu-text-color-primary`
 │       │   └── [0..2] Tags  Tag `light/{success,danger,info}/medium/square`
 │       └── Sub row(Horizontal, gap 12)
-│           ├── ID: <copyable>      12px / #6b7280
-│           └── 更新时间: <datetime> 12px / #6b7280
+│           ├── ID: <copyable>      组件库正文 Text Style / `文本颜色/--qifu-text-color-secondary`
+│           └── 更新时间: <datetime> 同上
 ├── Spacer
 └── Right: 关键操作(Horizontal, gap 12)
     ├── [次要操作 1..2] Button base
@@ -83,7 +85,7 @@ PageHead (Horizontal, 96px, padding 16 24, border-bottom 1px, bg #fff)
 适用于 `Tabbed` / `Master Detail` 组合,高度 44px:
 
 ```text
-Tabs (Horizontal, padding 0 24, border-bottom 1px, bg #fff)
+Tabs (Horizontal, padding 0 24, border-bottom 1px, bg `背景色/--qifu-bg-color-surface`)
 └── Tabs 真实组件(type=line, size=medium)
     └── item=2..N, active=1
 ```
@@ -123,9 +125,9 @@ Body (Vertical, padding 24, gap 16, scrollable)
 DetailBlock 是详情页的最小信息单位,一个主题一块。
 
 ```text
-DetailBlock (Vertical, bg #fff, border 1px, border-radius 8px)
-├── BlockHeader (Horizontal, padding 16 20, border-bottom 1px #e5e7eb)
-│   ├── Title          16px / 600 / #111827
+DetailBlock (Vertical, bg `背景色/--qifu-bg-color-surface`, border 1px `边框/--qifu-border-color-default`, border-radius 使用已登记圆角变量)
+├── BlockHeader (Horizontal, padding 16 20, border-bottom 1px semantic divider)
+│   ├── Title          组件库标题 Text Style / `文本颜色/--qifu-text-color-primary`
 │   └── [可选] BlockAction  尾操作(右对齐, Button base/text 或 link)
 └── BlockBody (padding 20)
     └── 内容(描述列表 / 表格 / 卡片网格 / 时间线 / 嵌套子区块)

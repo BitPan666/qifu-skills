@@ -36,14 +36,14 @@ businessSlots: [risk-rule-selector]
 
 ## 3. 组合命名
 
-- `List / Basic Table`
-- `List / Filtered Table`
-- `Detail / Tabbed`
-- `Drawer Form / Sectioned Create`
-- `Dashboard / KPI + Trend`
-- `Permission / Resource Tree + Action Matrix`
+已有落图 Skill 必须返回其注册表中的完整名称，例如：
 
-组合名称描述结构与任务，不描述具体平台、菜单或业务对象。
+- `Qifu List Page / Basic Table`
+- `Qifu List Page / Basic Filter Table`
+- `Qifu Detail Page / Tabbed`
+- `Qifu Drawer Form / Sectioned Create`
+
+Dashboard、Permission 等 `planned` Archetype 当前不分配可执行 `compositionName`；只返回建议 Pattern 和 `UNSUPPORTED_ARCHETYPE`，避免让未实现名称看起来可调用。组合名称描述结构与任务，不描述具体平台、菜单或业务对象。
 
 ## 4. 页面状态矩阵
 
@@ -61,6 +61,6 @@ businessSlots: [risk-rule-selector]
 
 - 替换 Adapter 后页面主任务仍能完成；
 - 组件语义未被平台名污染；
-- 业务专属组件都位于 `Slot / <name>` 或 `Fallback / <capability>`；
+- 业务专属组件都位于 `Slot / <name>`；只有确认 `COMPONENT_MISSING` 且用户明确授权降级时，才允许出现可审计的 `Fallback / <capability>`；
 - 页面不依赖某个平台的隐含菜单、Logo 或用户头像；
 - 真实组件实例、状态和属性在迁移前后可核对。

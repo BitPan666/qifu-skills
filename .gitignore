@@ -15,6 +15,7 @@
 node_modules/
 
 # Python 测试缓存
+.venv/
 __pycache__/
 *.pyc
 .pytest_cache/

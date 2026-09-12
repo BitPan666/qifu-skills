@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 # GitHub working tree is the canonical Skill structure.
-# Sync selected Skill packages to Nutstore and the local Codex runtime:
+# Sync selected Skill packages to the local Codex runtime and, when configured, Nutstore:
 #   ./sync.sh qifu-drawer-form qifu-shared
 # With no arguments, all active managed packages are synchronized.
 #
-# ⚠️ 目标路径是原作者本机环境：
-#   NUTSTORE_ROOT = /Users/shijingya/Nutstore Files/360数科-共享/skill
-#   CODEX_ROOT    = /Users/shijingya/.codex/skills
-# 协作者请在文件首部改成本机路径，或通过环境变量覆盖：
+# CODEX_ROOT defaults to ${CODEX_HOME:-$HOME/.codex}/skills.
+# NUTSTORE_ROOT is optional and must be provided explicitly:
 #   NUTSTORE_ROOT=/path/to/nutstore CODEX_ROOT=/path/to/codex ./sync.sh
 #   DRY_RUN=1 ./sync.sh               # 只打印动作，不实际 rsync
 #
@@ -17,9 +15,9 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
-# 允许通过环境变量覆盖默认本机路径；未提供则使用默认值。
-NUTSTORE_ROOT="${NUTSTORE_ROOT:-/Users/shijingya/Nutstore Files/360数科-共享/skill}"
-CODEX_ROOT="${CODEX_ROOT:-/Users/shijingya/.codex/skills}"
+# Portable defaults: local Codex is enabled; Nutstore is opt-in.
+NUTSTORE_ROOT="${NUTSTORE_ROOT:-}"
+CODEX_ROOT="${CODEX_ROOT:-${CODEX_HOME:-$HOME/.codex}/skills}"
 
 # 活跃 Skill 列表：zhikexing-list-page 已归档，不在此处维护。
 MANAGED_SKILLS=(
@@ -58,37 +56,110 @@ is_archived_skill() {
 }
 
 DRY_RUN="${DRY_RUN:-0}"
+if [[ "$DRY_RUN" != "0" && "$DRY_RUN" != "1" ]]; then
+  echo "DRY_RUN must be 0 or 1" >&2
+  exit 1
+fi
 
-mkdir -p "$NUTSTORE_ROOT" "$CODEX_ROOT"
+TARGET_ROOTS=("$CODEX_ROOT")
+if [[ -n "$NUTSTORE_ROOT" ]]; then
+  TARGET_ROOTS+=("$NUTSTORE_ROOT")
+fi
 
+validate_target_root() {
+  local target_root="$1"
+  if [[ -z "$target_root" || "$target_root" == "/" || "$target_root" == "$HOME" ]]; then
+    echo "Unsafe sync root: $target_root" >&2
+    exit 1
+  fi
+}
+
+directories_equal() {
+  local left="$1"
+  local right="$2"
+  [[ -d "$left" && -d "$right" ]] || return 1
+  [[ "$(cd "$left" && pwd -P)" == "$(cd "$right" && pwd -P)" ]]
+}
+
+validate_target_dir() {
+  local source_dir="$1"
+  local target_dir="$2"
+  if [[ -L "$target_dir" ]]; then
+    if [[ ! -d "$target_dir" ]]; then
+      echo "Broken target symlink: $target_dir" >&2
+      exit 1
+    fi
+    if ! directories_equal "$source_dir" "$target_dir"; then
+      echo "Target Skill is a symlink to another directory: $target_dir" >&2
+      exit 1
+    fi
+  elif [[ -e "$target_dir" && ! -d "$target_dir" ]]; then
+    echo "Target Skill exists but is not a directory: $target_dir" >&2
+    exit 1
+  fi
+}
+
+for target_root in "${TARGET_ROOTS[@]}"; do
+  validate_target_root "$target_root"
+done
+
+if [[ "$DRY_RUN" == "0" ]]; then
+  command -v rsync >/dev/null 2>&1 || {
+    echo "Required command not found: rsync" >&2
+    exit 1
+  }
+  command -v diff >/dev/null 2>&1 || {
+    echo "Required command not found: diff" >&2
+    exit 1
+  }
+fi
+
+# Validate the complete request before the first filesystem mutation.
 for skill in "${SKILLS[@]}"; do
   if is_archived_skill "$skill"; then
-    echo "⚠️  $skill 已归档，跳过同步；如本地仍有旧目录，请手动删除：$NUTSTORE_ROOT/$skill 与 $CODEX_ROOT/$skill" >&2
     continue
   fi
   if ! is_managed_skill "$skill"; then
     echo "Unsupported Skill: $skill" >&2
     exit 1
   fi
-
   source_dir="$REPO_ROOT/skills/$skill"
   if [[ ! -d "$source_dir" ]]; then
     echo "Canonical Skill is missing: $source_dir" >&2
     exit 1
   fi
+  for target_root in "${TARGET_ROOTS[@]}"; do
+    validate_target_dir "$source_dir" "$target_root/$skill"
+  done
+done
 
-  for target_root in "$NUTSTORE_ROOT" "$CODEX_ROOT"; do
+if [[ "$DRY_RUN" == "1" ]]; then
+  LOG_PREFIX="[DRY] "
+else
+  LOG_PREFIX=""
+fi
+
+for skill in "${SKILLS[@]}"; do
+  if is_archived_skill "$skill"; then
+    echo "⚠️  $skill 已归档，跳过同步；如目标目录仍有旧副本，请手动删除对应的 $skill 目录" >&2
+    continue
+  fi
+  source_dir="$REPO_ROOT/skills/$skill"
+
+  for target_root in "${TARGET_ROOTS[@]}"; do
     target_dir="$target_root/$skill"
-    mkdir -p "$target_dir"
-    if [[ "$DRY_RUN" == "1" ]]; then
+    if directories_equal "$source_dir" "$target_dir"; then
+      echo "${LOG_PREFIX}Already linked $skill -> $source_dir"
+    elif [[ "$DRY_RUN" == "1" ]]; then
       echo "[DRY] rsync -a --delete --exclude='.DS_Store' $source_dir/ $target_dir/"
     else
+      mkdir -p "$target_dir"
       rsync -a --delete --exclude='.DS_Store' "$source_dir/" "$target_dir/"
       diff -qr --exclude='.DS_Store' "$source_dir" "$target_dir" >/dev/null
     fi
   done
 
-  echo "${DRY_RUN:+[DRY] }Synced $skill"
+  echo "${LOG_PREFIX}Synced $skill"
 done
 
-echo "${DRY_RUN:+[DRY] }Sync complete: GitHub -> Nutstore + ~/.codex/skills"
+echo "${LOG_PREFIX}Sync complete: GitHub -> ${TARGET_ROOTS[*]}"

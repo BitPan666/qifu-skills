@@ -28,5 +28,5 @@ adapter:
 - 不创建虚构菜单项；使用用户给出的菜单路径，未知层级标记 `TODO`；
 - 使用 `component-map.md` 中的正式导航组件；
 - 页面主体由对应 Archetype Skill 负责；
-- 平台专属能力放入 `Slot / <name>`，缺失时使用 `Fallback / <capability>`；
+- 平台专属能力放入 `Slot / <name>`；只有共享调用基线确认 `COMPONENT_MISSING`，且当前页面 Skill 与用户授权允许降级时，才使用 `Fallback / <capability>`；
 - 交付时列出需要新建的平台适配器字段。

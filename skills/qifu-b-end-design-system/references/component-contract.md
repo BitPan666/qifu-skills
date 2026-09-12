@@ -26,6 +26,7 @@ component:
     height: 32
     widths: [200, 304, 408, FULL]
   fallback: null
+  fallbackAuthorized: false
   lastVerified: 2026-07-29
 ```
 
@@ -43,8 +44,10 @@ component:
 搜索不到时，按以下顺序处理：
 
 ```text
-精确组件集 → 同语义组件 → 组合现有组件 → Fallback / Capability → 记录 Missing Components
+精确组件集 → 同语义组件 → 组合现有组件 → 记录 Missing Components
 ```
+
+只有共享调用基线确认 `COMPONENT_MISSING`，并且用户明确允许当前交付降级时，才在记录缺口后创建 `Fallback / <capability>`。属性、权限、字体、导入、Slot 或工具失败都必须停止，不得沿这条路径降级。
 
 ## 3. 创建约束
 
@@ -64,7 +67,8 @@ component:
 - `size`：SM / MD / LG 或组件库登记的尺寸；
 - `content`：显示文案和数据；
 - `permission`：用户是否可操作；
-- `fallback`：能力不存在时的组合方案。
+- `fallback`：能力不存在时的候选降级方案；默认只记录建议。
+- `fallbackAuthorized`：用户是否明确允许在当前交付中创建该降级，默认 `false`。
 
 缺口审计格式：
 

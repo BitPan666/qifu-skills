@@ -1,35 +1,39 @@
 ---
 name: qifu-detail-page
-description: 根据业务描述、字段清单、截图或线框,在 Figma 中使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台详情页(查看为主、局部可编辑、可含 Tabs / 左列表右详情等形态)。适用于按稳定的组合名称调用 Flat / Tabbed / Master Detail / Readonly 四种详情页形态,并完成 PageHead、可选 Tabs、1..N 个 DetailBlock(描述列表 / 表格 / 卡片 / 时间线 / 关键指标 / 空态 / 自定义);也用于审查所需组件是否缺失。不要用于新建/编辑表单(那是 qifu-drawer-form)、多记录列表(那是 qifu-list-page)、复杂数据看板、树表或高度定制的工作台。
+description: 用于在 Figma 中创建、更新或审查奇富后台详情页，支持 Flat、Tabbed、Master Detail 和 Readonly，并以真实组件实例验证 PageHead、详情区块与页面状态。不用于新建编辑表单、多记录列表、看板、树表或工作台。
 ---
 
 # Qifu Detail Page
 
 将简短业务描述转换为结构清楚、可编辑、保持组件实例关系的详情页。把参考图作为信息架构基线,不机械复刻其中的品牌、业务名称或固定字段数。
 
-本 Skill 与 [qifu-list-page](../qifu-list-page/SKILL.md)、[qifu-drawer-form](../qifu-drawer-form/SKILL.md) 共享同一套 5 层 AI 设计体系;L1 Token、L2 Component、L5 业务上下文跨原型共享,L4 详情页蓝图为本 Skill 独有。
+本 Skill 与 [qifu-list-page](../qifu-list-page/SKILL.md)、[qifu-drawer-form](../qifu-drawer-form/SKILL.md) 共享同一套六层 AI 设计体系；Token、Component、Platform Adapter 是跨原型共享资产，详情页 Archetype 与组合规则由本 Skill 负责。
 
 ## 必读资料
 
 开始前完整读取:
 
+- [共享页面上下文](../qifu-shared/references/page-context.md):统一平台、目标位置、状态、权限与默认值。
+- [共享组件调用基线](../qifu-shared/references/component-invocation-baseline.md):组件解析、写入回读与失败分类。
 - [页面蓝图](references/page-blueprint.md):页面骨架、PageHead、Tabs、DetailBlock、操作位置、间距铁律。
 - [区块路由表](references/detail-block-map.md):六种 bodyType(Descriptions / Table / Cards / Timeline / KeyMetrics / Empty)的选型规则。
 - [组合注册表](references/detail-compositions.md):Flat / Tabbed / Master Detail / Readonly 四种形态与调用规则。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
+- 当平台未指定或 `platform=generic` 时，读取[通用平台适配器](../qifu-shared/references/platform-generic.md)，不套用毓数菜单。
+- 当前 `platform=zhikexing` 的共享资料只验证了列表页模板，详情页应返回 `UNSUPPORTED_PLATFORM`；不得把列表模板或 generic 外壳冒充智客星详情页。其他未注册平台同样失败关闭。
 - 组件名 / 节点 ID / 发布 Key 全部复用[组件映射](../qifu-shared/references/component-map.md),不在本 Skill 重复维护。
 
 任何 `use_figma` 调用前加载并遵循 `figma-use`;创建或更新完整页面时同时加载并遵循 `figma-generate-design`。若目标项目另有 `AGENTS.md` 或项目级 Figma 规则,先读取并以其为准。
 
 ## 输入契约
 
-接受自然语言,不要求用户填写完整表格。提取或合理补全以下 `DetailSpec`:
+接受自然语言,不要求用户填写完整表格。先形成共享 `PageContext`，再提取或合理补全以下 `DetailSpec`:
 
 ```text
 object           对象名称(单数),如"客户"/"规则"/"策略"
 pageTitle        详情页标题(默认 = object 名称)
-compositionName  详情页组合的完整注册名称;未指定时按场景推断,默认 Qifu Detail Page / Tabbed
-platform         所属平台;默认 yushu
+compositionName  详情页组合的完整注册名称;未指定时按场景推断,无法区分时默认 Qifu Detail Page / Flat
+platform         所属平台;未指定且无可靠上下文时默认 generic
 headerActive     顶部导航当前入口
 sidePath[]       侧栏完整菜单路径(规则与 list-page 相同)
 sideActive       当前选中菜单
@@ -55,6 +59,7 @@ blocks[]         1..N 个 DetailBlock,按"核心信息 → 业务 → 关联 →
   └─ [可选] emptyHint   当 bodyType=Empty
 
 defaultState     Data / Loading / Error / Disabled,默认 Data
+fallbackPolicy   block | allow；默认 block，只有用户明确允许降级时才为 allow
 masterDetail     仅 Master Detail 组合
   ├─ listWidth   默认 320px
   ├─ searchPlaceholder
@@ -86,7 +91,7 @@ targetPage       Figma 目标 Page;测试固定 Page `测试`(node 3497:651)
 ### 1. 形成 DetailSpec
 
 1. 从描述、截图或线框提取 `DetailSpec`。
-2. 先从[组合注册表](references/detail-compositions.md)确定唯一 `compositionName`:精确匹配 → 推断规则 → 默认 `Tabbed`。
+2. 先从[组合注册表](references/detail-compositions.md)确定唯一 `compositionName`:精确匹配 → 推断规则 → 默认 `Flat`，不凭空制造 Tabs。
 3. 为每个区块确定 `bodyType`(查 [detail-block-map](references/detail-block-map.md));第一个区块必须是 `Descriptions`(或 Descriptions + KeyMetrics)。
 4. 检查 Sections/Tags/操作数量是否越界(Tags ≤ 2,Head 操作 ≤ 3,行内操作 ≤ 2);越界就近收纳并记录假设。
 
@@ -97,7 +102,7 @@ targetPage       Figma 目标 Page;测试固定 Page `测试`(node 3497:651)
 3. 检查同文件已有详情页,优先复用其外壳尺寸、变量、文字样式。
 4. 按[组件映射](../qifu-shared/references/component-map.md)解析组件;节点 ID 失效时按名称重新发现。
 5. 同文件用本地组件节点创建实例;跨文件用发布键导入。
-6. 记录 `resolved / fallback / missing`,未完成盘点不得开始写页面。
+6. 记录 `resolved / missing / ambiguous / failed`；所有必需能力均为 `resolved` 后才开始写页面。
 
 ### 3. 创建页面骨架
 
@@ -122,7 +127,7 @@ Page / Detail / <object> / <compositionName>
 
 ### 4. 组装 PageHead
 
-- 高度 96px;Title 20px / 700;副信息 ID + 更新时间 12px / `#6b7280`。
+- 高度 96px；Title 与副信息分别绑定组件库批准的标题/正文 Text Style；副信息颜色绑定 `文本颜色/--qifu-text-color-secondary`。字号和行高只用于核对，不以手填字体属性代替 Text Style。
 - Tag **最多 2 个**,使用 Tag 真实实例(`light/{success|danger|info}/medium/square`);语义严格遵循 component-map。
 - 主操作 Button primary 一个;次要操作 ≤ 2 个 Button base;再多次要操作进"更多"。
 - `Readonly` 组合不显示主次操作,仅在 Head 最左放返回。
@@ -141,7 +146,7 @@ Page / Detail / <object> / <compositionName>
 - bodyType 对应的控件与规则全部按 [detail-block-map](references/detail-block-map.md) 执行。
 - 第一个 Block 必须是"核心信息块"(Descriptions 或 Descriptions + KeyMetrics);**不允许**首块放 Timeline / Cards / Table。
 - Table 类 Block 严格沿用 component-map 的 Table Shell-V2 同步规则;没有筛选、没有批量、行内操作 ≤ 2。
-- `Custom(<BizBlock>)` 一律降级到 `Fallback / <BizBlock>` + Audit 记录,**不手画**。
+- `Custom(<BizBlock>)` 先尝试由现有真实组件形成页面级组合 `Custom / <BizBlock>`。无法表达时记录 `COMPONENT_MISSING`；仅当 `fallbackPolicy=allow` 时创建 `Fallback / <BizBlock>`，否则返回 `BLOCKED_COMPONENT_GAP`。
 
 ### 7. 状态管理
 
@@ -154,17 +159,19 @@ Page / Detail / <object> / <compositionName>
 
 ### 8. 处理组件缺口
 
-发现缺失能力时:
+发现缺失能力时：
 
 1. 优先使用现有组件的合法组合。
 2. 不修改组件库母版,不分离实例,不在业务详情页中创建冒充正式库组件的母版。
-3. 页面级最小降级,节点命名 `Fallback / <Capability>`。
+3. 只有共享调用基线确认 `COMPONENT_MISSING` 且 `fallbackPolicy=allow` 时，才创建页面级最小降级，节点命名 `Fallback / <Capability>`；默认返回 `BLOCKED_COMPONENT_GAP`。
 4. 在画板右侧创建 `Audit / Missing Components`,逐项写明:
    - 需要的组件或能力;
    - 当前详情页场景;
    - 当前降级方案;
    - 建议的组件属性与状态。
 5. 在交付信息中重复列出缺口,便于维护者补齐组件库。
+
+属性 Key、写后回读、INSTANCE_SWAP、Slot、字体、权限或目标文件失败属于执行失败，直接返回 `FAIL`，不得改走 Fallback。
 
 ### 9. 验证
 

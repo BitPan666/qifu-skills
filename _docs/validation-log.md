@@ -78,7 +78,7 @@ _(还没有记录,第一次跑通后写在下面)_
   - [x] 这条限制应该写进 SKILL.md(已加入,2026-08-12 · "层级归属检查"+"重复节点检查"两条)
   - [ ] 这条限制应该写进 compositions.md
   - [ ] 这条限制应该写进 blueprint.md
-  - [ ] 这条限制应该归到 Audit / Missing Components 的缺口清单(把"清理插件"作为已知 Fallback 工具记录)
+  - [x] 清理插件仅作为历史诊断工具记录，不归入组件 Fallback，也不作为正常生成依赖
 
 ---
 
@@ -116,4 +116,4 @@ _(还没有记录,第一次跑通后写在下面)_
 2. 把 `pass-with-fixes` 里的"偏差"全部反过来检查:它们有没有已经被沉淀到 SKILL.md?如果没有,马上回填
 3. 把 `fail` 记录里的"卡点描述"挑出来,看是不是 skill 本身设计就需要扩展(新 composition、新 bodyType、新 Slot)
 4. 更新上面的"累计指标"表
-5. 把本月沉淀的限制数量写进月报(参见 [[monthly-report-skill-repo]] 和 [[design-meeting-skill]] 的分工)
+5. 把本月沉淀的限制数量写进月报（参见 [monthly-report](https://github.com/jingjingtu/monthly-report) 与 [design-meeting](https://github.com/jingjingtu/design-meeting) 的分工）

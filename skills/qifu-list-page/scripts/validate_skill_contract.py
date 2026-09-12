@@ -14,12 +14,14 @@ REQUIRED_FILES = (
     "references/page-rules.md",
     "references/component-invocation-contract.md",
     "references/structural-validation.md",
-    "references/platform-yushu.md",
 )
 
 # 共享引用（与 REQUIRED_FILES 分开校验：跨 skill 引用，副本中可能缺失兄弟目录）
 SHARED_REFERENCES = (
     "../qifu-shared/references/component-map.md",
+    "../qifu-shared/references/component-invocation-baseline.md",
+    "../qifu-shared/references/page-context.md",
+    "../qifu-shared/references/platform-yushu.md",
     "../qifu-shared/references/platform-zhikexing.md",
 )
 
@@ -57,8 +59,9 @@ REQUIRED_SEMANTICS = {
         "size=medium",
         "shape=square",
     ),
-    "references/platform-yushu.md": (
-        "navigationMode=yushuPreset|custom",
+    "../qifu-shared/references/platform-yushu.md": (
+        "navigationMode",
+        "yushuPreset | custom",
         "Icon/<system>/<purpose>",
         "只有当前路径祖先可以进入 `sideExpanded`",
         "所有祖先都使用 `State=Selected`",
@@ -98,10 +101,17 @@ def validate_frontmatter(skill_text: str, errors: list[str]) -> None:
     frontmatter = match.group(1)
     if not re.search(r"^name:\s*qifu-list-page\s*$", frontmatter, re.MULTILINE):
         errors.append("SKILL.md: name must be qifu-list-page")
-    description = re.search(r"^description:\s*(.+)$", frontmatter, re.MULTILINE)
-    if not description or not description.group(1):
+    description_match = re.search(
+        r"^description:\s*(?:[>|]-?)?\s*\n(?P<block>(?:^[ \t]+.*\n?)+)|^description:\s*(?P<inline>.+)$",
+        frontmatter,
+        re.MULTILINE,
+    )
+    description = ""
+    if description_match:
+        description = (description_match.group("block") or description_match.group("inline") or "").strip()
+    if not description:
         errors.append("SKILL.md: description must be set")
-    if description and "Use when" not in description.group(1) and "用于" not in description.group(1):
+    if description and "Use when" not in description and "用于" not in description:
         errors.append("SKILL.md: description must include a trigger phrase ('Use when' or '用于')")
 
 
@@ -152,7 +162,7 @@ def validate(skill_root: Path) -> list[str]:
             if phrase not in text:
                 errors.append(f"{relative_path}: missing required contract '{phrase}'")
 
-    # 链接检查只覆盖本 skill 的 md，避免越界到 ../qifu-shared
+    # 页面包内链接与已加载的共享引用都必须有效。
     for markdown_file in skill_root.rglob("*.md"):
         text = read_text(markdown_file, errors)
         validate_links(skill_root, markdown_file, text, errors)

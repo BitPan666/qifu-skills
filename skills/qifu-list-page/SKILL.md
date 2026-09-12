@@ -1,6 +1,7 @@
 ---
 name: qifu-list-page
-description: 用于在 Figma 中创建、更新或审查奇富中后台标准桌面列表页。输入业务描述、字段、截图或线框均可。跨平台通过 platform 切换：yushu/generic 走 assemble 组件组装，zhikexing 走 copyTemplate 复制人工基线模板。覆盖列表、筛选、操作栏、表格、状态、分页与组件缺口检查。Not for: 看板、表单、详情页、树表或高度定制工作台。
+description: >-
+  用于在 Figma 中创建、更新或审查奇富中后台标准桌面列表页。输入业务描述、字段、截图或线框均可。跨平台通过 platform 切换：yushu/generic 走 assemble 组件组装，zhikexing 走 copyTemplate 复制人工基线模板。覆盖列表、筛选、操作栏、表格、状态、分页与组件缺口检查。不用于看板、表单、详情页、树表或高度定制工作台。
 ---
 
 # Qifu List Page
@@ -13,6 +14,8 @@ description: 用于在 Figma 中创建、更新或审查奇富中后台标准桌
 
 - [通用页面规则](references/page-rules.md)：页面组合、布局、筛选、操作栏、表格、状态与验收规则。
 - [公共组件映射](../qifu-shared/references/component-map.md)：真实组件名称、节点、发布键、属性、Slot 同步方式和已知缺口（仓库唯一权威，不要复制）。
+- [共享页面上下文](../qifu-shared/references/page-context.md)：跨页面统一的平台、目标位置、状态、权限和交付上下文字段。
+- [共享组件调用基线](../qifu-shared/references/component-invocation-baseline.md)：所有页面共同遵守的组件解析、写入回读和失败分类。
 - [组件调用契约](references/component-invocation-contract.md)：真实属性 Key 动态解析、属性类型、INSTANCE_SWAP、Slot 写入和回读验证。
 - [结构化验收契约](references/structural-validation.md)：实例关系、数量、变量、禁止特征和交付门禁。
 
@@ -22,13 +25,12 @@ description: 用于在 Figma 中创建、更新或审查奇富中后台标准桌
 
 | `platform` | 平台资料 | `generationStrategy` |
 | --- | --- | --- |
-| `yushu` | [毓数平台基线](references/platform-yushu.md) | `assemble` |
-| `generic` | 通用平台，继承通用规则 | `assemble` |
+| `yushu` | [毓数平台基线](../qifu-shared/references/platform-yushu.md) | `assemble` |
+| `generic` | [通用平台适配器](../qifu-shared/references/platform-generic.md) | `assemble` |
 | `zhikexing` | [智客星平台基线](../qifu-shared/references/platform-zhikexing.md) | `copyTemplate` |
-| `dianxiao` | `references/platform-dianxiao.md`，仅在文件存在时读取 | `assemble` |
-| `jinyumeng` | `references/platform-jinyumeng.md`，仅在文件存在时读取 | `assemble` |
+| 其他已注册平台 | `../qifu-shared/references/platform-<key>.md` | 由 Adapter 声明 |
 
-用户明确平台时不得读取或套用其他平台的菜单、颜色和组件。平台文件不存在时，先检查目标 Figma 文件中的真实导航、同类页面和变量；仍无法确定会改变页面框架的信息时再提问，并把未确认项记录为平台缺口。不要用毓数规则临时代替其他平台。
+用户明确平台时不得读取或套用其他平台的菜单、颜色和组件。平台文件不存在时返回 `UNSUPPORTED_PLATFORM`，不边生成边猜测。只有用户明确要求新增 Adapter 时，才检查目标 Figma 文件中的真实导航、同类页面和变量并形成待确认规格；不要用毓数规则临时代替其他平台。
 
 平台文件只记录相对通用规则的差异，固定包含：平台标识、生成策略、Header、侧栏菜单、视觉 Token 覆盖、组件覆盖和已知缺口。不要复制 `page-rules.md` 的筛选/表格规则或整份 `component-map.md`；没有差异的部分直接继承公共规则。
 
@@ -55,7 +57,7 @@ description: 用于在 Figma 中创建、更新或审查奇富中后台标准桌
 pageName / pageTitle
 platform / headerActive
 generationStrategy=assemble|copyTemplate；由 platform 决定，用户不需要单独填写
-navigationMode=yushuPreset|custom；未填时为 yushuPreset
+navigationMode=yushuPreset|custom；仅 `platform=yushu` 时默认 yushuPreset，`generic` 默认 custom
 sidePath[] / sideActive / sideExpanded[] / sideAncestorsActive[] / sideActiveLevel
 customSideMenu.level1[]: label, iconComponentName, hasChildren
 customSideMenu.activeLevel1Children[]: label, hasChildren
@@ -74,7 +76,7 @@ pagination / viewport / targetPage / data
 
 解析顺序固定为：平台 → 生成策略 → 顶部入口 → 侧栏完整路径 → 页面名称与标题 → 筛选 → 列表操作栏 → 页面主动作 → 表格列 → 表格多选框 → 行操作 → 状态、数据与画板。
 
-只在缺失信息会改变页面主结构、平台外壳或造成高风险误导时提问。其余内容按常见后台场景补全，并在交付中列出假设。用户未指定平台且目标文件没有可靠上下文时，暂按 `yushu` 形成草案并明确标注该假设；不得静默推断。`platform=zhikexing` 时必须使用 `copyTemplate`，不走逐项组装；`platform=yushu/generic` 时必须使用 `assemble`，不借用智客星模板。
+只在缺失信息会改变页面主结构、平台外壳或造成高风险误导时提问。其余内容按常见后台场景补全，并在交付中列出假设。用户未指定平台且目标文件没有可靠上下文时，使用 `platform=generic` 形成中性草案并明确标注待适配项；不得静默套用毓数或智客星导航。`platform=zhikexing` 时必须使用 `copyTemplate`，不走逐项组装；`platform=yushu/generic` 时必须使用 `assemble`，不借用智客星模板。
 
 `navigationMode=yushuPreset` 时，`sidePath` 必须存在于毓数默认菜单基线；不在基线且没有切换为 `custom` 时，必须先询问真实父级，不得把新菜单自动追加为一级菜单。`navigationMode=custom` 时按平台文件要求校验完整路径、一级菜单、当前一级下的二级菜单、必要的三级菜单和一级真实 Icon 组件名；缺少会改变层级、箭头或选中状态的信息时停止提问，不自行补树。
 
@@ -86,7 +88,7 @@ pagination / viewport / targetPage / data
 2. 按 `page-rules.md` 的组合决策表确定唯一 `compositionName`；完整名称精确匹配，未指定时按场景选择，不创造近义别名。
 3. 将筛选条件映射为 Input、Search、Select、Checkbox、DatePicker 等语义控件。
 4. 将动作分为查询动作、列表操作栏左侧动作、列表操作栏右侧次要动作、单一主动作和行操作；主动作通过 `primaryAction.placement` 决定列表操作栏最左或最右，不重复写入左右次要动作数组。列表操作文案只决定按钮，不推断表格是否可选择。
-5. 将列标注为 identifier、name、long-text、number、date、status、action 等语义；1366px 画板最多保留 8 个业务列，操作列和状态列计入，自动选择列不计入。
+5. 将列标注为 identifier、name、long-text、number、date、status、action 等语义；`assemble` 的 1366px 常规画板最多保留 8 个业务列，操作列和状态列计入，自动选择列不计入。`copyTemplate` 仅可使用平台 Adapter 明确登记并验收过的固定列矩阵。
 6. 只从“左侧是否有多选框”解析 `tableSelection`：是=`true`，否或未填写=`false`；不得根据“批量”等按钮文案自动开启选择列。
 
 ### 2. 确认平台与目标位置
@@ -161,7 +163,7 @@ pagination / viewport / targetPage / data
 - P0 表头选择列：显示多选列时，Header Selection Cell 根节点背景必须绑定 `背景色/--qifu-bg-color-canvas`，不得沿用数据行的 surface 背景；
 - 所有可复用设计系统元素仍为真实实例，Slot 和属性关系正确；
 - 筛选显示形式、触发方式、列表操作、显式表格选择列、数据状态和分页没有串位；列表操作不会隐式开启 Checkbox；
-- 无文字截断、节点重叠、画板溢出、异常空白、临时截图或占位内容；
+- 无未声明的文字截断、节点重叠、画板溢出、异常空白、临时截图或占位内容；使用省略号的列必须在列规格中声明 overflow 策略，并保留可读取的完整值或 tooltip 说明；
 - 组件缺口与运行时假设已记录。
 
 只有结构验收和视觉验收均为 `PASS` 时才交付完成结果。返回：Skill 版本与可读取的 Git Commit、页面节点 ID 与名称、`compositionName`、主要组件及关键变体、平台与输入假设、组件解析摘要、属性回读摘要、组件缺口、结构与视觉验证结果。

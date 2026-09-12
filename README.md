@@ -1,14 +1,14 @@
 # Qifu Skills
 
-> 奇富 B 端 5 层 AI 设计体系的 skill 集合——把 Token、Component、Pattern、Page Archetype、Business 五层方法论,翻译成 AI 可执行的 Figma 生成 skill。
+> 奇富 B 端六层 AI 设计体系的 Skill 集合——把 Token、Component、Pattern、Page Archetype、Platform Adapter、Business Page 翻译成 AI 可执行的 Figma 生成流程；Governance 作为横切能力管理版本、验证与缺口。
 
-![Language](https://img.shields.io/badge/lang-Markdown-blue) ![Platform](https://img.shields.io/badge/platform-Claude%20Code%20%7C%20Codex-orange) ![Status](https://img.shields.io/badge/status-active-brightgreen) ![License](https://img.shields.io/badge/scope-private-lightgrey)
+![Language](https://img.shields.io/badge/lang-Markdown-blue) ![Platform](https://img.shields.io/badge/platform-Claude%20Code%20%7C%20Codex-orange) ![Status](https://img.shields.io/badge/maturity-evolving-yellow)
 
 ---
 
 ## 这个仓库解决什么问题
 
-B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠手、间距对齐靠眼。本仓库把"5 层 AI 设计体系"落到 **可执行的 Figma 生成 skill** 上:
+B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠手、间距对齐靠眼。本仓库把六层 AI 设计体系落到 **可执行的 Figma 生成 Skill** 上:
 
 - 输入:一句中文业务描述(如"在订阅管理下新建群组列表页")
 - 输出:Figma 中**保持真实组件实例关系**的完整页面(不是截图、不是手绘)
@@ -24,10 +24,11 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
                                        └── Pagination-V2
 ```
 
-## 5 层 AI 设计体系
+## 六层 AI 设计体系 + Governance
 
 | 层级 | 名称 | 它是什么 | 在本仓库 |
 |---|---|---|---|
+| 横切 | Governance | 命名、版本、发布、验证与缺口治理 | `scripts/`、`_docs/`、各 Skill 验收契约 |
 | L1 | Design Token | 颜色 / 字体 / 圆角 / 间距 / 边框 | `qifu-shared/references/component-map.md` 第一段 |
 | L2 | Component | 真实组件实例 + 节点 ID + 发布 Key | `qifu-shared/references/component-map.md` |
 | L3 | Pattern | Filter Bar / Action Bar / DetailBlock 等组合区块 | 各 skill 的 `references/page-rules.md` / `references/page-blueprint.md` |
@@ -35,7 +36,7 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 | L5 | Platform Adapter | 平台导航、品牌、术语、权限、业务槽位 | `qifu-shared/references/platform-*.md` |
 | L6 | Business Page | 业务菜单树、用户上下文、业务名词 | 具体交付页面 |
 
-**关键设计**:L1 / L2 / L5 是**跨原型共享资产**,只维护一份(`qifu-shared/references/`);L4 每新增一种原型,只需写 3 份新文件(SKILL.md + blueprint + compositions),复用骨架和共享层。
+**关键设计**:L1 / L2 / L5 是**跨原型共享资产**,只维护一份(`qifu-shared/references/`);L4 新增原型时至少提供入口、blueprint 与 compositions，复杂原型再按需增加契约、测试和 Golden Sample，避免复制共享层。
 
 ## 当前 Skill 家族
 
@@ -63,7 +64,16 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
                        └─点编辑──▶ 抽屉表单(Edit)
 ```
 
-3 个 skill 边界清晰、互不重叠、可相互跳转,覆盖 B 端 90% 高频页面需求。
+3 个页面 Skill 边界清晰、可相互跳转，目标覆盖 B 端主要高频页面；实际可靠性以 `_docs/validation-log.md` 的真实回归记录为准，不用“覆盖场景”代替“验证通过率”。
+
+### 当前成熟度
+
+| Skill | 状态 | 证据 |
+| --- | --- | --- |
+| `qifu-list-page` | experimental | 有契约测试和样例截图，尚缺 validation-log 中的完整真实跑通记录 |
+| `qifu-drawer-form` | experimental | 有 Golden Sample；历史记录为 pass-with-fixes，仍需无人工修复回归 |
+| `qifu-detail-page` | draft | 结构与组合已定义，尚缺真实跑通记录和截图证据 |
+| `qifu-b-end-design-system` | draft orchestrator | 仅 List / Drawer Form / Detail 已有落图 Skill，其余 Archetype 只做规格与缺口分析 |
 
 ## 仓库结构
 
@@ -75,6 +85,8 @@ qifu-skills-repo/
 │   ├── qifu-shared/                 ← 跨原型共享依赖包(L1/L2/L5 + theme)
 │   │   ├── references/
 │   │   │   ├── component-map.md     ← 全部真实组件的节点 ID / 发布 Key / 属性
+│   │   │   ├── component-invocation-baseline.md ← 跨页面组件解析与失败语义
+│   │   │   ├── page-context.md       ← 跨页面公共上下文与默认值
 │   │   │   ├── platform-yushu.md    ← 毓数平台导航基线 / 菜单树 / 图标映射
 │   │   │   ├── platform-zhikexing.md← 智客星平台基线 / copyTemplate 模板策略
 │   │   │   └── platform-generic.md  ← 通用平台适配器
@@ -83,11 +95,8 @@ qifu-skills-repo/
 │   │   ├── SKILL.md
 │   │   ├── references/
 │   │   │   ├── page-rules.md
-│   │   │   ├── component-map.md
 │   │   │   ├── component-invocation-contract.md
 │   │   │   ├── structural-validation.md
-│   │   │   ├── platform-yushu.md
-│   │   │   └── platform-zhikexing.md
 │   │   ├── scripts/
 │   │   ├── tests/
 │   │   ├── agents/openai.yaml
@@ -95,7 +104,7 @@ qifu-skills-repo/
 │   ├── qifu-drawer-form/            ← 同结构
 │   └── qifu-detail-page/            ← 同结构
 └── skills/qifu-drawer-form/assets/
-    └── screenshots/                 ← 已验证的 Figma 场景截图
+    └── screenshots/                 ← 可追溯的目标案例截图；不等同端到端 pass 证据
 ```
 
 
@@ -126,6 +135,10 @@ qifu-skills-repo/
 
 GitHub 只提供 Skill、规则、示例和截图，不会提供 Figma 登录状态、设计文件权限或任何个人凭证。
 
+> 可见性与授权：仓库当前公开，但 Figma 文件标识、业务截图、平台菜单与设计资产仍可能属于内部资料。本仓库目前未声明开源许可证；维护者应在“转为私有”与“完成脱敏并选择许可证”之间做出明确选择。提交新截图前先检查真实姓名、账号、客户数据和内部业务信息。
+
+> 发布阻断检查：当前历史截图中仍能看到姓名/账号样式文案、业务对象名和编号。推送本轮代码前应由资料所有者确认这些内容均为可公开的仿真数据，或先替换为脱敏截图；若属于真实内部数据，仅在新提交中删除并不能清除 Git 历史，还需要按组织安全流程处理历史与访问风险。
+
 ### 方式一：直接在仓库中使用
 
 适合希望持续接收更新、同时使用多个 Skill 的同事：
@@ -135,7 +148,7 @@ git clone https://github.com/jingjingtu/qifu-skills.git
 cd qifu-skills
 ```
 
-用 Codex 或 Claude Code 打开该目录；在提示词中写明要使用的 Skill 和目标 Figma 文件。仓库内的 `AGENTS.md` 与共享资料会一起被读取。
+用 Codex 或 Claude Code 打开该目录；在提示词中写明要使用的 Skill 和目标 Figma 文件。各 Skill 会按自己的读取路由加载共享资料。
 
 ### 方式二：安装到个人 Skills（推荐）
 
@@ -183,11 +196,31 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 # 同步抽屉及其直接依赖（zhikexing-list-page 已归档，从这里去掉）
 ./sync.sh qifu-drawer-form qifu-shared
 
-# 同步仓库管理的全部活跃 Skill
+# 同步仓库管理的全部活跃 Skill 到本机 Codex
 ./sync.sh
+
+# 如还要同步到 Nutstore，显式提供目标根目录
+NUTSTORE_ROOT="/absolute/path/to/nutstore/skill" ./sync.sh
 ```
 
-脚本固定从当前 GitHub 工作树分发到 Nutstore 与 `~/.codex/skills`，并在每个 Skill 同步后执行目录差异检查。修改规则时先改仓库、校验并提交，再运行同步脚本。
+脚本固定从当前 GitHub 工作树分发到 `${CODEX_HOME:-$HOME/.codex}/skills`；只有显式提供 `NUTSTORE_ROOT` 时才额外同步到 Nutstore。`DRY_RUN=1` 只打印动作，不创建目标目录。目标若已软链到同一仓库会安全跳过，若软链到其他位置则拒绝执行。修改规则时先改仓库、校验并提交，再运行同步脚本。
+
+### 仓库校验
+
+首次运行先安装唯一的开发依赖，之后执行仓库契约与页面 Skill 回归：
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt
+.venv/bin/python scripts/validate_repo.py
+.venv/bin/python -m unittest discover -s skills/qifu-list-page/tests -v
+.venv/bin/python skills/qifu-list-page/scripts/validate_skill_contract.py
+.venv/bin/python skills/qifu-drawer-form/scripts/validate_portable_manifest.py
+bash -n sync.sh
+bash scripts/test_sync.sh
+```
+
+GitHub Actions 会在每次推送和 Pull Request 上执行同一组检查；任一契约、链接、JSON、YAML 或回归测试失败都应阻止合并。
 
 ## 提示词结构与示例
 
@@ -201,7 +234,7 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 
 ### 抽屉提示词
 
-`qifu-drawer-form` 的公开文档保留一套共享模板，以及两个已验证案例：“新增短信模板策略”和“超频流控配置”。请直接查看 [抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)。
+`qifu-drawer-form` 的公开文档保留一套共享模板，以及两个已确认的视觉与结构目标案例：“新增短信模板策略”和“超频流控配置”。它们不等同于端到端 `pass` 记录；请直接查看 [抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)。
 
 ### 在 Figma 中使用
 
@@ -286,13 +319,13 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 
 ## 路线图
 
-- [x] 5 层方法论(PPT 汇报)
+- [x] 六层方法论 + Governance（原“五层方法论”演进版）
 - [x] qifu-list-page(2026-08-12 前已有)
 - [x] qifu-drawer-form(2026-08-12)
 - [x] qifu-detail-page(2026-08-12)
 - [x] qifu-b-end-design-system(2026-08)
 - [x] zhikexing-list-page 已于 2026-09-11 归档，落图逻辑并入 `qifu-list-page`
-- [ ] 共享层收敛（`qifu-list-page` 的 `component-map.md` / `platform-zhikexing.md` 已并入 `qifu-shared`）
+- [x] 共享层收敛：组件映射、组件调用基线、页面上下文与平台适配器统一由 `qifu-shared` 维护
 - [ ] 补齐 `_docs/validation-log.md` 截图与至少 1 条 list/detail 真实跑通记录
 - [ ] qifu-wizard(分步向导,如 AB 实验创建)
 - [ ] qifu-workbench(工作台)
@@ -308,11 +341,11 @@ GitHub 仓库中的 `skills/` 是唯一主结构。`qifu-shared` 统一维护组
 
 **维护者**:师静雅 · Qifu B 端设计
 **首次推送**:2026-08-13
-**结构版本**:v1.0(5 层体系落地的最初形态)
+**结构版本**:v1.1(六层体系 + Governance，统一共享契约与仓库验证)
 
 ## Codex installation
 
-The Qifu page skills share component and navigation references. Install all four packages together so every page skill can resolve its dependencies:
+The three Qifu page skills share component and navigation references. Install the page skills, the orchestrator, and `qifu-shared` together so every page skill can resolve its dependencies:
 
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \

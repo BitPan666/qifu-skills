@@ -110,7 +110,7 @@ Selection Cell-V2 = 0，或 data.length + 1
 Pagination-V2 = showPagination ? 1 : 0
 ```
 
-在 `1366 × 768` 画板中，`columns.length` 最多 8 个业务列；状态列和操作列计入，自动 Selection Cell 不计入。超过上限且未明确 1920、删列或横向滚动方案时状态为 `BLOCKED`。
+在 `assemble` 的 `1366 × 768` 画板中，`columns.length` 最多 8 个业务列；状态列和操作列计入，自动 Selection Cell 不计入。超过上限且未明确 1920、删列或横向滚动方案时状态为 `BLOCKED`。`copyTemplate` 只校验当前平台 Adapter 已登记的固定列矩阵，不把该矩阵推广为通用规则。
 
 同时验证：
 

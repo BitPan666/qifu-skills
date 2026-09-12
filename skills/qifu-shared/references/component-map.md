@@ -21,7 +21,9 @@
 
 ## 2. 调用边界
 
-本文件回答“选择哪个组件”。真实属性 Key、属性类型、INSTANCE_SWAP、Slot 写入顺序和回读规则以 [组件调用契约](../../qifu-list-page/references/component-invocation-contract.md) 为准；交付门禁以 [页面结构化验收契约](../../qifu-list-page/references/structural-validation.md) 为准。本仓库只有 `qifu-list-page` 维护这两份文件；其他页面 Skill 引用时按自己的 `SKILL.md` 路径定位。
+本文件只回答“选择哪个组件”。所有页面共同遵守[共享组件调用基线](component-invocation-baseline.md)；列表页的 Slot 细节继续由其组件调用契约负责，页面结构与视觉门禁由各 Archetype 自己的验证文件负责。共享层不得反向依赖某个页面 Skill 的专属契约。
+
+本文件出现的“当前回退”只表示候选实现，不构成自动降级授权。页面 Skill 仍须确认 `COMPONENT_MISSING`，并取得该页面契约要求的用户授权；否则只记录缺口并失败关闭。
 
 表格中的属性名是稳定逻辑名称，不保证等于 Figma 运行时返回的完整 Key。创建实例后必须读取 `componentProperties` 动态解析；禁止把 `Label#2405:0` 等当前内部后缀固化为长期接口。
 
@@ -30,7 +32,7 @@
 | 用途 | 组件集 | 节点 ID | 发布 Key | 关键属性 |
 | --- | --- | --- | --- | --- |
 | 顶部菜单 | `Navigation / HeaderMenu / HeaderMenu` | `2525:2226` | `b2b586e04aa149f802fb6b4fad502ef7f25c276e` | `Icon`、`Logo`、`Items=1..8`、4 个 Action Icon swap |
-| 毓数顶部菜单 V2 | `Navigation / HeaderMenu / Yushu Header-V2` | `3639:1529` | `13dd3304a68853196f2a683bba7ebd034e2928ee` | `activeMenu 当前菜单=QBI/数据资产/自助查询/数据开发/指标管理`；固定 Logo、右侧图标、头像和 `panyue` |
+| 毓数顶部菜单 V2 | `Navigation / HeaderMenu / Yushu Header-V2` | `3639:1529` | `13dd3304a68853196f2a683bba7ebd034e2928ee` | `activeMenu 当前菜单=QBI/数据资产/自助查询/数据开发/指标管理`；固定 Logo、右侧图标和头像槽位；业务页面不得固化个人姓名或账号 |
 | 顶部菜单项 | `Navigation / HeaderMenu / HeaderMenuItem` | `2525:1111` | `af3b9a17fd68b4a6b9943e91369d864ef9cb4126` | `Icon`、`State=Default/Selected/Hover/Disabled` |
 | 侧边菜单 | `Navigation / SideMenu / SideMenu` | `2406:461` | `0e8b19f82f0b069b5f68e1a7140087532de52167` | `Selected Case` 6 种结构 |
 | 侧边菜单项 V2 | `Navigation / SideMenu / SideMenuItem-V2` | `3650:998` | `cee1612d682da5860d488abc732321c3fd15ad44` | 36 个有效变体；`Label` 已全部接线；`Level=1/2/3`、`Has Submenu`、`State`、`expanded 展开=False/True` 均可按 PageSpec 配置；一级菜单支持 `icon 图标`、`showIcon 显示图标`，可通过真实 Icon ComponentNode 做 INSTANCE_SWAP；有子菜单的 `State=Selected` 用于祖先路径高亮（白底，文字/图标/箭头主题绿），无子菜单的 `State=Selected` 用于当前页选中 |
@@ -147,7 +149,7 @@ Table Shell-V2 的 `size`、`type`、`selection` 只决定母版默认 Slot 内�
 
 3. **Status / 紧凑状态点**
    - Status Content V2 内含五种 Tag 状态，但不作为新列表页普通状态标签的默认入口；普通状态仍直接使用 `Data Display / Tag / Tag` 并遵循全量 `medium/square` 契约。
-   - 当前尚缺 `dot + text` 表现。需要 default/success/warning/error/disabled 语义与自定义文案；补齐前仅在 PageSpec 明确要求该额外能力时使用受限降级。
+   - 当前尚缺 `dot + text` 表现。需要 default/success/warning/error/disabled 语义与自定义文案；补齐前仅在 PageSpec 明确要求、确认 `COMPONENT_MISSING` 且用户允许降级时使用受限实现。
 
 4. **页面外壳响应式宽度**
    - List Page Shell V2 与 Table Shell V2 的默认内容宽度为 1248px；选择列开关已不会导致跳宽。

@@ -1,4 +1,6 @@
 interface:
   display_name: "Zhikexing List Page（归档入口）"
   short_description: "已并入 qifu-list-page 的兼容入口；不要作为独立工作流使用。"
-  default_prompt: "使用 $qifu-list-page 并调用 @figma 插件，platform=zhikexing，基于智客星 1366 标准模板（node 4892:34812）在指定 Figma Page 的空白处生成可编辑列表页；不要直接调用本 skill，本入口已无独立落图逻辑。"
+  default_prompt: "使用 $zhikexing-list-page 时只返回迁移提示，并改用 $qifu-list-page 的 platform=zhikexing 流程；本归档入口不直接落图。"
+policy:
+  allow_implicit_invocation: false

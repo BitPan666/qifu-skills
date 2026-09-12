@@ -4,7 +4,7 @@
 
 用稳定名称描述"以查看为主、局部可编辑"的详情页结构。调用必须使用下表完整 `compositionName`;这些名称属于 Skill 的调用协议,不是 Figma 组件母版名称。
 
-与 qifu-list-page(6 组合)、qifu-drawer-form(5 组合)是同一配方协议在不同原型上的复用,**不得跨原型借用组合名**。
+与 qifu-list-page(6 组合)、qifu-drawer-form(6 组合)是同一配方协议在不同原型上的复用,**不得跨原型借用组合名**。
 
 ## 已注册组合
 
@@ -23,7 +23,7 @@
    - 提到"左列表右详情 / 选择记录查看" → `Master Detail`
    - 关联维度 ≥ 3 或有明显切换语义 → `Tabbed`
    - 单对象信息展开 → `Flat`
-3. 未指定且无法区分时使用 `Qifu Detail Page / Tabbed`(最通用、最稳定)。
+3. 未指定且无法区分时使用 `Qifu Detail Page / Flat`；只有输入存在明确的维度切换语义时才生成 Tabs。
 4. 组合名称只决定稳定结构(Head 形态、主体布局、操作位置);业务字段、文案、Tabs 名、操作项仍来自 `DetailSpec`。
 5. 不把业务对象、Tab 名、状态拼进 `compositionName`,也不创建 `Simple`、`Normal` 等未注册别名。
 6. 新场景先用最接近的已注册组合并记录缺口;只有用户确认长期复用,才新增组合名并同步本注册表、`SKILL.md`。

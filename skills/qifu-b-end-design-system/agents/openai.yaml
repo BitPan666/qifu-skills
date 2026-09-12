@@ -1,4 +1,4 @@
 interface:
   display_name: "Qifu B 端 Design System"
   short_description: "将 B 端需求抽象为可跨平台复用的页面类型、Pattern 与 Figma 组件实例。"
-  default_prompt: "使用 Qifu B 端 Design System，把这段业务需求先抽象为 PageSpec 和页面 Archetype，再调用奇富科技中后台组件库“新”的真实 Figma 组件生成页面，并返回组件、平台适配和缺口审计。"
+  default_prompt: "使用 $qifu-b-end-design-system 将业务需求归一化为 PageContext 和页面 Archetype；路由到已有页面 Skill，或对尚未实现的类型返回明确缺口。"

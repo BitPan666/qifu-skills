@@ -50,7 +50,7 @@ Tabs:基本信息、触发记录。
 | `KeyMetrics` | KeyValue Grid | 关键指标 |
 | `Empty` | Empty 组件 | 无数据但将来会有 |
 
-外加 `Custom(<BizBlock>)` 用于非标准(富文本预览、JSON 编辑器等),配 Fallback + Audit。
+外加 `Custom(<BizBlock>)` 用于非标准内容。优先用真实组件形成页面级组合；确认组件缺口且用户明确允许降级时，才创建 Fallback，并始终保留 Audit。
 
 ## 关键铁律
 

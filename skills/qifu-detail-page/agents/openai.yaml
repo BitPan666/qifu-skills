@@ -1,4 +1,4 @@
 interface:
   display_name: "Qifu Detail Page"
   short_description: "按命名组合生成奇富后台详情页(Flat / Tabbed / Master Detail / Readonly)"
-  default_prompt: "使用 $qifu-detail-page,根据业务字段选择已注册的详情页组合名称,并在 Figma 中生成奇富后台详情页。"
+  default_prompt: "使用 $qifu-detail-page 并调用 @figma，根据业务字段选择已注册组合，在指定 Page 和落点生成奇富后台详情页并返回验证结果。"

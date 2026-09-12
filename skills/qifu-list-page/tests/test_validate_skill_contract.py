@@ -63,7 +63,7 @@ class SkillContractValidatorTest(unittest.TestCase):
     def test_missing_platform_navigation_contract_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()
         self.addCleanup(temp_dir.cleanup)
-        (copied_root / "references" / "platform-yushu.md").unlink()
+        (copied_root.parent / "qifu-shared" / "references" / "platform-yushu.md").unlink()
 
         result = self.run_validator(copied_root)
 
@@ -73,17 +73,17 @@ class SkillContractValidatorTest(unittest.TestCase):
     def test_missing_custom_navigation_mode_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()
         self.addCleanup(temp_dir.cleanup)
-        platform_file = copied_root / "references" / "platform-yushu.md"
+        platform_file = copied_root.parent / "qifu-shared" / "references" / "platform-yushu.md"
         platform_text = platform_file.read_text(encoding="utf-8")
         platform_file.write_text(
-            platform_text.replace("navigationMode=yushuPreset|custom", ""),
+            platform_text.replace("yushuPreset | custom", ""),
             encoding="utf-8",
         )
 
         result = self.run_validator(copied_root)
 
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("navigationMode=yushuPreset|custom", result.stdout)
+        self.assertIn("yushuPreset | custom", result.stdout)
 
     def test_missing_list_action_placement_contract_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()
@@ -198,7 +198,7 @@ class SkillContractValidatorTest(unittest.TestCase):
     def test_missing_p0_menu_visual_matrix_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()
         self.addCleanup(temp_dir.cleanup)
-        platform_file = copied_root / "references" / "platform-yushu.md"
+        platform_file = copied_root.parent / "qifu-shared" / "references" / "platform-yushu.md"
         platform_text = platform_file.read_text(encoding="utf-8")
         platform_file.write_text(
             platform_text.replace("各级菜单状态视觉矩阵（P0）", ""),
@@ -239,7 +239,7 @@ class SkillContractValidatorTest(unittest.TestCase):
     def test_missing_ancestor_selected_state_is_rejected(self) -> None:
         temp_dir, copied_root = self.copy_skill()
         self.addCleanup(temp_dir.cleanup)
-        platform_file = copied_root / "references" / "platform-yushu.md"
+        platform_file = copied_root.parent / "qifu-shared" / "references" / "platform-yushu.md"
         platform_text = platform_file.read_text(encoding="utf-8")
         platform_file.write_text(
             platform_text.replace("所有祖先都使用 `State=Selected`", ""),

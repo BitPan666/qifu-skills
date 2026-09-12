@@ -14,7 +14,7 @@
 | `Table` | Table Shell-V2 + Header/Row/Content Cell-V2 | 变更记录、关联记录、子对象列表 | `type=basic`、`size=medium`、行数 5–10 |
 | `Cards` | 页面级 `Card Grid`(3 列) | 关联客户、子对象快照、快捷入口 | 列数固定 3,卡内仅头像 + 标题 + 副标题 |
 | `Timeline` | Timeline 组件 | 操作历史、状态流转、审批流程 | 节点最多 10 条,超出显示"查看全部" |
-| `KeyMetrics` | 页面级 `KeyValue Grid`(3 或 4 列) | 关键指标、汇总数据、计数卡 | 数字 24px / 600,label 12px |
+| `KeyMetrics` | 页面级 `KeyValue Grid`(3 或 4 列) | 关键指标、汇总数据、计数卡 | 数值与标签分别绑定已批准的数字展示 / 正文 Text Style |
 | `Empty` | Empty 组件 | 该区块本身无数据 | `status=NoData` + 一句引导 |
 | `Custom(<BizBlock>)` | 页面级自定义 + Audit 记录 | 富文本预览、地图、配置 JSON、嵌套子区块 | 仅当现有组件无法表达时使用 |
 
@@ -37,7 +37,7 @@
 - 每行 2 或 3 列;**不写 1 列**(除非文档级长描述)和 ≥ 4 列(密度过低)。
 - label 宽固定 120px,右对齐,与 value 间距 12px。
 - value 类型:
-  - 短文本 → 直接文本 14px / `#111827`
+  - 短文本 → 组件库正文 Text Style / `文本颜色/--qifu-text-color-primary`
   - 长文本(URL/Webhook/富文本片段) → 单行 ellipsis + Tooltip 查看
   - 状态 → `Tag` 严格语义映射(同 qifu-list-page):启用=success / 禁用=danger / pending=info
   - 日期 → `YYYY-MM-DD HH:mm` 统一格式
@@ -69,7 +69,7 @@
 ### KeyMetrics
 
 - 列数固定 3 或 4,不并排 2 个也不并排 ≥ 5 个。
-- 每个 KeyMetric:value(24px / 700 / #111827)+ label(12px / #6b7280)+ [可选] 趋势(±x%)。
+- 每个 KeyMetric：value 使用组件库批准的数字展示 Text Style 与 `文本颜色/--qifu-text-color-primary`；label 使用正文 Text Style 与 `文本颜色/--qifu-text-color-secondary`；可选趋势显示 `±x%`。若没有合适的数字展示 Text Style，返回 `STYLE_MISSING`，不手填字号或字重冒充。
 - 数字**不做**颜色编码(红色 = 跌、绿色 = 涨),除非业务上有极明确的正负语义。
 - 趋势用文字 + ↑↓ 符号,不用 sparkline 图(易视觉杂乱)。
 
@@ -84,8 +84,9 @@
 仅在以下情形使用:
 
 - 业务有非标准内容:富文本预览、JSON Schema 编辑器、代码片段、地图、签名图等。
-- 页面级最小降级实现,节点命名 `Fallback / <BizBlock>`。
-- 必配 Audit / Missing Components 记录:需要什么能力、当前降级方案、期望的组件形态。
+- 先用现有真实组件形成页面级组合，命名 `Custom / <BizBlock>`。
+- 无法表达时记录 `COMPONENT_MISSING`。只有 `DetailSpec.fallbackPolicy=allow` 才创建 `Fallback / <BizBlock>`；默认返回 `BLOCKED_COMPONENT_GAP`。
+- 必配 Audit / Missing Components 记录：需要什么能力、候选降级方案、期望的组件形态和授权状态。
 
 ## 首块必须是核心信息
 

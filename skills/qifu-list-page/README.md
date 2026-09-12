@@ -70,7 +70,7 @@ $qifu-list-page 在毓数平台的权限管理 > 用户授权下新建用户授�
 - `references/page-rules.md` — 组合注册表、画板骨架、筛选、操作栏、表格、分页和页面级验收
 - `references/component-invocation-contract.md` — 属性 Key 解析、INSTANCE_SWAP、Slot 写入和回读验证
 - `references/structural-validation.md` — 结构化验收、禁止特征和 PASS/BLOCKED/FAIL 判定
-- `references/platform-yushu.md` — 毓数平台基线
+- `qifu-shared/references/platform-yushu.md` — 毓数平台基线唯一权威
 - `scripts/validate_skill_contract.py` — 文档契约校验
 - `tests/test_validate_skill_contract.py` — 契约测试
 - `agents/openai.yaml` — Codex 入口

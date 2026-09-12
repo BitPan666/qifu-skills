@@ -27,7 +27,7 @@ adapter:
     primary: component-library-default
   slots:
     - name: audience-selector
-      allowed: [custom-instance, fallback]
+      allowed: [custom-instance, audited-fallback]
   permissions:
     actionVisibility: hide-when-forbidden
 ```
@@ -44,13 +44,15 @@ adapter:
 
 ## 4. 通用平台规则
 
-当没有现成平台适配器时：
+当用户没有指定平台、或明确要求中性跨平台草案时：
 
 - 使用 `platform-generic`；
 - Header 和侧栏使用已确认的通用组件或中性占位；
 - 不虚构平台菜单；
 - 用 `Adapter TODO` 标记待补信息；
 - 页面仍必须完成 Archetype、Pattern 和组件级验证。
+
+用户明确指定的平台尚未注册时返回 `UNSUPPORTED_PLATFORM`。只有用户明确要求建立新 Adapter 时才进入平台盘点，不把 `platform-generic` 伪装成该平台。`audited-fallback` 仍须满足共享调用基线的 `COMPONENT_MISSING + 用户明确授权` 条件。
 
 ## 5. 禁止事项
 
