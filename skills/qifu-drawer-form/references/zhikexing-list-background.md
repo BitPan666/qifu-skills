@@ -24,12 +24,7 @@ background
 
 ## 读取与边界
 
-启用前必须完整读取：
-
-- `../../qifu-list-page/SKILL.md`
-- `../../qifu-shared/references/platform-zhikexing.md`（智客星平台基线唯一权威；list-page 与 zhikexing-list-page 共用此源）
-- `../../qifu-list-page/references/component-invocation-contract.md`
-- `../../qifu-list-page/references/structural-validation.md`
+启用前必须完整读取 `../../qifu-shared/references/platform-zhikexing.md`。如果本地同时安装了 `qifu-list-page`，再读取该 Skill 的 `SKILL.md`、`references/component-invocation-contract.md` 和 `references/structural-validation.md`；独立安装抽屉 Skill 时，不把 `qifu-list-page` 作为强制依赖。
 
 > `zhikexing-list-page` 已于 2026-09-11 归档为历史兼容入口，`references/` 已删除；底图协议不再依赖该目录。
 

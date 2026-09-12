@@ -24,3 +24,4 @@ jobs:
       - run: python skills/qifu-drawer-form/scripts/validate_portable_manifest.py
       - run: bash -n sync.sh
       - run: bash scripts/test_sync.sh
+      - run: python scripts/test_drawer_release_sync.py

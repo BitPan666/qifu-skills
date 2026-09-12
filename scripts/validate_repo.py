@@ -19,7 +19,7 @@ SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LOCAL_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 ALLOWED_FRONTMATTER = {"name", "description", "license", "allowed-tools", "metadata"}
 NON_WORKFLOW_SKILLS = {"qifu-shared", "zhikexing-list-page"}
-SKIP_PARTS = {".git", ".venv", "node_modules", "__pycache__", ".pytest_cache"}
+SKIP_PARTS = {".git", ".venv", "node_modules", "__pycache__", ".pytest_cache", "release"}
 
 
 def should_skip(path: Path) -> bool:

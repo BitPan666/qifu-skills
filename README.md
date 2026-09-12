@@ -205,6 +205,20 @@ NUTSTORE_ROOT="/absolute/path/to/nutstore/skill" ./sync.sh
 
 脚本固定从当前 GitHub 工作树分发到 `${CODEX_HOME:-$HOME/.codex}/skills`；只有显式提供 `NUTSTORE_ROOT` 时才额外同步到 Nutstore。`DRY_RUN=1` 只打印动作，不创建目标目录。目标若已软链到同一仓库会安全跳过，若软链到其他位置则拒绝执行。修改规则时先改仓库、校验并提交，再运行同步脚本。
 
+### 发布独立抽屉 Skill
+
+`qifu-skills` 是唯一开发源；独立仓库 `jingjingtu/qifu-drawer-form` 是只读发布镜像，不在两边手工维护。发布前先提交主仓库，然后执行：
+
+```bash
+python3 scripts/sync_drawer_release.py ../qifu-drawer-form
+cd ../qifu-drawer-form
+python3 scripts/validate_release.py
+git diff --check
+git status --short
+```
+
+同步脚本只导出 `qifu-drawer-form`、直接依赖 `qifu-shared` 和发布仓库文档，不会复制其他私有 Skill。它会拒绝脏的源或目标工作区、错误的目标远端，并在写入前通过临时目录完成链接、清单、JSON 和 Portable Manifest 校验。检查变更后再由维护者提交并推送独立仓库。
+
 ### 仓库校验
 
 首次运行先安装唯一的开发依赖，之后执行仓库契约与页面 Skill 回归：

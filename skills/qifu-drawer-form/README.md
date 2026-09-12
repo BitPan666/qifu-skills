@@ -2,7 +2,7 @@
 
 在 Figma 中生成可继续编辑的奇富后台右侧抽屉，复用真实组件实例，不把控件画成分散的矩形和文字。
 
-本 README 只展示两个已确认的视觉与结构目标案例：**智能运营平台的“新增短信模板策略”**和**智客星的“超频流控配置”**。它们不是无人工干预的端到端 `pass` 证明；真实运行成熟度以仓库的 [Validation Log](../../_docs/validation-log.md) 为准。两个案例共用下方同一套提示词模板；其他平台、数据详情和内部路由规则不在这里展开。
+本 README 只展示两个已确认的视觉与结构目标案例：**智能运营平台的“新增短信模板策略”**和**智客星的“超频流控配置”**。它们不是无人工干预的端到端 `pass` 证明；主仓库中的真实运行成熟度以 `_docs/validation-log.md` 为准。两个案例共用下方同一套提示词模板；其他平台、数据详情和内部路由规则不在这里展开。
 
 ## 已确认的目标案例
 
@@ -25,22 +25,22 @@
 ### Codex
 
 ```bash
-git clone https://github.com/jingjingtu/qifu-skills.git ~/Documents/qifu-skills
+git clone https://github.com/jingjingtu/qifu-drawer-form.git ~/Documents/qifu-drawer-form
 mkdir -p ~/.codex/skills
-ln -sfn ~/Documents/qifu-skills/skills/qifu-shared ~/.codex/skills/qifu-shared
-ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.codex/skills/qifu-drawer-form
+ln -sfn ~/Documents/qifu-drawer-form/skills/qifu-shared ~/.codex/skills/qifu-shared
+ln -sfn ~/Documents/qifu-drawer-form/skills/qifu-drawer-form ~/.codex/skills/qifu-drawer-form
 ```
 
 ### Claude Code
 
 ```bash
-git clone https://github.com/jingjingtu/qifu-skills.git ~/Documents/qifu-skills
+git clone https://github.com/jingjingtu/qifu-drawer-form.git ~/Documents/qifu-drawer-form
 mkdir -p ~/.claude/skills
-ln -sfn ~/Documents/qifu-skills/skills/qifu-shared ~/.claude/skills/qifu-shared
-ln -sfn ~/Documents/qifu-skills/skills/qifu-drawer-form ~/.claude/skills/qifu-drawer-form
+ln -sfn ~/Documents/qifu-drawer-form/skills/qifu-shared ~/.claude/skills/qifu-shared
+ln -sfn ~/Documents/qifu-drawer-form/skills/qifu-drawer-form ~/.claude/skills/qifu-drawer-form
 ```
 
-完成后新开任务，使用 `$qifu-drawer-form` 或直接说“使用 qifu-drawer-form”。更新时进入 `~/Documents/qifu-skills` 执行 `git pull`；软链不需要重新创建。
+完成后新开任务，使用 `$qifu-drawer-form` 或直接说“使用 qifu-drawer-form”。更新时进入 `~/Documents/qifu-drawer-form` 执行 `git pull`；软链不需要重新创建。主仓库维护者也可以把同样的两个软链直接指向 `qifu-skills/skills/` 下的对应目录。
 
 ## 一套模板
 
