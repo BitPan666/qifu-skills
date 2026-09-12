@@ -22,6 +22,8 @@ jobs:
       - run: python -m unittest discover -s skills/qifu-list-page/tests -v
       - run: python skills/qifu-list-page/scripts/validate_skill_contract.py
       - run: python skills/qifu-drawer-form/scripts/validate_portable_manifest.py
+      - run: python skills/qifu-drawer-form/scripts/validate_multi_platform_contract.py
+      - run: python -m unittest discover -s skills/qifu-drawer-form/tests -v
       - run: bash -n sync.sh
       - run: bash scripts/test_sync.sh
       - run: python scripts/test_drawer_release_sync.py

@@ -248,7 +248,7 @@ GitHub Actions 会在每次推送和 Pull Request 上执行同一组检查；任
 
 ### 抽屉提示词
 
-`qifu-drawer-form` 的仓库文档保留一套共享模板，以及两个已确认的视觉与结构目标案例：“新增短信模板策略”和“超频流控配置”。它们不等同于端到端 `pass` 记录；请直接查看 [抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)。
+`qifu-drawer-form` 支持单平台生成，以及把同一份 `baseDrawer` 批量派生为智客星、毓数和智能运营平台对比稿。平台差异由注册表、Adapter 和主题变量控制，不复制字段结构。普通场景与批量对比提示词见[抽屉 README](./skills/qifu-drawer-form/README.md#多平台对比模式)。
 
 ### 在 Figma 中使用
 
