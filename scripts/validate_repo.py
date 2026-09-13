@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote
@@ -200,6 +201,26 @@ def main() -> int:
     validate_json(errors)
     validate_yaml(errors)
     validate_repository_contract(errors)
+
+    selector_validator = (
+        SKILLS
+        / "qifu-drawer-form"
+        / "scripts"
+        / "validate_selector_suffix_contract.py"
+    )
+    result = subprocess.run(
+        [sys.executable, str(selector_validator)],
+        cwd=ROOT,
+        check=False,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+    if result.returncode:
+        errors.append(
+            "qifu-drawer-form: selector suffix contract validation failed: "
+            + result.stdout.strip()
+        )
 
     for warning in warnings:
         print(f"WARN: {warning}")
