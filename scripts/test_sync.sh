@@ -21,8 +21,9 @@ test ! -e "$dry_codex"
 test ! -e "$dry_nutstore"
 
 real_codex="$TEST_ROOT/real-codex"
-CODEX_HOME="$real_codex" "$REPO_ROOT/sync.sh" qifu-shared >"$TEST_ROOT/real.log"
+CODEX_HOME="$real_codex" "$REPO_ROOT/sync.sh" qifu-shared qifu-business-flow >"$TEST_ROOT/real.log"
 test -f "$real_codex/skills/qifu-shared/SKILL.md"
+test -f "$real_codex/skills/qifu-business-flow/SKILL.md"
 if grep -q '\[DRY\]' "$TEST_ROOT/real.log"; then
   echo "Real sync was incorrectly labeled as dry-run" >&2
   exit 1

@@ -1,0 +1,108 @@
+schemaVersion: "1.0"
+flow:
+  id: task-management
+  name: 触发式任务
+platform:
+  key: zhikexing
+  name: 智客星
+  adapter: skills/qifu-shared/references/platform-zhikexing.md
+  sourceStatus: confirmed
+entity:
+  key: task
+  name: 任务
+  idField: taskId
+  titleField: taskName
+fields:
+  - key: taskId
+    label: 任务ID
+    type: identifier
+    sourceStatus: confirmed
+  - key: taskName
+    label: 任务名称
+    type: text
+    sourceStatus: confirmed
+views:
+  list:
+    type: list
+    title: 触发式任务
+    fields: [taskId, taskName]
+    actions:
+      - key: create
+        sourceStatus: confirmed
+      - key: more
+        sourceStatus: confirmed
+      - key: data
+        sourceStatus: confirmed
+      - key: detail
+        sourceStatus: TBD
+  createDrawer:
+    type: drawer
+    title: 新建触发式任务
+    fields: [taskName]
+    actions:
+      - key: cancel
+        sourceStatus: confirmed
+      - key: submit
+        sourceStatus: confirmed
+  taskDataDrawer:
+    type: drawer
+    title: 数据详情
+    skill: qifu-detail-drawer
+    targetStatus: pending-skill
+    fields: [taskName]
+    actions: []
+  taskDetail:
+    type: page
+    title: 任务详情
+    targetStatus: pending-skill
+    fields: [taskId, taskName]
+    actions: []
+transitions:
+  - id: list-create
+    from: list
+    action: create
+    to: createDrawer
+    presentation: drawer
+    sourceStatus: confirmed
+  - id: create-dismiss
+    from: createDrawer
+    actions: [cancel, close]
+    to: list
+    presentation: closeDrawer
+    sourceStatus: confirmed
+  - id: create-success
+    from: createDrawer
+    action: submit
+    to: list
+    presentation: closeDrawer
+    effect: refreshList
+    sourceStatus: confirmed
+  - id: list-more
+    from: list
+    action: more
+    to: moreMenu
+    presentation: overlayMenu
+    sourceStatus: confirmed
+  - id: list-data
+    from: list
+    action: data
+    to: taskDataDrawer
+    presentation: drawer
+    sourceStatus: confirmed
+  - id: data-close
+    from: taskDataDrawer
+    action: close
+    to: list
+    presentation: closeDrawer
+    effect: preserveFiltersAndPagination
+    sourceStatus: confirmed
+  - id: list-detail
+    from: list
+    action: detail
+    to: taskDetail
+    presentation: page
+    sourceStatus: TBD
+assumptions: []
+tbd:
+  - key: task-detail
+    description: 普通任务详情样式尚未确认

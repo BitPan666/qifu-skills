@@ -51,6 +51,7 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 | [qifu-list-page](./skills/qifu-list-page/) | 列表 + 筛选 + 表格 + 批量 | 6 | Basic Table / Basic Filter / Advanced Filter / Selectable / Loading / Empty |
 | [qifu-drawer-form](./skills/qifu-drawer-form/) | 右侧抽屉内新建 / 编辑 / 查看 | 6 | Simple Create / Sectioned Create / Advanced Create / Edit / Readonly / Data Detail with Table |
 | [qifu-detail-page](./skills/qifu-detail-page/) | 详情查看 + 局部操作 | 4 | Flat / Tabbed / Master Detail / Readonly |
+| [qifu-business-flow](./skills/qifu-business-flow/) | 多页面状态、返回规则与 Prototype 编排 | FlowPlan | BusinessFlowSpec 驱动 / 复用优先 / confirmed-only |
 
 **真实业务流串起来**:
 
@@ -73,6 +74,7 @@ B 端后台设计碎片化严重:每张页面都从零画图、组件绑定靠�
 | `qifu-list-page` | experimental | 有契约测试和样例截图，尚缺 validation-log 中的完整真实跑通记录 |
 | `qifu-drawer-form` | experimental | 有 Golden Sample；历史记录为 pass-with-fixes，仍需无人工修复回归 |
 | `qifu-detail-page` | draft | 结构与组合已定义，尚缺真实跑通记录和截图证据 |
+| `qifu-business-flow` | experimental | 已通过触发式任务 BusinessFlowSpec 与 6 条 confirmed 路由回归 |
 | `qifu-b-end-design-system` | draft orchestrator | 仅 List / Drawer Form / Detail 已有落图 Skill，其余 Archetype 只做规格与缺口分析 |
 
 ## 仓库结构
@@ -102,7 +104,8 @@ qifu-skills-repo/
 │   │   ├── agents/openai.yaml
 │   │   └── README.md                ← 单个 skill 的详细说明
 │   ├── qifu-drawer-form/            ← 同结构
-│   └── qifu-detail-page/            ← 同结构
+│   ├── qifu-detail-page/            ← 同结构
+│   └── qifu-business-flow/          ← 跨页面 FlowPlan 与 Prototype 编排
 └── skills/qifu-drawer-form/assets/
     └── screenshots/                 ← 可追溯的目标案例截图；不等同端到端 pass 证据
 ```
@@ -163,12 +166,12 @@ cd ~/Documents/qifu-skills
 # 安装活跃 Skill：保留 qifu-shared 作为共享依赖；只安装抽屉时去掉 qifu-list-page / qifu-detail-page
 # zhikexing-list-page 已于 2026-09-11 归档，不要安装
 mkdir -p ~/.claude/skills
-for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page qifu-business-flow; do
   ln -sfn "$(pwd)/skills/$s" ~/.claude/skills/$s
 done
 
 # 3. 在 Claude Code 中触发
-#    $qifu-list-page / $qifu-drawer-form / $qifu-detail-page
+#    $qifu-list-page / $qifu-drawer-form / $qifu-detail-page / $qifu-business-flow
 ```
 
 ### 安装到 Codex
@@ -180,7 +183,7 @@ cd ~/Documents/qifu-skills
 # 安装活跃 Skill：保留 qifu-shared 作为共享依赖；只安装抽屉时去掉 qifu-list-page / qifu-detail-page
 # zhikexing-list-page 已于 2026-09-11 归档，不要安装
 mkdir -p ~/.codex/skills
-for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page; do
+for s in qifu-b-end-design-system qifu-shared qifu-list-page qifu-drawer-form qifu-detail-page qifu-business-flow; do
   ln -sfn "$(pwd)/skills/$s" ~/.codex/skills/$s
 done
 # Codex 通过每个 skill 下的 agents/openai.yaml 识别入口
@@ -229,6 +232,8 @@ python3 -m venv .venv
 .venv/bin/python scripts/validate_repo.py
 .venv/bin/python -m unittest discover -s skills/qifu-list-page/tests -v
 .venv/bin/python skills/qifu-list-page/scripts/validate_skill_contract.py
+.venv/bin/python -m unittest discover -s skills/qifu-business-flow/tests -v
+.venv/bin/python skills/qifu-business-flow/scripts/validate_skill_contract.py
 .venv/bin/python skills/qifu-drawer-form/scripts/validate_portable_manifest.py
 bash -n sync.sh
 bash scripts/test_sync.sh
@@ -245,6 +250,7 @@ GitHub Actions 会在每次推送和 Pull Request 上执行同一组检查；任
 | 筛选、表格、批量操作的列表页 | `qifu-list-page` | [列表页 README](./skills/qifu-list-page/README.md) |
 | 新建、编辑、查看的右侧抽屉 | `qifu-drawer-form` | 直接复制[抽屉 README](./skills/qifu-drawer-form/README.md#一套模板)中的唯一模板 |
 | 摘要、信息分组和局部操作的详情页 | `qifu-detail-page` | [详情页 README](./skills/qifu-detail-page/README.md) |
+| 列表、抽屉、详情之间的完整业务链路 | `qifu-business-flow` | [业务流 README](./skills/qifu-business-flow/README.md) |
 
 ### 抽屉提示词
 
@@ -320,6 +326,7 @@ GitHub Actions 会在每次推送和 Pull Request 上执行同一组检查；任
 - **qifu-list-page** 不做:复杂分析看板、编辑表单、详情页、树表、高度定制工作台
 - **qifu-drawer-form** 不做:复杂看板、向导流、带批量编辑的列表页
 - **qifu-detail-page** 不做:新建/编辑表单(走 drawer-form)、多记录列表(走 list-page)、数据看板、树表
+- **qifu-business-flow** 不重定义页面字段、不替代页面 Skill，也不为 recommended / TBD 关系建立 Prototype
 
 跨原型借用组合名是**严格禁止**的,每个 skill 的 compositions 只对自己的原型负责。
 
@@ -364,7 +371,7 @@ The three Qifu page skills share component and navigation references. Install th
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo jingjingtu/qifu-skills \
-  --path skills/qifu-b-end-design-system skills/qifu-shared skills/qifu-list-page skills/qifu-detail-page skills/qifu-drawer-form \
+  --path skills/qifu-b-end-design-system skills/qifu-shared skills/qifu-list-page skills/qifu-detail-page skills/qifu-drawer-form skills/qifu-business-flow \
   --method git
 ```
 

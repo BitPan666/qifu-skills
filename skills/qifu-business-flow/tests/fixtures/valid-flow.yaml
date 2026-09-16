@@ -1,0 +1,70 @@
+schemaVersion: "1.0"
+flow:
+  id: order-management
+  name: 订单管理
+platform:
+  key: generic
+  name: 通用平台
+  adapter: skills/qifu-shared/references/platform-generic.md
+  sourceStatus: confirmed
+entity:
+  key: order
+  name: 订单
+  idField: orderId
+  titleField: orderName
+fields:
+  - key: orderId
+    label: 订单ID
+    type: identifier
+    sourceStatus: confirmed
+  - key: orderName
+    label: 订单名称
+    type: text
+    sourceStatus: confirmed
+views:
+  list:
+    type: list
+    title: 订单列表
+    fields: [orderId, orderName]
+    actions:
+      - key: create
+        sourceStatus: confirmed
+      - key: more
+        sourceStatus: confirmed
+  createDrawer:
+    type: drawer
+    title: 新建订单
+    fields: [orderName]
+    actions:
+      - key: cancel
+        sourceStatus: confirmed
+      - key: submit
+        sourceStatus: confirmed
+transitions:
+  - id: list-create
+    from: list
+    action: create
+    to: createDrawer
+    presentation: drawer
+    sourceStatus: confirmed
+  - id: create-dismiss
+    from: createDrawer
+    actions: [cancel, close]
+    to: list
+    presentation: closeDrawer
+    sourceStatus: confirmed
+  - id: create-success
+    from: createDrawer
+    action: submit
+    to: list
+    presentation: closeDrawer
+    effect: refreshList
+    sourceStatus: confirmed
+  - id: list-more
+    from: list
+    action: more
+    to: moreMenu
+    presentation: overlayMenu
+    sourceStatus: recommended
+assumptions: []
+tbd: []

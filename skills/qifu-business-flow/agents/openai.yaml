@@ -1,0 +1,4 @@
+interface:
+  display_name: "Qifu Business Flow"
+  short_description: "从BusinessFlowSpec编排多页面复用、字段校验与Figma Prototype链路"
+  default_prompt: "使用 $qifu-business-flow，根据业务页面状态和动作先生成或更新 BusinessFlowSpec，再复用或委派页面 Skill，并只建立已确认的 Figma Prototype。"

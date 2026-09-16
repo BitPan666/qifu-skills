@@ -25,6 +25,7 @@ MANAGED_SKILLS=(
   qifu-list-page
   qifu-drawer-form
   qifu-detail-page
+  qifu-business-flow
   qifu-shared
 )
 
