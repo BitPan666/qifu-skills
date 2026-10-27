@@ -20,7 +20,9 @@ SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LOCAL_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 ALLOWED_FRONTMATTER = {"name", "description", "license", "allowed-tools", "metadata"}
 NON_WORKFLOW_SKILLS = {"qifu-shared", "zhikexing-list-page"}
-SKIP_PARTS = {".git", ".venv", "node_modules", "__pycache__", ".pytest_cache", "release"}
+# release/ and plugins/ are generated payloads (standalone export, Codex plugin
+# bundle) rebuilt from canonical skills/ by sync scripts; validate originals only.
+SKIP_PARTS = {".git", ".venv", "node_modules", "__pycache__", ".pytest_cache", "release", "plugins", ".agents"}
 
 
 def should_skip(path: Path) -> bool:
@@ -174,7 +176,8 @@ def validate_repository_contract(errors: list[str]) -> None:
     duplicate_yushu = [
         path
         for path in ROOT.rglob("platform-yushu.md")
-        if path != SKILLS / "qifu-shared" / "references" / "platform-yushu.md"
+        if not should_skip(path)
+        and path != SKILLS / "qifu-shared" / "references" / "platform-yushu.md"
     ]
     if duplicate_yushu:
         errors.append(

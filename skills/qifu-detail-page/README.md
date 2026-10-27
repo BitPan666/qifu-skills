@@ -2,7 +2,7 @@
 
 > 在 Figma 中按命名组合,使用「奇富科技中后台组件库 新」的真实组件实例生成奇富后台详情页(查看为主、局部可编辑)。
 
-![Type](https://img.shields.io/badge/archetype-L4%20Detail-purple) ![Compositions](https://img.shields.io/badge/compositions-4-blue)
+![Type](https://img.shields.io/badge/archetype-L4%20Detail-purple) ![Compositions](https://img.shields.io/badge/compositions-5-blue)
 
 ## 解决什么问题
 
@@ -39,6 +39,8 @@ Tabs:基本信息、触发记录。
 | `Qifu Detail Page / Master Detail` | 左 320px 实体列表 + 右详情 | 左右两栏 |
 | `Qifu Detail Page / Readonly` | 严格只读、审计 | 单栏 + 仅返回 |
 
+另有一个受限组合 `Qifu Detail Page / Category Q&A`，仅供智客星“类目导航 + 筛选 + 分组问答”候选页面使用。它不继承单记录 PageHead、首块 Descriptions 和 Master Detail 的 320px 左栏；详见 [专属规则](references/category-qa-zhikexing.md)。其他智客星详情组合仍不受支持。
+
 ## 6 种 DetailBlock 内容类型
 
 | bodyType | 控件 | 适用 |
@@ -54,7 +56,7 @@ Tabs:基本信息、触发记录。
 
 ## 关键铁律
 
-- **首块必须是核心信息**(Descriptions 或 Descriptions + KeyMetrics),不能首块放 Timeline/Cards/Table
+- 原有四种单记录组合的**首块必须是核心信息**(Descriptions 或 Descriptions + KeyMetrics),不能首块放 Timeline/Cards/Table；`Category Q&A` 按专属规则处理
 - **整页实心 Primary Button ≤ 2**(PageHead 主操作 + 可选 BlockHeader 操作)
 - **PageHead Tag ≤ 2**;主次操作总数 ≤ 3;**Tabs ≤ 7**;Table 行内操作 ≤ 2
 - **状态唯一**(Data/Loading/Error/Disabled),不堆叠
@@ -72,6 +74,7 @@ Tabs:基本信息、触发记录。
 
 - `SKILL.md` — 9 步工作流 + DetailSpec 输入契约 + 验证清单
 - `references/detail-compositions.md` — 4 组合
+- `references/category-qa-zhikexing.md` — 智客星分类问答受限组合
 - `references/page-blueprint.md` — PageHead / Tabs / DetailBlock 间距铁律
 - `references/detail-block-map.md` — 6 种 bodyType 的选型与细节规则
 - `agents/openai.yaml`

@@ -15,7 +15,8 @@
       "shellReadiness": "validated-template",
       "detectionSignals": {
         "figmaNodeNames": [
-          "Template / List Page / 智客星 / 1440 / 手动调整"
+          "Template / List Page / 智客星 / 1440 / 手动调整",
+          "Header / Global / 智客星"
         ],
         "figmaVariableModes": [],
         "templateNodeIds": [

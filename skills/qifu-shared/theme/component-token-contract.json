@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schemaVersion": 1,
+  "source": "Figma Variables snapshot captured 2026-09-13",
+  "policy": {
+    "componentBindingsUse": "component tokens when available; otherwise the approved semantic tokens below",
+    "forbid": [
+      "page-level hex color overrides",
+      "bindings directly to the 色彩 collection"
+    ],
+    "migrationRule": "A future component token aliases a semantic token; it must not alias a primitive 色彩 value directly."
+  },
+  "components": {
+    "Button": {
+      "componentSet": "Base / Button / Button",
+      "migrationStatus": "semantic-only",
+      "semanticTokenRefs": {
+        "base.background.default": "基础颜色拓展/brand/default",
+        "base.background.hover": "基础颜色拓展/brand/hover",
+        "base.background.active": "基础颜色拓展/brand/active",
+        "base.background.disabled": "基础颜色拓展/brand/disabled",
+        "base.content.default": "文本颜色/--qifu-text-color-inverse",
+        "outline.background.default": "背景色/--qifu-bg-color-surface",
+        "outline.border.default": "边框/--qifu-border-color-default",
+        "text.content.default": "文本颜色/--qifu-text-color-link",
+        "text.content.hover": "文本颜色/--qifu-text-color-hover",
+        "text.content.active": "文本颜色/--qifu-text-color-active"
+      }
+    },
+    "Input": {
+      "componentSet": "录入组件 / Input / Base-V2",
+      "migrationStatus": "semantic-only",
+      "semanticTokenRefs": {
+        "container.background.default": "背景色/--qifu-bg-color-surface",
+        "container.background.disabled": "背景色/--qifu-bg-color-component-disabled",
+        "content.default": "文本颜色/--qifu-text-color-primary",
+        "content.placeholder": "文本颜色/--qifu-text-color-placeholder",
+        "content.disabled": "文本颜色/--qifu-text-color-disabled",
+        "border.default": "边框/--qifu-border-color-default",
+        "border.hover": "边框/--qifu-border-color-hover",
+        "border.focus": "边框/--qifu-border-color-focus",
+        "border.error": "边框/--qifu-border-color-error",
+        "border.disabled": "边框/--qifu-border-color-disabled"
+      }
+    },
+    "Select": {
+      "componentSet": "录入组件 / Select / Base",
+      "migrationStatus": "semantic-only",
+      "semanticTokenRefs": {
+        "container.background.default": "背景色/--qifu-bg-color-surface",
+        "content.default": "文本颜色/--qifu-text-color-primary",
+        "content.placeholder": "文本颜色/--qifu-text-color-placeholder",
+        "border.default": "边框/--qifu-border-color-default",
+        "border.focus": "边框/--qifu-border-color-focus",
+        "border.error": "边框/--qifu-border-color-error",
+        "suffixIcon.default": "图标颜色/--qifu-icon-color-tertiary"
+      }
+    },
+    "Cascader": {
+      "componentSet": "录入组件 / Cascader / Base",
+      "migrationStatus": "semantic-only",
+      "semanticTokenRefs": {
+        "container.background.default": "背景色/--qifu-bg-color-surface",
+        "content.default": "文本颜色/--qifu-text-color-primary",
+        "content.placeholder": "文本颜色/--qifu-text-color-placeholder",
+        "border.default": "边框/--qifu-border-color-default",
+        "border.focus": "边框/--qifu-border-color-focus",
+        "border.error": "边框/--qifu-border-color-error",
+        "suffixIcon.default": "图标颜色/--qifu-icon-color-tertiary"
+      }
+    },
+    "Tag": {
+      "componentSet": "Data Display / Tag / Tag",
+      "migrationStatus": "component-backed",
+      "componentTokenRefs": {
+        "light.brand.background": "组件/--qifu-tag-bg-brand-light",
+        "light.success.background": "组件/--qifu-tag-bg-success-light",
+        "light.warning.background": "组件/--qifu-tag-bg-warning-light",
+        "light.danger.background": "组件/--qifu-tag-bg-danger-light"
+      },
+      "semanticTokenRefs": {
+        "light.brand.content": "文本颜色/--qifu-text-color-link",
+        "light.success.content": "文本颜色/--qifu-text-color-success",
+        "light.warning.content": "文本颜色/--qifu-text-color-warning",
+        "light.danger.content": "文本颜色/--qifu-text-color-error"
+      }
+    },
+    "Table": {
+      "componentSet": "Data Display / Table / Shell-V2",
+      "migrationStatus": "semantic-only",
+      "semanticTokenRefs": {
+        "surface.default": "背景色/--qifu-bg-color-surface",
+        "header.background": "背景色/--qifu-bg-color-canvas",
+        "content.primary": "文本颜色/--qifu-text-color-primary",
+        "content.secondary": "文本颜色/--qifu-text-color-secondary",
+        "divider.default": "分割线/--qifu-divider-color-primary"
+      }
+    }
+  }
+}

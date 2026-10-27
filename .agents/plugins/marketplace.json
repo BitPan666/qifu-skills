@@ -1,0 +1,20 @@
+{
+  "name": "qifu-skills",
+  "interface": {
+    "displayName": "Qifu Skills"
+  },
+  "plugins": [
+    {
+      "name": "qifu-detail-page",
+      "source": {
+        "source": "local",
+        "path": "./plugins/qifu-detail-page"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

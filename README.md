@@ -105,6 +105,12 @@ qifu-skills-repo/
 │   └── qifu-detail-page/            ← 同结构
 └── skills/qifu-drawer-form/assets/
     └── screenshots/                 ← 可追溯的目标案例截图；不等同端到端 pass 证据
+
+├── .agents/plugins/marketplace.json ← Codex 插件 marketplace 索引
+├── plugins/qifu-detail-page/        ← Codex 插件包（构建产物，勿手改）
+│   ├── .codex-plugin/plugin.json
+│   └── skills/{qifu-detail-page,qifu-shared}/
+└── scripts/build_detail_plugin.py   ← 从 skills/ 正本重新生成插件 payload
 ```
 
 
@@ -187,6 +193,27 @@ done
 ```
 
 安装后新开一个 Codex 或 Claude Code 任务，让客户端重新发现 Skill。更新时回到仓库目录执行 `git pull`，软链不需要重新创建。
+
+### 方式三：安装为 Codex 插件（详情页，推荐给 Codex 用户）
+
+本仓库同时是一个 Codex 插件 marketplace，`plugins/qifu-detail-page` 打包了详情页 Skill 及其硬依赖 `qifu-shared`，可整体安装、启用/停用：
+
+```bash
+# 1. 注册本仓库为 marketplace（只需一次）
+codex plugin marketplace add qifu-skills --git https://github.com/jingjingtu/qifu-skills.git
+
+# 2. 安装插件
+codex plugin add qifu-detail-page@qifu-skills
+
+# 3. 之后更新：仓库有新提交时刷新快照并升级插件
+codex plugin marketplace upgrade qifu-skills
+```
+
+说明：
+
+- 插件 payload 由 `python3 scripts/build_detail_plugin.py` 从 `skills/` 正本生成，**不要直接改 `plugins/` 下的文件**；`--check` 供 CI 检测漂移。
+- 通过插件安装后，`~/.codex/skills/qifu-detail-page` 的手工副本可以删除，避免同名重复；`qifu-shared` 仍建议保留（`qifu-list-page` / `qifu-drawer-form` 以相对路径引用它）。
+- 详情页依赖 Figma 写入能力（`figma-use` / `figma-generate-design`），需同时启用 Codex 的 Figma 插件。
 
 ### 同步策略
 

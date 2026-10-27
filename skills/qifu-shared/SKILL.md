@@ -27,6 +27,7 @@ Keep this Skill installed beside those companion Skills. They resolve shared com
 - `references/platform-generic.md`: 通用 B 端平台适配器（`platform=generic` 时使用）。
 - `references/platform-zhineng-yunying.md`: 智能运营平台蓝色主题、背景来源和 `PREVIEW_ONLY` 边界。
 - `theme/theme-registry.json`: 主题到 Figma collection、mode 和颜色变量组的机器可读映射。
+- `theme/component-token-contract.json`: Button、Input、Select、Cascader、Tag、Table 的插槽绑定契约；先使用真实组件变量，不存在时才使用批准的语义变量。
 - `theme/`: Figma 变量快照（`tokens.json` + `source/*.json` + `*.less`）。AI 先读 `tokens.json`，需要核对模式和值时读 `source/<collection>.json`。
 
 ## 版本

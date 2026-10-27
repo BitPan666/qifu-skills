@@ -4,30 +4,55 @@
   "themes": {
     "zhikexing-green": {
       "primary": "#00B578",
+      "primaryRole": "verification-only",
       "bindingStrategy": "inherit-template-then-semantic-variable",
       "figmaCollection": "基础",
       "figmaMode": null,
       "colorVariableGroup": "mode/green",
+      "semanticBindings": {
+        "brandDefault": "基础颜色拓展/brand/default",
+        "brandHover": "基础颜色拓展/brand/hover",
+        "brandActive": "基础颜色拓展/brand/active",
+        "brandDisabled": "基础颜色拓展/brand/disabled",
+        "linkText": "文本颜色/--qifu-text-color-link"
+      },
       "supportedAppearance": "light"
     },
     "yushu-green": {
       "primary": "#00B578",
+      "primaryRole": "verification-only",
       "bindingStrategy": "figma-mode-and-semantic-variable",
       "figmaCollection": "基础",
       "figmaMode": "毓数/Light",
       "colorVariableGroup": "mode/green",
+      "semanticBindings": {
+        "brandDefault": "基础颜色拓展/brand/default",
+        "brandHover": "基础颜色拓展/brand/hover",
+        "brandActive": "基础颜色拓展/brand/active",
+        "brandDisabled": "基础颜色拓展/brand/disabled",
+        "linkText": "文本颜色/--qifu-text-color-link"
+      },
       "supportedAppearance": "light"
     },
     "smartops-blue": {
       "primary": "#1677FF",
+      "primaryRole": "verification-only",
       "bindingStrategy": "figma-mode-and-semantic-variable",
       "figmaCollection": "基础",
       "figmaMode": "智能运营/Light",
       "colorVariableGroup": "mode/blue",
+      "semanticBindings": {
+        "brandDefault": "基础颜色拓展/brand/default",
+        "brandHover": "基础颜色拓展/brand/hover",
+        "brandActive": "基础颜色拓展/brand/active",
+        "brandDisabled": "基础颜色拓展/brand/disabled",
+        "linkText": "文本颜色/--qifu-text-color-link"
+      },
       "supportedAppearance": "light"
     },
     "custom": {
       "primary": null,
+      "primaryRole": "user-input",
       "requiresThemePrimary": true,
       "bindingStrategy": "existing-semantic-variable-or-exposed-property-only",
       "figmaCollection": null,

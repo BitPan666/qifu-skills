@@ -1,0 +1,35 @@
+{
+  "name": "qifu-detail-page",
+  "version": "1.5.0",
+  "description": "在 Figma 中生成奇富后台详情页：Flat / Tabbed / Master Detail / Readonly / Category Q&A 五种注册组合，保持真实组件实例关系，内置 qifu-shared 共享资产（组件映射、平台适配器、Token 契约）。",
+  "author": {
+    "name": "静静兔",
+    "url": "https://github.com/jingjingtu"
+  },
+  "homepage": "https://github.com/jingjingtu/qifu-skills",
+  "repository": "https://github.com/jingjingtu/qifu-skills",
+  "keywords": [
+    "qifu",
+    "detail-page",
+    "figma",
+    "b-end",
+    "design-system"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Qifu Detail Page",
+    "shortDescription": "按注册组合生成奇富后台详情页（Flat / Tabbed / Master Detail / Readonly / Category Q&A）",
+    "longDescription": "把一句中文业务描述转换为结构清楚、可编辑、保持组件实例关系的奇富后台详情页。支持 Flat、Tabbed、Master Detail、Readonly 四种单记录组合与智客星 Category Q&A 受限组合；内置 qifu-shared 共享资产（PageContext、组件调用基线、组件映射、平台适配器、Token 契约）。依赖 Figma 插件提供的 figma-use / figma-generate-design 能力。",
+    "developerName": "静静兔",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "brandColor": "#00F58A",
+    "defaultPrompt": [
+      "使用 qifu-detail-page 在毓数平台生成一条客户记录的详情页，Flat 组合。",
+      "使用 qifu-detail-page 生成 Tabbed 详情页，含基本信息、关联记录、变更记录三个 Tab。",
+      "使用 qifu-detail-page 为智客星生成分类问答浏览页面（Category Q&A）。"
+    ]
+  }
+}

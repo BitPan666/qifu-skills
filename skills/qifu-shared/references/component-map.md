@@ -25,6 +25,12 @@
 
 本文件出现的“当前回退”只表示候选实现，不构成自动降级授权。页面 Skill 仍须确认 `COMPONENT_MISSING`，并取得该页面契约要求的用户授权；否则只记录缺口并失败关闭。
 
+### 变量绑定
+
+组件实例不得直接绑定 `色彩` collection 的原始色阶，也不得以页面级 Hex 覆盖替代变量。所有颜色、边框、表面与图标槽位先读取 [`../theme/component-token-contract.json`](../theme/component-token-contract.json)：已存在的 `基础/组件` 变量必须优先使用；尚未有组件变量时只能使用契约中登记的 `基础` 语义变量。
+
+`theme-registry.json` 的内置主题 `primary` 是解析核对值，不是可写样式值。选择平台主题后，以该主题的 `semanticBindings` 与 Figma mode 进行绑定；`custom` 是唯一允许接收用户原始主色的主题。
+
 表格中的属性名是稳定逻辑名称，不保证等于 Figma 运行时返回的完整 Key。创建实例后必须读取 `componentProperties` 动态解析；禁止把 `Label#2405:0` 等当前内部后缀固化为长期接口。
 
 ## 3. 页面骨架与导航

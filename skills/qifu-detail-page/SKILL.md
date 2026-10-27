@@ -18,9 +18,10 @@ description: 用于在 Figma 中创建、更新或审查奇富后台详情页，
 - [页面蓝图](references/page-blueprint.md):页面骨架、PageHead、Tabs、DetailBlock、操作位置、间距铁律。
 - [区块路由表](references/detail-block-map.md):六种 bodyType(Descriptions / Table / Cards / Timeline / KeyMetrics / Empty)的选型规则。
 - [组合注册表](references/detail-compositions.md):Flat / Tabbed / Master Detail / Readonly 四种形态与调用规则。
+- `platform=zhikexing` 且明确为“类目导航 + 筛选 + 分组问答浏览”时，完整读取 [智客星分类问答组合](references/category-qa-zhikexing.md)。此为受限的第五种组合，不改变四种单记录组合。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
 - 当平台未指定或 `platform=generic` 时，读取[通用平台适配器](../qifu-shared/references/platform-generic.md)，不套用毓数菜单。
-- 当前 `platform=zhikexing` 的共享资料只验证了列表页模板，详情页应返回 `UNSUPPORTED_PLATFORM`；不得把列表模板或 generic 外壳冒充智客星详情页。其他未注册平台同样失败关闭。
+- `platform=zhikexing` 仅在 `compositionName=Qifu Detail Page / Category Q&A` 时允许按专属规则创建候选页面；其他详情组合仍返回 `UNSUPPORTED_PLATFORM`。不得把列表模板或 generic 外壳冒充智客星详情页。其他未注册平台同样失败关闭。
 - 组件名 / 节点 ID / 发布 Key 全部复用[组件映射](../qifu-shared/references/component-map.md),不在本 Skill 重复维护。
 
 任何 `use_figma` 调用前加载并遵循 `figma-use`;创建或更新完整页面时同时加载并遵循 `figma-generate-design`。若目标项目另有 `AGENTS.md` 或项目级 Figma 规则,先读取并以其为准。
@@ -91,6 +92,7 @@ targetPage       Figma 目标 Page;测试固定 Page `测试`(node 3497:651)
 ### 1. 形成 DetailSpec
 
 1. 从描述、截图或线框提取 `DetailSpec`。
+1a. 命中 `Category Q&A` 时转入专属规则：提取类目、筛选、分组、问题、回答和展开状态；不推断 recordId、recordName、recordTags 或首块 Descriptions。后续通用详情头、Tabs、DetailBlock 和 Master Detail 固定尺寸规则均不适用，直接按专属规则执行组件预检、落图和验证。
 2. 先从[组合注册表](references/detail-compositions.md)确定唯一 `compositionName`:精确匹配 → 推断规则 → 默认 `Flat`，不凭空制造 Tabs。
 3. 为每个区块确定 `bodyType`(查 [detail-block-map](references/detail-block-map.md));第一个区块必须是 `Descriptions`(或 Descriptions + KeyMetrics)。
 4. 检查 Sections/Tags/操作数量是否越界(Tags ≤ 2,Head 操作 ≤ 3,行内操作 ≤ 2);越界就近收纳并记录假设。
@@ -99,6 +101,7 @@ targetPage       Figma 目标 Page;测试固定 Page `测试`(node 3497:651)
 
 1. 确认目标 Figma 文件、页面和插入位置;不写到组件介绍 Page。
 2. 凡提示词包含"测试""效果验证""试生成"或"Skill 回归",必须复用 Page `测试`(node `3497:651`)。
+2a. 用户明确给出目标 Figma Page 或节点链接时，以该节点所在 Page 为准，不因目标 Page 名称含“测试”而改写落点。
 3. 检查同文件已有详情页,优先复用其外壳尺寸、变量、文字样式。
 4. 按[组件映射](../qifu-shared/references/component-map.md)解析组件;节点 ID 失效时按名称重新发现。
 5. 同文件用本地组件节点创建实例;跨文件用发布键导入。
@@ -193,6 +196,7 @@ Page / Detail / <object> / <compositionName>
 - KeyMetrics 列数 3 或 4;数字 24px / 700;不做颜色编码除非业务有明确语义。
 - 整页实心 Primary Button ≤ 2 个(PageHead 主操作 + 可选关键 BlockHeader 操作)。
 - `Master Detail` 左 320px 固定,左列表当前选中项 Selected 状态正确;右 Body 显示该项的 blocks 内容。
+- `Category Q&A` 额外按 [智客星分类问答组合](references/category-qa-zhikexing.md) 回读：类目 Search 仅由最外层实例的 `FILL` 或 `FIXED` 控制；手搓基线的分组标题为 46px、展开问题与回答行为 48px；分组容器四边描边、回答行仅底边描边；侧栏只使用单列二级菜单，客户添加收起、团队辅助与团队审核选中，以及选中/默认图标变量绑定均正确。
 - 状态唯一:Data / Loading / Error / Disabled 只有一种。
 - 存在缺口时已生成 `Audit / Missing Components`。
 - 无文字截断、节点重叠、画板溢出。

@@ -10,6 +10,13 @@
 4. 创建实例后读取 `mainComponent` 与 `componentProperties`，确认来源、属性真实 Key、类型和值域。
 5. 写入属性、变体、INSTANCE_SWAP 或 Slot 后立即回读；只有期望值与实际值一致才算成功。
 
+## 文本样式约束
+
+1. 修改任何可见文案前，先读取目标节点或同类已验收节点的 `textStyleId`。
+2. 只能复用当前组件库中已存在的本地 Text Style；修改 `characters` 后必须保留或重新绑定该 `textStyleId`。
+3. 不得创建 Text Style、手动指定 `fontName`、以裸字替代组件文字，或用临时字体修正视觉差异。
+4. 写入后回读每个可见 Text 的 `textStyleId`；为空或不是已解析的本地样式时，返回 `STYLE_MISSING`，不得交付。
+
 ## 最小解析记录
 
 ```yaml

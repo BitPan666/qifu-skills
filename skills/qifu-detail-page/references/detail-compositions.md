@@ -15,9 +15,18 @@
 | `Qifu Detail Page / Master Detail` | 左对象列表 + 右详情联动(如规则管理) | 右侧 | 左 320 列表 + 右自适应 | 可选 | 列表操作 + 详情操作 |
 | `Qifu Detail Page / Readonly` | 严格只读、审计/快照场景(如日志、历史版本) | 简化(仅 ID + 标题) | 单栏通铺 | 无 | 仅"关闭/返回" |
 
+## 受限页面组合
+
+| `compositionName` | 适用场景 | 平台 | 专属规则 |
+| --- | --- | --- | --- |
+| `Qifu Detail Page / Category Q&A` | 类目导航 + 筛选 + 分组问答浏览 | 仅 `zhikexing` | [智客星分类问答](category-qa-zhikexing.md) |
+
+`Category Q&A` 不是单记录详情，也不是 `Master Detail` 的 320px 实体列表。它只复用智客星平台外壳；不继承固定 PageHead、首块 Descriptions、记录 ID/状态摘要或主操作。原有四种组合及其选择规则不变，其他平台不得因此获得详情页支持。
+
 ## 调用规则
 
 1. 用户给出完整 `compositionName` 时精确匹配,大小写、空格和斜杠保持一致。
+1a. 用户明确描述“类目导航 + 分组问题 + 多条回答”时，仅 `platform=zhikexing` 可选择 `Qifu Detail Page / Category Q&A`；先读取其专属规则，不能用关键词“详情”自动套入原有四组合。
 2. 用户未给名称时按以下优先级选择:
    - 提到"快照 / 历史 / 日志 / 审计" → `Readonly`
    - 提到"左列表右详情 / 选择记录查看" → `Master Detail`
