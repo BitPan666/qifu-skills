@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-28",
+  "fileKey": "gTV3VdC6a5e9vpkRHIZSXA",
+  "scope": "Source identity observations only; no page generation acceptance",
+  "platforms": {
+    "yushu": {
+      "shell": {
+        "nodeId": null,
+        "nodeType": "ASSEMBLED",
+        "width": 1366,
+        "height": 768,
+        "scope": "assembled-default-viewport-not-single-observed-node"
+      },
+      "header": {
+        "nodeId": "3639:1529"
+      },
+      "menu": {
+        "nodeId": "3650:998"
+      },
+      "generationValidated": false
+    },
+    "jinyumeng": {
+      "shell": {
+        "nodeId": "5022:16",
+        "nodeType": "COMPONENT",
+        "width": 1366,
+        "height": 1024
+      },
+      "header": {
+        "nodeId": "4993:1440"
+      },
+      "menu": {
+        "nodeId": "4746:46261"
+      },
+      "generationValidated": false
+    },
+    "dianxiao": {
+      "shell": {
+        "nodeId": "5829:31",
+        "nodeType": "COMPONENT",
+        "width": 1366,
+        "height": 768
+      },
+      "header": {
+        "nodeId": "5824:4491"
+      },
+      "menu": {
+        "nodeId": "5763:1753"
+      },
+      "generationValidated": false
+    },
+    "zhikexing": {
+      "shell": {
+        "nodeId": "5468:3233",
+        "nodeType": "FRAME",
+        "width": 1366,
+        "height": 768
+      },
+      "header": {
+        "nodeId": "5517:2109"
+      },
+      "menu": {
+        "nodeId": "3650:998"
+      },
+      "generationValidated": false
+    },
+    "zhineng-yunying": {
+      "shell": {
+        "nodeId": "6155:1851",
+        "nodeType": "FRAME",
+        "width": 1366,
+        "height": 768
+      },
+      "header": {
+        "nodeId": "6148:32454"
+      },
+      "menu": {
+        "nodeId": "6158:1989"
+      },
+      "generationValidated": false
+    }
+  },
+  "releasePolicy": {
+    "iteration": "2026-10-28-five-platform-foundation",
+    "scope": "Reviewed release limits for this iteration; changes require new acceptance evidence and a versioned checkpoint, not a claim of Figma generation acceptance.",
+    "platforms": {
+      "yushu": {
+        "defaultTheme": "yushu-green",
+        "figmaModeId": "9:6",
+        "capabilities": {
+          "list": "external-plugin",
+          "drawer": "adapter-only",
+          "detail": "rules-only"
+        },
+        "shellReadiness": "registered-adapter",
+        "sourceStatus": null
+      },
+      "jinyumeng": {
+        "defaultTheme": "jinyumeng-blue",
+        "figmaModeId": "4717:0",
+        "capabilities": {
+          "list": "external-plugin",
+          "drawer": "pending-adapter",
+          "detail": "unsupported"
+        },
+        "shellReadiness": "source-verified",
+        "sourceStatus": "source-verified"
+      },
+      "dianxiao": {
+        "defaultTheme": "dianxiao-green",
+        "figmaModeId": "5722:0",
+        "capabilities": {
+          "list": "external-plugin",
+          "drawer": "pending-adapter",
+          "detail": "unsupported"
+        },
+        "shellReadiness": "source-verified",
+        "sourceStatus": "source-verified"
+      },
+      "zhikexing": {
+        "defaultTheme": "zhikexing-green",
+        "figmaModeId": null,
+        "capabilities": {
+          "list": "pending-adapter",
+          "drawer": "preflight-required",
+          "detail": "category-qa-only"
+        },
+        "shellReadiness": "candidate",
+        "sourceStatus": "candidate"
+      },
+      "zhineng-yunying": {
+        "defaultTheme": "smartops-blue",
+        "figmaModeId": "2158:0",
+        "capabilities": {
+          "list": "pending-adapter",
+          "drawer": "preflight-required",
+          "detail": "unsupported"
+        },
+        "shellReadiness": "source-verified",
+        "sourceStatus": "source-verified"
+      }
+    }
+  }
+}

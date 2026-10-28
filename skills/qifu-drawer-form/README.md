@@ -105,7 +105,7 @@ background.source：<AUTO / TEMPLATE / EXISTING_LIST_PAGE / STRUCTURE_PREVIEW>
 页面平台：智能运营平台。
 platformKey：zhineng-yunying
 themeKey：smartops-blue
-themePrimary：#1677FF
+themePrimary：#1969F1
 componentMode：REAL_COMPONENT_ONLY
 compositionName：Qifu Drawer Form / Sectioned Create
 widthTier：680

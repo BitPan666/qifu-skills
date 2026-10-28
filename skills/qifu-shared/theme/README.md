@@ -2,6 +2,8 @@
 
 本目录 **Figma Variables 是唯一的命名与值来源**。
 
+2026-10-28新增 [`live-platform-bindings.json`](live-platform-bindings.json)：只采集五个语义颜色变量在四个平台Mode中的真实绑定与解析值。当前平台路由和颜色校验以该定向快照及theme-registry.json为准；下方279个变量的tokens/source/Less是保留原采集日期的历史全量导出，不代表本轮重新导出。两个来源重叠时，定向快照覆盖当前平台绑定核验；未核验字段必须实时回读，不补造历史值。
+
 - Figma 文件：[奇富科技中后台组件库-新](https://www.figma.com/design/gTV3VdC6a5e9vpkRHIZSXA/%E5%A5%87%E5%AF%8C%E7%A7%91%E6%8A%80%E4%B8%AD%E5%90%8E%E5%8F%B0%E7%BB%84%E4%BB%B6%E5%BA%93-%E6%96%B0?node-id=2874-9924&view=variables)
 - 采集范围：`基础` 108、`色彩` 82、`字体` 27、`圆角` 7、`尺寸` 55，共 **279** 个变量。
 - 原始数据：[`source/`](source/)；可供 AI 精确检索的总索引：[`tokens.json`](tokens.json)；平台注册主题映射：[`theme-registry.json`](theme-registry.json)。
@@ -30,7 +32,7 @@ skills/qifu-shared/theme/
 2. 仅使用 `figmaPath` 和 `name` 作为 Figma 资产名称。例如 `--qifu-text-color-primary`、`--qifu-bg-color-canvas`、`--qifu-size/16` 均保持原样。
 3. `基础颜色拓展/brand/default` 这种路径是 Figma 的真实分组路径；不要擅自改为 `--qifu-brand-default`。
 4. `.less` 内的 `@...` 标识符是为代码合法性生成的导出映射（`/`、`%` 等字符被转换），**不是 Figma 原变量名**；回写 Figma 或描述设计资产时必须用 JSON 中的原路径。
-5. 选择主题时使用 `基础` collection 的真实模式：`毓数/Light` 或 `智能运营/Light`。`mode/green` 与 `mode/blue` 是 `色彩` collection 内的变量路径分组，不是 Figma mode；具体映射以 `theme-registry.json` 为准。
+5. 当前实时collection名为 `basic 基础`（`VariableCollectionId:9:8`），有 `毓数/Light`、`智能运营/Light`、`金毓盟/Light`、`电销/Light` 四种Mode。智客星继承通过预检的模板绑定，不新建或假设专属Mode。`mode/green` 与 `mode/blue` 是 `色彩` collection 内的变量路径分组，不是 Figma mode；具体映射以 `theme-registry.json` 为准。
 
 ## Less 使用
 

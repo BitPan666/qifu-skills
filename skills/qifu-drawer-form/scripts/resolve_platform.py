@@ -92,6 +92,16 @@ def resolve(platforms: dict[str, dict], args: argparse.Namespace) -> tuple[dict,
 
     key = candidates[0]
     platform = platforms[key]
+    blocked = {item['nodeId']: item for item in platform.get('blockedSources', [])}
+    rejected = [blocked[node] for node in args.template_node_id if node in blocked]
+    if rejected:
+        return {
+            'status': 'BLOCKED_SOURCE',
+            'reason': rejected[0]['reason'],
+            'platformKey': key,
+            'rejectedSources': rejected,
+            'evidence': evidence,
+        }, 4
     return {
         "status": "RESOLVED",
         "platformKey": key,
@@ -102,6 +112,8 @@ def resolve(platforms: dict[str, dict], args: argparse.Namespace) -> tuple[dict,
         "generationStrategy": platform.get("generationStrategy"),
         "shellReadiness": platform.get("shellReadiness"),
         "backgroundPriority": platform.get("backgroundPriority"),
+        "shell": platform.get("shell"),
+        "capabilities": platform.get("capabilities", {}),
     }, 0
 
 

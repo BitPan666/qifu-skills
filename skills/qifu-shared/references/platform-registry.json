@@ -12,14 +12,18 @@
       "adapter": "references/platform-zhikexing.md",
       "defaultTheme": "zhikexing-green",
       "generationStrategy": "copyTemplate",
-      "shellReadiness": "validated-template",
+      "shellReadiness": "candidate",
       "detectionSignals": {
         "figmaNodeNames": [
-          "Template / List Page / 智客星 / 1440 / 手动调整",
-          "Header / Global / 智客星"
+          "Candidate / List Page / 智客星 / 1366 / 手动调整复现",
+          "Template / List Page / 智客星 / 1366 / 手动调整",
+          "Header / Global / 智客星",
+          "Template / List Page / 智客星 / 1440 / 手动调整"
         ],
         "figmaVariableModes": [],
         "templateNodeIds": [
+          "5468:3233",
+          "5408:13969",
           "4892:34812"
         ]
       },
@@ -27,7 +31,52 @@
         "EXISTING_LIST_PAGE",
         "TEMPLATE",
         "STRUCTURE_PREVIEW"
-      ]
+      ],
+      "shell": {
+        "nodeId": "5468:3233",
+        "nodeType": "FRAME",
+        "method": "clone-frame",
+        "width": 1366,
+        "height": 768,
+        "header": {
+          "nodeId": "5517:2109",
+          "nodeType": "COMPONENT_SET",
+          "defaultVariant": {
+            "Items": "0"
+          }
+        },
+        "menu": {
+          "nodeId": "3650:998",
+          "nodeType": "COMPONENT_SET",
+          "usage": "inherit candidate navigation and Zhikexing icons"
+        },
+        "sourceStatus": "candidate",
+        "alternatives": [
+          "5408:13969"
+        ],
+        "content": {
+          "nodeType": "FRAME",
+          "method": "preserve-template-container"
+        },
+        "knownSourceGaps": [
+          "50 visible texts have no textStyleId; preflight required",
+          "Header instance names may say Items=5 while actual variant is Items=0"
+        ]
+      },
+      "blockedSources": [
+        {
+          "nodeId": "4892:34812",
+          "reason": "BLOCKED_PLATFORM_COMPONENT_INTEGRITY",
+          "observedHeaderOwner": "3639:1529",
+          "expectedHeaderOwner": "5517:2109",
+          "note": "Platform identity signal only. Never select as generation source; appearance overrides do not change master ownership."
+        }
+      ],
+      "capabilities": {
+        "list": "pending-adapter",
+        "drawer": "preflight-required",
+        "detail": "category-qa-only"
+      }
     },
     "yushu": {
       "displayName": "毓数",
@@ -52,7 +101,32 @@
         "EXISTING_LIST_PAGE",
         "TEMPLATE",
         "STRUCTURE_PREVIEW"
-      ]
+      ],
+      "shell": {
+        "nodeId": null,
+        "nodeType": "ASSEMBLED",
+        "method": "assemble-components",
+        "width": 1366,
+        "height": 768,
+        "header": {
+          "nodeId": "3639:1529",
+          "nodeType": "COMPONENT_SET"
+        },
+        "menu": {
+          "nodeId": "3650:998",
+          "nodeType": "COMPONENT_SET"
+        },
+        "content": {
+          "nodeId": "3478:657",
+          "nodeType": "COMPONENT",
+          "method": "list-content-only"
+        }
+      },
+      "capabilities": {
+        "list": "external-plugin",
+        "drawer": "adapter-only",
+        "detail": "rules-only"
+      }
     },
     "zhineng-yunying": {
       "displayName": "智能运营平台",
@@ -65,18 +139,67 @@
       "adapter": "references/platform-zhineng-yunying.md",
       "defaultTheme": "smartops-blue",
       "generationStrategy": "existing-or-preview",
-      "shellReadiness": "partial",
+      "shellReadiness": "source-verified",
       "detectionSignals": {
-        "figmaNodeNames": [],
+        "figmaNodeNames": [
+          "智能运营 / 基础外壳",
+          "Navigation / 智能运营 SideMenu / SideMenuItem"
+        ],
         "figmaVariableModes": [
           "智能运营/Light"
         ],
-        "templateNodeIds": []
+        "templateNodeIds": [
+          "6155:1851"
+        ]
       },
       "backgroundPriority": [
         "EXISTING_LIST_PAGE",
         "STRUCTURE_PREVIEW"
-      ]
+      ],
+      "shell": {
+        "nodeId": "6155:1851",
+        "nodeType": "FRAME",
+        "method": "clone-frame",
+        "width": 1366,
+        "height": 768,
+        "header": {
+          "nodeId": "6148:32454",
+          "nodeType": "FRAME"
+        },
+        "menu": {
+          "nodeId": "6158:1989",
+          "nodeType": "COMPONENT_SET",
+          "width": 200,
+          "itemHeight": 40,
+          "levels": [
+            1,
+            2
+          ]
+        },
+        "tabs": {
+          "nodeId": "6156:1989",
+          "nodeType": "FRAME"
+        },
+        "content": {
+          "nodeId": "6148:34365",
+          "nodeType": "RECTANGLE",
+          "method": "create-container-on-copy",
+          "x": 216,
+          "y": 102,
+          "width": 1134,
+          "height": 633
+        },
+        "knownSourceGaps": [
+          "7 texts have no textStyleId; keep source gaps explicit",
+          "Header and workspace tabs are frame compositions, not published components"
+        ],
+        "sourceStatus": "source-verified"
+      },
+      "capabilities": {
+        "list": "pending-adapter",
+        "drawer": "preflight-required",
+        "detail": "unsupported"
+      }
     },
     "qifu-generic": {
       "displayName": "奇富通用后台",
@@ -97,7 +220,138 @@
       "backgroundPriority": [
         "EXISTING_LIST_PAGE",
         "STRUCTURE_PREVIEW"
-      ]
+      ],
+      "capabilities": {
+        "list": "structure-preview",
+        "drawer": "structure-preview",
+        "detail": "rules-only"
+      }
+    },
+    "jinyumeng": {
+      "displayName": "金毓盟",
+      "aliases": [
+        "金毓盟",
+        "jinyumeng"
+      ],
+      "adapter": "references/platform-jinyumeng.md",
+      "defaultTheme": "jinyumeng-blue",
+      "generationStrategy": "assemble",
+      "shellReadiness": "source-verified",
+      "detectionSignals": {
+        "figmaNodeNames": [
+          "Templates / Jinyumeng / List Page Shell"
+        ],
+        "figmaVariableModes": [
+          "金毓盟/Light"
+        ],
+        "templateNodeIds": [
+          "5022:16"
+        ]
+      },
+      "backgroundPriority": [
+        "EXISTING_LIST_PAGE",
+        "STRUCTURE_PREVIEW"
+      ],
+      "shell": {
+        "nodeId": "5022:16",
+        "nodeType": "COMPONENT",
+        "method": "create-instance",
+        "width": 1366,
+        "height": 1024,
+        "header": {
+          "nodeId": "4993:1440",
+          "nodeType": "COMPONENT"
+        },
+        "menu": {
+          "nodeId": "4746:46261",
+          "nodeType": "COMPONENT_SET"
+        },
+        "sourceStatus": "source-verified",
+        "content": {
+          "nodeId": "5022:2",
+          "nodeType": "COMPONENT",
+          "method": "platform-list-slots",
+          "slots": [
+            "tabs",
+            "filter",
+            "action",
+            "table"
+          ]
+        }
+      },
+      "capabilities": {
+        "list": "external-plugin",
+        "drawer": "pending-adapter",
+        "detail": "unsupported"
+      },
+      "trialScenes": {
+        "drawer": "6089:64073",
+        "list": "6017:2723"
+      }
+    },
+    "dianxiao": {
+      "displayName": "电销",
+      "aliases": [
+        "电销",
+        "dianxiao",
+        "电销平台"
+      ],
+      "adapter": "references/platform-dianxiao.md",
+      "defaultTheme": "dianxiao-green",
+      "generationStrategy": "assemble",
+      "shellReadiness": "source-verified",
+      "detectionSignals": {
+        "figmaNodeNames": [
+          "Templates / Dianxiao / List Page Shell"
+        ],
+        "figmaVariableModes": [
+          "电销/Light"
+        ],
+        "templateNodeIds": [
+          "5829:31"
+        ]
+      },
+      "backgroundPriority": [
+        "EXISTING_LIST_PAGE",
+        "STRUCTURE_PREVIEW"
+      ],
+      "shell": {
+        "nodeId": "5829:31",
+        "nodeType": "COMPONENT",
+        "method": "create-instance",
+        "width": 1366,
+        "height": 768,
+        "header": {
+          "nodeId": "5824:4491",
+          "nodeType": "COMPONENT"
+        },
+        "menu": {
+          "nodeId": "5763:1753",
+          "nodeType": "COMPONENT_SET"
+        },
+        "sourceStatus": "source-verified",
+        "content": {
+          "nodeId": "5829:15",
+          "nodeType": "COMPONENT",
+          "method": "platform-list-slots",
+          "slots": [
+            "tabs",
+            "filter",
+            "table"
+          ]
+        }
+      },
+      "capabilities": {
+        "list": "external-plugin",
+        "drawer": "pending-adapter",
+        "detail": "unsupported"
+      },
+      "trialScenes": {
+        "drawer": "6089:64515",
+        "list": "6034:4860"
+      }
     }
-  }
+  },
+  "updatedAt": "2026-10-28",
+  "assetAudit": "2026-10-28: source verification only; no new page-family acceptance"
 }

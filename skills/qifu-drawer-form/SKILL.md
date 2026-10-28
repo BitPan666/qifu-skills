@@ -92,6 +92,7 @@ failurePolicy=ALL_OR_NOTHING|CONTINUE_WITH_REPORT
 
 ### 2. 预检
 
+0. 读取平台注册表的 `capabilities.drawer` 与 `shell`。`pending-adapter` 返回 `BLOCKED_PLATFORM_ADAPTER`，不因为已有试稿或主题就改用 generic；`preflight-required` 先核查组件、样式和背景来源。解析器 `BLOCKED_SOURCE`（退出码4）必须停止，识别出平台不等于来源可用。
 1. 确认目标文件可编辑，组件 Library、变量、字体和 Text Style 可用。
 2. 为必需组件建立 `ComponentResolutionManifest`；所有必需项为 `resolved` 后才写页面。
 3. 为页面级文字建立 `TextStyleResolutionManifest`；必需样式缺失时返回 `STYLE_MISSING`。

@@ -21,7 +21,7 @@ description: 用于在 Figma 中创建、更新或审查奇富后台详情页，
 - `platform=zhikexing` 且明确为“类目导航 + 筛选 + 分组问答浏览”时，完整读取 [智客星分类问答组合](references/category-qa-zhikexing.md)。此为受限的第五种组合，不改变四种单记录组合。
 - 当 `platform=yushu` 或用户提到"毓数"时,完整读取[毓数平台导航基线](../qifu-shared/references/platform-yushu.md)。
 - 当平台未指定或 `platform=generic` 时，读取[通用平台适配器](../qifu-shared/references/platform-generic.md)，不套用毓数菜单。
-- `platform=zhikexing` 仅在 `compositionName=Qifu Detail Page / Category Q&A` 时允许按专属规则创建候选页面；其他详情组合仍返回 `UNSUPPORTED_PLATFORM`。不得把列表模板或 generic 外壳冒充智客星详情页。其他未注册平台同样失败关闭。
+- 先读取[平台注册表](../qifu-shared/references/platform-registry.json)的 `capabilities.detail`。本轮保留毓数/通用既有组合；`platform=zhikexing` 仅开放 `Qifu Detail Page / Category Q&A` 受限组合，其他详情组合仍返回 `UNSUPPORTED_PLATFORM`。金毓盟、电销、智能运营也返回 `UNSUPPORTED_PLATFORM`。共享登记不代表详情工作流开放，不把列表模板或 generic 外壳冒充平台详情页。
 - 组件名 / 节点 ID / 发布 Key 全部复用[组件映射](../qifu-shared/references/component-map.md),不在本 Skill 重复维护。
 
 任何 `use_figma` 调用前加载并遵循 `figma-use`;创建或更新完整页面时同时加载并遵循 `figma-generate-design`。若目标项目另有 `AGENTS.md` 或项目级 Figma 规则,先读取并以其为准。

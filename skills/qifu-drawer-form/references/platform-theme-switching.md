@@ -9,9 +9,9 @@
 每次生成抽屉时优先解析以下字段：
 
 ```text
-platformKey    平台唯一标识：zhikexing | yushu | zhineng-yunying | qifu-generic
-platformName   中文平台名：智客星 | 毓数 | 智能运营平台 | 奇富通用后台
-themeKey       主题标识：zhikexing-green | yushu-green | smartops-blue | custom
+platformKey    平台唯一标识：zhikexing | yushu | zhineng-yunying | jinyumeng | dianxiao | qifu-generic
+platformName   中文平台名：智客星 | 毓数 | 智能运营平台 | 金毓盟 | 电销 | 奇富通用后台
+themeKey       主题标识：zhikexing-green | yushu-green | smartops-blue | jinyumeng-blue | dianxiao-green | custom
 themePrimary   主题主色；custom 必填，例如 #1677FF
 themeMode      light；当前仅支持浅色后台
 presentationMode  DRAWER_OPEN_WITH_BACKGROUND(默认) | OVERLAY_ON_ZHIKEXING_LIST(智客星兼容别名) | STANDALONE_DEBUG(仅内部调试)
@@ -27,18 +27,24 @@ background.source AUTO(默认) | TEMPLATE | EXISTING_LIST_PAGE | STRUCTURE_PREVI
 | `zhikexing` | 智客星 | `zhikexing-green` | 当前用户主平台。正式交付默认生成 `1366×768` 完整打开态，使用智客星列表页模板底图 + 蒙层 + 右侧抽屉。 |
 | `yushu` | 毓数 | `yushu-green` | 仅当用户明确说“毓数”或指定 `platformKey=yushu` 时使用，不再作为跨平台默认值。 |
 | `zhineng-yunying` | 智能运营平台 | `smartops-blue` | 读取 `platform-zhineng-yunying.md`；没有已验收专属底图时使用中性 `STRUCTURE_PREVIEW + Overlay Mask` 并标记 `PREVIEW_ONLY`。 |
-| `qifu-generic` | 奇富通用后台 | `zhikexing-green` | 用户未指定平台时的保守默认；仍生成 `1366×768` 完整打开态，不套用任何平台菜单或业务壳。缺少通用底图时使用 `STRUCTURE_PREVIEW`。 |
+| `qifu-generic` | 奇富通用后台 | `yushu-green` | 用户未指定平台时的保守默认；仍生成 `1366×768` 完整打开态，不套用任何平台菜单或业务壳。缺少通用底图时使用 `STRUCTURE_PREVIEW`。 |
+
+金毓盟 `jinyumeng` → `jinyumeng-blue`；电销 `dianxiao` → `dianxiao-green`，两者当前抽屉均为 `pending-adapter`，返回 `BLOCKED_PLATFORM_ADAPTER`。Figma试稿不是运行时支持的证据。
+
+智能运营基础Frame `6155:1851` 已登记，不能再报“缺少外壳”；现有打开态仍需业务背景与文字样式预检，未通过保持 `PREVIEW_ONLY`。智客星旧模板 `4892:34812` 已列为 `blockedSources`，不作为后备。
 
 ## 3. 主题 Token
 
 | themeKey | themePrimary | 用途 |
 | --- | --- | --- |
-| `zhikexing-green` | `#00B578` | 智客星默认绿色主题；用于主按钮、选中态、链接、轻量标签和强调线。 |
-| `yushu-green` | `#00B578` | 毓数当前默认绿色主题；如目标文件变量不同，以真实变量为准。 |
-| `smartops-blue` | `#1677FF` | 智能运营平台蓝色主题；用于主按钮、选中态、链接、轻量标签和强调线。 |
+| `zhikexing-green` | 模板回读 | 智客星默认绿色主题；用于主按钮、选中态、链接、轻量标签和强调线。 |
+| `yushu-green` | `#00B85C` | 毓数当前默认绿色主题；如目标文件变量不同，以真实变量为准。 |
+| `smartops-blue` | `#1969F1` | 智能运营平台蓝色主题；用于主按钮、选中态、链接、轻量标签和强调线。 |
 | `custom` | 用户指定 | 仅当用户明确给出 `themePrimary` 时启用。 |
 
 主题替换按主题注册表绑定 Figma collection mode、颜色变量组、组件公开属性或模板继承变量；不得 detach 实例后手动改内部颜色。无法绑定变量时返回 `THEME_VARIABLE_MISSING` 或 `COMPONENT_SOURCE_GAP`，并说明哪些组件需要母版补齐。
+
+实时定向核验以 `../../qifu-shared/theme/live-platform-bindings.json` 为准。Hex是verification-only；不得用历史Golden Sample色值覆盖现有语义变量。金毓盟#0F6FFC、电销#009E73，智客星主题primary为null表示必须从候选回读，不假设继承毓数主色。
 
 ## 4. 解析顺序
 
@@ -71,7 +77,7 @@ background.source AUTO(默认) | TEMPLATE | EXISTING_LIST_PAGE | STRUCTURE_PREVI
 - 正式交付必须生成 `1366×768` 完整打开态，结构固定为 `Background < Overlay Mask < Drawer`，不得交付裸抽屉。
 - `background.source=AUTO` 是默认值：优先使用已验收 `EXISTING_LIST_PAGE`，其次平台 `TEMPLATE`，均不可用时创建 `STRUCTURE_PREVIEW`。预览背景只展示 Header、导航、筛选、表格、分页五类结构，不是正式平台页面。
 - 智客星未指定 `background` 时同样使用 `AUTO`：优先使用用户指定且已验收的智客星列表页，其次使用智客星模板，均不可用时使用 `STRUCTURE_PREVIEW`；`OVERLAY_ON_ZHIKEXING_LIST` 作为旧提示词兼容写法等同完整打开态。
-- 智能运营平台在平台壳尚未建立前，默认以 `STRUCTURE_PREVIEW` 交付打开态结构；用户提供已验收 `EXISTING_LIST_PAGE` 后才升级为正式平台页面。不得借用毓数或智客星菜单冒充。
+- 智能运营平台在业务背景和样式尚未验收前，默认以 `STRUCTURE_PREVIEW` 交付打开态结构；用户提供已验收 `EXISTING_LIST_PAGE` 后才升级为正式平台页面。不得借用毓数或智客星菜单冒充。
 - 交付结果必须回报 `platformKey / platformName / themeKey / themePrimary` 和主题变量回读结果。
 - 多平台批量生成还必须遵循 `multi-platform-batch.md`：公共结构只解析一次，平台差异不能改变内容指纹。
 
@@ -113,7 +119,7 @@ widthTier：640
 platformKey：zhineng-yunying
 platformName：智能运营平台
 themeKey：smartops-blue
-themePrimary：#1677FF
+themePrimary：#1969F1
 展示方式：完整页面打开态
 background.source：EXISTING_LIST_PAGE
 background.sourceNode：<智能运营平台已验收列表页节点 ID>

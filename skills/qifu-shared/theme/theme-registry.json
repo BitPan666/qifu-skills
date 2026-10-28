@@ -3,10 +3,10 @@
   "schemaVersion": 1,
   "themes": {
     "zhikexing-green": {
-      "primary": "#00B578",
-      "primaryRole": "verification-only",
+      "primary": null,
+      "primaryRole": "template-verification-only",
       "bindingStrategy": "inherit-template-then-semantic-variable",
-      "figmaCollection": "基础",
+      "figmaCollection": "basic 基础",
       "figmaMode": null,
       "colorVariableGroup": "mode/green",
       "semanticBindings": {
@@ -16,14 +16,18 @@
         "brandDisabled": "基础颜色拓展/brand/disabled",
         "linkText": "文本颜色/--qifu-text-color-link"
       },
-      "supportedAppearance": "light"
+      "supportedAppearance": "light",
+      "figmaCollectionId": "VariableCollectionId:9:8",
+      "figmaModeId": null
     },
     "yushu-green": {
-      "primary": "#00B578",
+      "primary": "#00B85C",
       "primaryRole": "verification-only",
       "bindingStrategy": "figma-mode-and-semantic-variable",
-      "figmaCollection": "基础",
+      "figmaCollection": "basic 基础",
+      "figmaCollectionId": "VariableCollectionId:9:8",
       "figmaMode": "毓数/Light",
+      "figmaModeId": "9:6",
       "colorVariableGroup": "mode/green",
       "semanticBindings": {
         "brandDefault": "基础颜色拓展/brand/default",
@@ -35,11 +39,13 @@
       "supportedAppearance": "light"
     },
     "smartops-blue": {
-      "primary": "#1677FF",
+      "primary": "#1969F1",
       "primaryRole": "verification-only",
       "bindingStrategy": "figma-mode-and-semantic-variable",
-      "figmaCollection": "基础",
+      "figmaCollection": "basic 基础",
+      "figmaCollectionId": "VariableCollectionId:9:8",
       "figmaMode": "智能运营/Light",
+      "figmaModeId": "2158:0",
       "colorVariableGroup": "mode/blue",
       "semanticBindings": {
         "brandDefault": "基础颜色拓展/brand/default",
@@ -59,6 +65,44 @@
       "figmaMode": null,
       "colorVariableGroup": null,
       "supportedAppearance": "light"
+    },
+    "jinyumeng-blue": {
+      "primary": "#0F6FFC",
+      "primaryRole": "verification-only",
+      "bindingStrategy": "figma-mode-and-semantic-variable",
+      "figmaCollection": "basic 基础",
+      "figmaCollectionId": "VariableCollectionId:9:8",
+      "figmaMode": "金毓盟/Light",
+      "figmaModeId": "4717:0",
+      "colorVariableGroup": "mode/jinyumeng",
+      "semanticBindings": {
+        "brandDefault": "基础颜色拓展/brand/default",
+        "brandHover": "基础颜色拓展/brand/hover",
+        "brandActive": "基础颜色拓展/brand/active",
+        "brandDisabled": "基础颜色拓展/brand/disabled",
+        "linkText": "文本颜色/--qifu-text-color-link"
+      },
+      "supportedAppearance": "light"
+    },
+    "dianxiao-green": {
+      "primary": "#009E73",
+      "primaryRole": "verification-only",
+      "bindingStrategy": "figma-mode-and-semantic-variable",
+      "figmaCollection": "basic 基础",
+      "figmaCollectionId": "VariableCollectionId:9:8",
+      "figmaMode": "电销/Light",
+      "figmaModeId": "5722:0",
+      "colorVariableGroup": "mode/dianxian",
+      "semanticBindings": {
+        "brandDefault": "基础颜色拓展/brand/default",
+        "brandHover": "基础颜色拓展/brand/hover",
+        "brandActive": "基础颜色拓展/brand/active",
+        "brandDisabled": "基础颜色拓展/brand/disabled",
+        "linkText": "文本颜色/--qifu-text-color-link"
+      },
+      "supportedAppearance": "light"
     }
-  }
+  },
+  "updatedAt": "2026-10-28",
+  "bindingSnapshot": "live-platform-bindings.json"
 }

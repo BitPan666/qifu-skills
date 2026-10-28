@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-28",
+  "timezone": "Asia/Shanghai",
+  "figmaFileKey": "gTV3VdC6a5e9vpkRHIZSXA",
+  "scope": "Targeted live platform color bindings; not a full variable export",
+  "collection": {
+    "id": "VariableCollectionId:9:8",
+    "name": "basic 基础",
+    "modes": [
+      {
+        "name": "毓数/Light",
+        "modeId": "9:6"
+      },
+      {
+        "name": "智能运营/Light",
+        "modeId": "2158:0"
+      },
+      {
+        "name": "金毓盟/Light",
+        "modeId": "4717:0"
+      },
+      {
+        "name": "电销/Light",
+        "modeId": "5722:0"
+      }
+    ]
+  },
+  "semanticVariables": [
+    {
+      "id": "VariableID:9:137",
+      "path": "基础颜色拓展/brand/default",
+      "collectionId": "VariableCollectionId:9:8",
+      "valuesByMode": {
+        "9:6": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:9:26"
+        },
+        "2158:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:2095:152"
+        },
+        "4717:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4718:43675"
+        },
+        "5722:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5723:18614"
+        }
+      },
+      "resolvedByMode": {
+        "9:6": {
+          "hex": "#00B85C",
+          "aliasChain": [
+            {
+              "id": "VariableID:9:26",
+              "path": "mode/green/--qifu-brand-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "2158:0": {
+          "hex": "#1969F1",
+          "aliasChain": [
+            {
+              "id": "VariableID:2095:152",
+              "path": "mode/blue/--qifu-blue-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "4717:0": {
+          "hex": "#0F6FFC",
+          "aliasChain": [
+            {
+              "id": "VariableID:4718:43675",
+              "path": "mode/jinyumeng/--qifu-jym-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "5722:0": {
+          "hex": "#009E73",
+          "aliasChain": [
+            {
+              "id": "VariableID:5723:18614",
+              "path": "mode/dianxian/--qifu-dx-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "VariableID:9:138",
+      "path": "基础颜色拓展/brand/hover",
+      "collectionId": "VariableCollectionId:9:8",
+      "valuesByMode": {
+        "9:6": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:9:25"
+        },
+        "2158:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:2095:151"
+        },
+        "4717:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4718:43674"
+        },
+        "5722:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5723:18613"
+        }
+      },
+      "resolvedByMode": {
+        "9:6": {
+          "hex": "#33C67D",
+          "aliasChain": [
+            {
+              "id": "VariableID:9:25",
+              "path": "mode/green/--qifu-brand-color-80%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "2158:0": {
+          "hex": "#4787F4",
+          "aliasChain": [
+            {
+              "id": "VariableID:2095:151",
+              "path": "mode/blue/--qifu-blue-color-80%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "4717:0": {
+          "hex": "#3F8CFD",
+          "aliasChain": [
+            {
+              "id": "VariableID:4718:43674",
+              "path": "mode/jinyumeng/--qifu-jym-color-80%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "5722:0": {
+          "hex": "#33B18F",
+          "aliasChain": [
+            {
+              "id": "VariableID:5723:18613",
+              "path": "mode/dianxian/--qifu-dx-color-80%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:60",
+      "path": "基础颜色拓展/brand/active",
+      "collectionId": "VariableCollectionId:9:8",
+      "valuesByMode": {
+        "9:6": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:9:27"
+        },
+        "2158:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:2095:153"
+        },
+        "4717:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4718:43676"
+        },
+        "5722:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5723:18615"
+        }
+      },
+      "resolvedByMode": {
+        "9:6": {
+          "hex": "#00934A",
+          "aliasChain": [
+            {
+              "id": "VariableID:9:27",
+              "path": "mode/green/--qifu-brand-color-20%000",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "2158:0": {
+          "hex": "#1454C1",
+          "aliasChain": [
+            {
+              "id": "VariableID:2095:153",
+              "path": "mode/blue/--qifu-blue-color-20%000",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "4717:0": {
+          "hex": "#1454C1",
+          "aliasChain": [
+            {
+              "id": "VariableID:4718:43676",
+              "path": "mode/jinyumeng/--qifu-jym-color-20%000",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "5722:0": {
+          "hex": "#007E5C",
+          "aliasChain": [
+            {
+              "id": "VariableID:5723:18615",
+              "path": "mode/dianxian/--qifu-dx-color-20%000",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "VariableID:13:61",
+      "path": "基础颜色拓展/brand/disabled",
+      "collectionId": "VariableCollectionId:9:8",
+      "valuesByMode": {
+        "9:6": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:9:30"
+        },
+        "2158:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:2095:149"
+        },
+        "4717:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:2095:149"
+        },
+        "5722:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5723:18611"
+        }
+      },
+      "resolvedByMode": {
+        "9:6": {
+          "hex": "#99E3BE",
+          "aliasChain": [
+            {
+              "id": "VariableID:9:30",
+              "path": "mode/green/--qifu-success-color-40%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "2158:0": {
+          "hex": "#A3C3F9",
+          "aliasChain": [
+            {
+              "id": "VariableID:2095:149",
+              "path": "mode/blue/--qifu-blue-color-40%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "4717:0": {
+          "hex": "#A3C3F9",
+          "aliasChain": [
+            {
+              "id": "VariableID:2095:149",
+              "path": "mode/blue/--qifu-blue-color-40%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "5722:0": {
+          "hex": "#99D8C7",
+          "aliasChain": [
+            {
+              "id": "VariableID:5723:18611",
+              "path": "mode/dianxian/--qifu-dx-color-40%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "VariableID:9:117",
+      "path": "文本颜色/--qifu-text-color-link",
+      "collectionId": "VariableCollectionId:9:8",
+      "valuesByMode": {
+        "9:6": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:9:26"
+        },
+        "2158:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:2095:152"
+        },
+        "4717:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:4718:43675"
+        },
+        "5722:0": {
+          "type": "VARIABLE_ALIAS",
+          "id": "VariableID:5723:18614"
+        }
+      },
+      "resolvedByMode": {
+        "9:6": {
+          "hex": "#00B85C",
+          "aliasChain": [
+            {
+              "id": "VariableID:9:26",
+              "path": "mode/green/--qifu-brand-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "2158:0": {
+          "hex": "#1969F1",
+          "aliasChain": [
+            {
+              "id": "VariableID:2095:152",
+              "path": "mode/blue/--qifu-blue-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "4717:0": {
+          "hex": "#0F6FFC",
+          "aliasChain": [
+            {
+              "id": "VariableID:4718:43675",
+              "path": "mode/jinyumeng/--qifu-jym-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        },
+        "5722:0": {
+          "hex": "#009E73",
+          "aliasChain": [
+            {
+              "id": "VariableID:5723:18614",
+              "path": "mode/dianxian/--qifu-dx-color-100%",
+              "collectionId": "VariableCollectionId:9:2",
+              "modeId": "4718:2"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -37,7 +37,7 @@ class PlatformResolutionTest(unittest.TestCase):
 
     def test_resolves_exact_template_node(self) -> None:
         result, code = MODULE.resolve(
-            PLATFORMS, args(template_node_id=["4892:34812"])
+            PLATFORMS, args(template_node_id=["5468:3233"])
         )
         self.assertEqual(code, 0)
         self.assertEqual(result["platformKey"], "zhikexing")

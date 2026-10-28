@@ -17,10 +17,10 @@ background
   pageName        底图业务页名称；仅用于 Scene 命名
 ```
 
-- `TEMPLATE`：按 `qifu-list-page` 的 `platform=zhikexing / generationStrategy=copyTemplate` 复制人工基线 `4892:34812`，即 `Template / List Page / 智客星 / 1440 / 手动调整`，真实尺寸必须为 `1366 x 768`。
+- `TEMPLATE`：读取 shared 平台注册表，当前首选候选 `5468:3233`，备选人工候选 `5408:13969`。两者尚未通过完整页面验收；必须先回读 Header 母组件 `5517:2109`、文字样式、变量和整页结构，满足预检后才能复制为 `1366 x 768` 背景。旧 `4892:34812` 引用毓数 Header，属于 `BLOCKED_SOURCE`，不得作为模板或后备。
 - `EXISTING_LIST_PAGE`：复制用户明确提供的已完成智客星列表页；创建前必须验证其为 `1366 x 768`，并通过 `qifu-list-page` 的智客星结构化验收。
-- `AUTO`：优先使用用户明确提供且已验收的智客星 `EXISTING_LIST_PAGE`，其次复制上述 `TEMPLATE`；两者都不可用时使用中性 `STRUCTURE_PREVIEW + Overlay Mask + Drawer`。不得退回裸抽屉、临时手绘底图或借用其他平台菜单。
-- 用户显式指定 `TEMPLATE` 或 `EXISTING_LIST_PAGE` 且该来源不可解析时，返回 `BACKGROUND_TEMPLATE_MISSING`，不得静默改用另一来源。
+- `AUTO`：优先使用用户明确提供且已验收的智客星 `EXISTING_LIST_PAGE`，其次对上述候选 `TEMPLATE` 做预检；没有可用且通过预检的背景来源时使用中性 `STRUCTURE_PREVIEW + Overlay Mask + Drawer`。不得退回裸抽屉、临时手绘底图或借用其他平台菜单。
+- 用户显式指定 `TEMPLATE` 或 `EXISTING_LIST_PAGE` 且该来源不可解析时，返回 `BACKGROUND_TEMPLATE_MISSING`，不得静默改用另一来源。指定旧来源返回 `BLOCKED_SOURCE`；预检发现样式缺失返回 `STYLE_MISSING`，作为执行失败停止，不得静默降级或手填颜色掩盖。
 
 ## 读取与边界
 

@@ -8,7 +8,7 @@
 
 唯一 Golden Sample：组件库文件 `gTV3VdC6a5e9vpkRHIZSXA`，Page `3932:405` 的 `Golden Sample / Drawer / 数据详情 / 680 · 0821 根据手搓重生成`（node `4725:1548`）。该 Frame 是未来数据详情抽屉的唯一结构、组件关系和视觉基线；旧的 `4659:420` 仅保留为历史对照，不再作为生成来源。参考其信息层级和节奏，不复制固定业务文案。
 
-本 Golden Sample 的 Scene 固定为 `1366 × 768`。其底图必须是完整、可编辑的真实列表页，当前验证来源为 `Template / List Page / 智客星 / 1440 / 手动调整`（node `4892:34812`，实际尺寸 `1366 × 768`）；禁止使用截图、IMAGE 填充矩形、导出图片或展平底图替代。
+本 Golden Sample 的 Scene 固定为 `1366 × 768`。其底图必须是完整、可编辑的真实列表页，历史背景 `4892:34812` 已因引用毓数 Header 被拒绝，不能继续作为当前验证来源。当前背景必须使用 shared 注册表中通过预检的智客星候选，或用户明确指定并通过同等检查的现有列表页；候选登记不等于已验收；禁止使用截图、IMAGE 填充矩形、导出图片或展平底图替代。
 
 ## 组件覆盖
 
@@ -96,7 +96,7 @@ Golden Sample / Drawer / <Object> / 680
 ## QA
 
 - Golden Sample Scene 精确为 `1366×768`；图层顺序固定为 `Background / List Page < Overlay Mask < Drawer`，Drawer 宽 680 且 `x=686`、right=0。
-- Background 必须是完整真实列表页副本；不得出现 `IMAGE` 填充的 `底图`、截图、导出图片、展平矩形或裸 Text 作为整页底图。当前基线应能追溯到 `4892:34812` 或用户明确指定并通过同等结构检查的现有列表页。
+- Background 必须是完整真实列表页副本；不得出现 `IMAGE` 填充的 `底图`、截图、导出图片、展平矩形或裸 Text 作为整页底图。当前背景应能追溯到 shared 注册表中通过预检的候选或用户明确指定并通过同等结构检查的现有列表页；禁止追溯到已拒绝的旧 `4892:34812`。
 - Background 内的 Header、侧栏、List Page Shell、Filter Bar、Table Shell 与 Pagination 必须继续是可解析组件实例；对底图仅允许替换业务文案和既有组件的合法属性，不得 detach 或手绘覆盖。
 - Drawer 宽 680，Header 56，Body/卡片/标题/Form/Table 全部整数几何。
 - 页面级自由文本 100% 应用组件库 Text Style；无 `textStyleId=""` 的自由 Text。

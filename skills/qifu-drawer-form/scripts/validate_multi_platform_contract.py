@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -15,6 +16,7 @@ PLATFORM_REGISTRY = SHARED / "references" / "platform-registry.json"
 THEME_REGISTRY = SHARED / "theme" / "theme-registry.json"
 TOKENS = SHARED / "theme" / "tokens.json"
 COLOR_SOURCE = SHARED / "theme" / "source" / "color.json"
+LIVE_BINDINGS = SHARED / "theme" / "live-platform-bindings.json"
 
 
 def load_json(path: Path, errors: list[str]) -> dict:
@@ -33,8 +35,7 @@ def main() -> int:
     errors: list[str] = []
     platform_data = load_json(PLATFORM_REGISTRY, errors)
     theme_data = load_json(THEME_REGISTRY, errors)
-    token_data = load_json(TOKENS, errors)
-    color_data = load_json(COLOR_SOURCE, errors)
+    live_data = load_json(LIVE_BINDINGS, errors)
 
     platforms = platform_data.get("platforms")
     themes = theme_data.get("themes")
@@ -97,15 +98,13 @@ def main() -> int:
             if not signals.get("figmaNodeNames") or not signals.get("templateNodeIds"):
                 errors.append(f"platform {key}: copyTemplate requires exact template signals")
 
-    collection_modes = {
-        collection.get("name"): set(collection.get("modes", []))
-        for collection in token_data.get("collections", [])
-        if isinstance(collection, dict)
-    }
+    collection = live_data.get('collection', {})
+    collection_modes = {collection.get('name'): {m['name'] for m in collection.get('modes', [])}}
     color_groups = {
-        variable.get("group")
-        for variable in color_data.get("variables", [])
-        if isinstance(variable, dict)
+        alias['path'].rsplit('/', 1)[0]
+        for variable in live_data.get('semanticVariables', [])
+        for value in variable.get('resolvedByMode', {}).values()
+        for alias in value.get('aliasChain', [])
     }
     required_theme_fields = {
         "primary",
@@ -141,6 +140,13 @@ def main() -> int:
     for path in required_files:
         if not path.is_file():
             errors.append(f"missing multi-platform contract: {path}")
+
+    asset_check = subprocess.run(
+        [sys.executable, str(SHARED / 'scripts' / 'validate_platform_assets.py')],
+        text=True, capture_output=True, check=False,
+    )
+    if asset_check.returncode:
+        errors.append('platform asset contract: ' + asset_check.stdout.strip() + asset_check.stderr.strip())
 
     if errors:
         print("FAIL: multi-platform drawer contract")

@@ -55,11 +55,11 @@ targetPlacement: <blank-area-or-explicit-position>
 
 ```bash
 python3 scripts/resolve_platform.py --name "智能运营平台"
-python3 scripts/resolve_platform.py --template-node-id "4892:34812"
+python3 scripts/resolve_platform.py --template-node-id "5468:3233"
 python3 scripts/resolve_platform.py --figma-variable-mode "毓数/Light"
 ```
 
-解析器返回 `UNRESOLVED`、`AMBIGUOUS` 或 `CONFLICT` 时停止该目标的预检，不自行改用 generic。
+解析器返回 `UNRESOLVED`、`AMBIGUOUS`、`CONFLICT` 或 `BLOCKED_SOURCE` 时停止该目标的预检，不自行改用 generic。
 
 平台确定后，加载注册表中唯一的 Adapter；主题未指定时使用该平台的 `defaultTheme`。显式主题与平台注册默认不一致时允许切换主题，但平台壳、菜单和业务词仍由 `platformKey` 决定。
 
@@ -173,3 +173,7 @@ comparisonLayout：HORIZONTAL。
 failurePolicy：ALL_OR_NOTHING。
 不要改变不同平台之间的字段、控件、顺序、宽度和 Footer。完成后返回 contentFingerprint、每个平台解析证据和跨平台一致性验证。
 ```
+
+## 已登记来源与页面能力
+
+逐目标读取capabilities.drawer：pending-adapter停止并返回BLOCKED_PLATFORM_ADAPTER；preflight-required必须通过实际背景、主题、组件和样式检查。BLOCKED_SOURCE（退出码4）是来源完整性失败，不允许替换为generic或历史模板。默认ALL_OR_NOTHING保留：不能用平台解析RESOLVED掩盖某目标的适配或来源失败。

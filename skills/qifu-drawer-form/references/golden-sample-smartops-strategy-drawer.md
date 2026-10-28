@@ -1,5 +1,7 @@
 # 智能运营平台策略关联抽屉 Golden Sample
 
+2026-10-28主题核验补充：本文件保留历史几何和业务结构；当前颜色以theme-registry.json及live-platform-bindings.json中的语义变量为准（智能运营brand/default实时值#1969F1）。原样例Hex不覆盖当前变量绑定。基础外壳6155:1851已存在，但正式业务底图及文字样式仍需预检。
+
 ## 基线与范围
 
 唯一抽屉基线位于组件库文件 `gTV3VdC6a5e9vpkRHIZSXA`，Page `02 From 训练过程`：
@@ -54,7 +56,7 @@ Drawer / 新增短信模板策略
 platformKey：zhineng-yunying
 platformName：智能运营平台
 themeKey：smartops-blue
-themePrimary：#1677FF
+themePrimary：#1969F1
 componentMode：REAL_COMPONENT_ONLY
 compositionName：Qifu Drawer Form / Sectioned Create
 widthTier：680

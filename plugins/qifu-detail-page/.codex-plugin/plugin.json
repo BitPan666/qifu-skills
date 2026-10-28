@@ -1,6 +1,6 @@
 {
   "name": "qifu-detail-page",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "在 Figma 中生成奇富后台详情页：Flat / Tabbed / Master Detail / Readonly / Category Q&A 五种注册组合，保持真实组件实例关系，内置 qifu-shared 共享资产（组件映射、平台适配器、Token 契约）。",
   "author": {
     "name": "静静兔",

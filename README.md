@@ -404,3 +404,9 @@ python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-githu
 - 总计 278 个变量：基础 107、色彩 82、字体 27、圆角 7、尺寸 55；
 - AI 调用 Token 时先读取 [`skills/qifu-shared/theme/tokens.json`](skills/qifu-shared/theme/tokens.json)，需要核对模式和值时读取 `skills/qifu-shared/theme/source/*.json`；
 - 不允许把工程 Less 的导出标识符或说明性名称当作 Figma 原变量名；Figma 原路径以 `figmaPath` 为准。
+
+## 五平台基础配置迭代（2026-10-28）
+
+当前迭代分支 `codex/five-platform-foundation-20261028` 登记五平台资产与实时主题绑定，修正候选/旧来源门禁。页面能力仍按各Skill的capabilities和预检决定，不能将注册成功当成15场景验收成功。shared 1.3.3、drawer 1.6.1、detail/plugin 1.5.1；未更新本机安装版本。
+
+变更、测试、备份与按时间回退方法见 [迭代记录](docs/iterations/2026-10-28-five-platform-foundation.md)。运行 `python3 scripts/iteration_timeline.py --repo . --before '2026-10-28T22:49:16+08:00'` 可查询祖先检查点并输出新恢复分支命令；查询本身不修改文件或分支。
