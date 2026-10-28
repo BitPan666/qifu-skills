@@ -82,7 +82,7 @@
     }
   },
   "releasePolicy": {
-    "iteration": "2026-10-28-five-platform-foundation",
+    "iteration": "2026-10-28-four-generation-adapters",
     "scope": "Reviewed release limits for this iteration; changes require new acceptance evidence and a versioned checkpoint, not a claim of Figma generation acceptance.",
     "platforms": {
       "yushu": {
@@ -122,7 +122,7 @@
         "defaultTheme": "zhikexing-green",
         "figmaModeId": null,
         "capabilities": {
-          "list": "pending-adapter",
+          "list": "preflight-required",
           "drawer": "preflight-required",
           "detail": "category-qa-only"
         },
@@ -133,7 +133,7 @@
         "defaultTheme": "smartops-blue",
         "figmaModeId": "2158:0",
         "capabilities": {
-          "list": "pending-adapter",
+          "list": "preflight-required",
           "drawer": "preflight-required",
           "detail": "unsupported"
         },

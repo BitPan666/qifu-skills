@@ -73,7 +73,7 @@ status: Candidate
 
 - 它是当前人工确认的视觉与布局参考；其精确尺寸、文字层级、间距与生成门禁见 `skills/qifu-list-page/references/zhikexing-manual-template-contract.md`。
 - 仅可在用户要求对比或候选复现时并列复制，复制结果必须命名 `Candidate / ...`，不得改名为 Golden Sample 或写入正式基线登记。
-- 任何候选升级前，必须同时满足：Header/SideNavigation 不含 `yushu`、`毓数`、`鲸数` 或 `QBI` 命名/主组件引用；新增或改写的可见文本均保留本地 `textStyleId`；核心控件仍为真实实例；同尺寸截图经人工视觉确认。
+- 任何候选升级前，必须同时满足：Header 必须为5517:2109，不能引用毓数3639:1529或带鲸数/QBI品牌；SideNavigation明确允许共享3650:998，但图标与业务菜单必须为智客星；新增或改写的可见文本均保留本地 `textStyleId`；核心控件仍为真实实例；同尺寸截图经人工视觉确认。
 
 当前复现参考：`Candidate / List Page / 智客星 / 1366 / 手动调整复现`（node `5468:3233`，同 Page，`1366 x 768`）。优先以它的 Header、侧栏、业务导航、内容卡片和本地文本样式作为视觉参考；其中的菜单选中项、7 个筛选、9 列和多选变体均是示例，不是业务字段或固定矩阵。源画板保持 Candidate 且不可覆盖。
 
@@ -169,3 +169,7 @@ sideAncestorsActive=[客户添加]
 ## 2026-10-28 资产门禁
 
 当前两个候选各有50处可见文字无textStyleId，保持Candidate，先登记样式源缺口；不通过候选外观批准绕过样式预检。Header实例名称可能写Items=5，但真实变体为Items=0，采用真实componentProperties。历史4892:34812可用于解释平台身份，但来源门禁仍返回BLOCKED_SOURCE；当前候选来源以注册表shell.nodeId为准。
+
+## 当前独立列表Adapter
+
+qfin-list-page 0.2.0新增qifu-zhikexing-list-page 0.1.0；共享列表能力为preflight-required，源candidate不升级。新三列、三行、无选择列回归样本6189:8141已通过当前结构与截图核对。历史50个缺失样式仅指原观察时点；本轮只修复实际使用变体并记录独立备份，仍须逐次预检全部控件和状态。

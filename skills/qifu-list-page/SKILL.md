@@ -119,15 +119,7 @@ pagination / viewport / targetPage / data
 
 ### 4b. 复制模板落图（copyTemplate）
 
-`platform=zhikexing` 时固定使用本节。核心原则：复制人工精修的完整列表页模板，只修改可写入且可回读成功的属性，不直接改写 Slot，也不手绘补齐结构。
-
-1. 读取 [智客星平台基线](../qifu-shared/references/platform-zhikexing.md)，确认基线模板 `4892:34812` 真实尺寸为 `1366 x 768`。
-2. 复制整个基线顶层 Frame，命名为 `Page / List / <pageName> / Default`，放到用户指定 Page 的空白区域；不得覆盖、移动或改名 Golden Sample。
-3. 复制后保留模板内 Header、SideNavigation、List Page Shell、Filter Bar、Table Shell、Pagination、变量、文本样式和实例关系。
-4. 只修改复制页中可回读成功的文字、布尔、变体与 INSTANCE_SWAP 属性。每次都按“读取真实 Key → 校验类型和值域 → 写入 → 回读”闭环执行。
-5. 禁止直接写入 `pageHeaderSlot`、`filterBarSlot`、`tableSlot`、`controlSlot`、`headerSlot`、`rowsSlot`、`cellsSlot`、`contentSlot` 或 `paginationSlot`。Slot 结构不满足业务需求时返回 `BLOCKED_TEMPLATE`。
-6. 智客星当前仅支持平台基线声明的 `4+1 筛选 + selectable 表格` 模板；筛选数量、选择列、列数、表格密度或状态结构不一致时，先寻找同文件中已人工确认的匹配模板，找不到则返回 `BLOCKED_TEMPLATE`。
-7. 截图和结构检查均通过后才能交付；失败时明确返回 `FAIL` 或 `BLOCKED_TEMPLATE`，不得用裸 Text、Frame、Group、覆盖层或截图替代。
+`platform=zhikexing` 时转交独立 qfin-list-page 插件的 `qifu-zhikexing-list-page`，不继续使用本历史入口的复制实现。新适配固定候选5468:3233、Header5517:2109，允许显式共享菜单3650:998；旧4892:34812已拒绝。动态筛选、列数和选择列由新子Skill的PageSpec与真实Slot/组件能力决定，不再固定4+1或selectable矩阵。没有安装独立子Skill时返回CHILD_SKILL_MISSING，不回退到旧模板。来源预检、可编辑副本、属性回读、完整文字样式、结构与整页截图均按该独立子Skill执行。
 
 ### 5. 处理缺口
 

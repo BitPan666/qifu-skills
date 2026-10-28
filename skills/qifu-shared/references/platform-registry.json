@@ -73,9 +73,17 @@
         }
       ],
       "capabilities": {
-        "list": "pending-adapter",
+        "list": "preflight-required",
         "drawer": "preflight-required",
         "detail": "category-qa-only"
+      },
+      "listAdapter": {
+        "repository": "BitPan666/qfin-list-page",
+        "skill": "qifu-zhikexing-list-page",
+        "version": "0.1.0",
+        "readiness": "preflight-required",
+        "validatedSampleNodeId": "6189:8141",
+        "scope": "3 text columns, 3 rows, selection=false; per-run acceptance remains required"
       }
     },
     "yushu": {
@@ -196,9 +204,17 @@
         "sourceStatus": "source-verified"
       },
       "capabilities": {
-        "list": "pending-adapter",
+        "list": "preflight-required",
         "drawer": "preflight-required",
         "detail": "unsupported"
+      },
+      "listAdapter": {
+        "repository": "BitPan666/qfin-list-page",
+        "skill": "qifu-zhineng-yunying-list-page",
+        "version": "0.1.0",
+        "readiness": "preflight-required",
+        "validatedSampleNodeId": "6185:7863",
+        "scope": "3 text columns, 3 rows, selection=false; per-run acceptance remains required"
       }
     },
     "qifu-generic": {

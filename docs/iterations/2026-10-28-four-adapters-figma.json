@@ -1,0 +1,706 @@
+{
+  "backup": {
+    "backupPageId": "6183:2",
+    "createdNodeIds": [
+      "6183:3",
+      "6183:50",
+      "6183:310",
+      "6183:750"
+    ],
+    "sourceNodesUnchanged": true,
+    "snapshots": [
+      {
+        "sourceId": "6155:1851",
+        "backupId": "6183:3",
+        "name": "Backup / 6155:1851 / 智能运营 / 基础外壳",
+        "width": 1366,
+        "height": 768
+      },
+      {
+        "sourceId": "5468:3233",
+        "backupId": "6183:50",
+        "name": "Backup / 5468:3233 / Candidate / List Page / 智客星 / 1366 / 手动调整复现",
+        "width": 1366,
+        "height": 768
+      },
+      {
+        "sourceId": "6089:64073",
+        "backupId": "6183:310",
+        "name": "Backup / 6089:64073 / Scene / Drawer / 金毓盟 / 新增策略",
+        "width": 1366,
+        "height": 768
+      },
+      {
+        "sourceId": "6089:64515",
+        "backupId": "6183:750",
+        "name": "Backup / 6089:64515 / Scene / Drawer / 电销 / 新增策略",
+        "width": 1366,
+        "height": 768
+      }
+    ]
+  },
+  "smartTypography": {
+    "targetId": "6185:7863",
+    "createdNodeIds": [
+      "6186:8165",
+      "6186:8171",
+      "6186:8176",
+      "6186:8183",
+      "6186:8186"
+    ],
+    "createdStyleIds": [
+      "S:f9daf042d61786b1e7f4a5b9cd7fce9cfeb58344,",
+      "S:13c62444a2c582d0519ff78ce9b14e2f4d887ed0,",
+      "S:4403f8d541eaa622e2f6501abd27b6fc2947da90,",
+      "S:f254da7c9efefa31e617d934520859ef80b5aa4b,",
+      "S:cb6097c3fb089e010c168343730316f3a205c8f0,",
+      "S:0c938cfb617f8ea456953628c41d9b5fae0cd617,"
+    ],
+    "mutatedNodeIds": [
+      "6185:7868",
+      "6185:7877",
+      "6185:7882",
+      "3178:7505",
+      "3178:7721",
+      "3406:795",
+      "2381:382",
+      "2381:688"
+    ],
+    "componentBackups": [
+      {
+        "sourceId": "3178:7499",
+        "backupId": "6186:8165"
+      },
+      {
+        "sourceId": "3178:7715",
+        "backupId": "6186:8171"
+      },
+      {
+        "sourceId": "3406:793",
+        "backupId": "6186:8176"
+      },
+      {
+        "sourceId": "2381:380",
+        "backupId": "6186:8183"
+      },
+      {
+        "sourceId": "2381:686",
+        "backupId": "6186:8186"
+      }
+    ],
+    "restoreTypography": [
+      {
+        "id": "6185:7868",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Medium"
+        },
+        "fontSize": 16,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 24
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:f9daf042d61786b1e7f4a5b9cd7fce9cfeb58344,"
+      },
+      {
+        "id": "6185:7877",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Regular"
+        },
+        "fontSize": 10,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 16
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:13c62444a2c582d0519ff78ce9b14e2f4d887ed0,"
+      },
+      {
+        "id": "6185:7882",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Regular"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:4403f8d541eaa622e2f6501abd27b6fc2947da90,"
+      },
+      {
+        "id": "3178:7505",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Regular"
+        },
+        "fontSize": 12,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 20
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:f254da7c9efefa31e617d934520859ef80b5aa4b,"
+      },
+      {
+        "id": "3178:7721",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Regular"
+        },
+        "fontSize": 12,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 20
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:f254da7c9efefa31e617d934520859ef80b5aa4b,"
+      },
+      {
+        "id": "3406:795",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Regular"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 20
+        },
+        "letterSpacing": {
+          "unit": "PIXELS",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:cb6097c3fb089e010c168343730316f3a205c8f0,"
+      },
+      {
+        "id": "2381:382",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Medium"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:0c938cfb617f8ea456953628c41d9b5fae0cd617,"
+      },
+      {
+        "id": "2381:688",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Medium"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:0c938cfb617f8ea456953628c41d9b5fae0cd617,"
+      }
+    ],
+    "skipped": []
+  },
+  "zhikexingTypography": {
+    "targetId": "6189:8141",
+    "createdNodeIds": [
+      "6190:8368",
+      "6190:8374",
+      "6190:8379",
+      "6190:8385",
+      "6190:8389",
+      "6190:8393",
+      "6190:8396"
+    ],
+    "createdStyleIds": [
+      "S:b4c631c6011c8b36c32207da119652b5da16fff5,",
+      "S:b143f3596c72050db6880bd510ec87a9dd8b2b73,"
+    ],
+    "mutatedNodeIds": [
+      "3650:1002",
+      "3650:1022",
+      "3674:38380",
+      "3650:1041",
+      "3650:1049",
+      "2381:488",
+      "3178:8729"
+    ],
+    "componentBackups": [
+      {
+        "sourceId": "3650:999",
+        "backupId": "6190:8368"
+      },
+      {
+        "sourceId": "3650:1019",
+        "backupId": "6190:8374"
+      },
+      {
+        "sourceId": "3674:38377",
+        "backupId": "6190:8379"
+      },
+      {
+        "sourceId": "3650:1039",
+        "backupId": "6190:8385"
+      },
+      {
+        "sourceId": "3650:1047",
+        "backupId": "6190:8389"
+      },
+      {
+        "sourceId": "2381:486",
+        "backupId": "6190:8393"
+      },
+      {
+        "sourceId": "3178:8723",
+        "backupId": "6190:8396"
+      }
+    ],
+    "restoreTypography": [
+      {
+        "id": "3650:1002",
+        "textStyleId": "",
+        "fontName": {
+          "family": "PingFang SC",
+          "style": "Regular"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:b4c631c6011c8b36c32207da119652b5da16fff5,"
+      },
+      {
+        "id": "3650:1022",
+        "textStyleId": "",
+        "fontName": {
+          "family": "PingFang SC",
+          "style": "Regular"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:b4c631c6011c8b36c32207da119652b5da16fff5,"
+      },
+      {
+        "id": "3674:38380",
+        "textStyleId": "",
+        "fontName": {
+          "family": "PingFang SC",
+          "style": "Medium"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:b143f3596c72050db6880bd510ec87a9dd8b2b73,"
+      },
+      {
+        "id": "3650:1041",
+        "textStyleId": "",
+        "fontName": {
+          "family": "PingFang SC",
+          "style": "Regular"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:b4c631c6011c8b36c32207da119652b5da16fff5,"
+      },
+      {
+        "id": "3650:1049",
+        "textStyleId": "",
+        "fontName": {
+          "family": "PingFang SC",
+          "style": "Medium"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:b143f3596c72050db6880bd510ec87a9dd8b2b73,"
+      },
+      {
+        "id": "2381:488",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Medium"
+        },
+        "fontSize": 14,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 22
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:0c938cfb617f8ea456953628c41d9b5fae0cd617,"
+      },
+      {
+        "id": "3178:8729",
+        "textStyleId": "",
+        "fontName": {
+          "family": "MiSans",
+          "style": "Regular"
+        },
+        "fontSize": 12,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 20
+        },
+        "letterSpacing": {
+          "unit": "PERCENT",
+          "value": 0
+        },
+        "textCase": "ORIGINAL",
+        "textDecoration": "NONE",
+        "appliedStyleId": "S:f254da7c9efefa31e617d934520859ef80b5aa4b,"
+      }
+    ],
+    "skipped": []
+  },
+  "smartStructure": {
+    "nodeId": "6185:7863",
+    "width": 1366,
+    "height": 768,
+    "textCount": 41,
+    "missingStyles": [],
+    "menus": [
+      {
+        "id": "6185:7893",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "客户管理"
+      },
+      {
+        "id": "6185:7894",
+        "owner": "6158:1989",
+        "state": "Selected",
+        "label": "运营计划"
+      },
+      {
+        "id": "6185:7895",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "人群圈选"
+      },
+      {
+        "id": "6185:7896",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "运营策略"
+      },
+      {
+        "id": "6185:7897",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "运营计划"
+      },
+      {
+        "id": "6185:7898",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "策略实验"
+      },
+      {
+        "id": "6185:7899",
+        "owner": "6158:1989",
+        "state": "Selected",
+        "label": "模板策略"
+      },
+      {
+        "id": "6185:7900",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "审批列表"
+      },
+      {
+        "id": "6185:7901",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "实时任务监控(DI)"
+      },
+      {
+        "id": "6185:7902",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "内容/权益"
+      },
+      {
+        "id": "6185:7903",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "触达管理"
+      },
+      {
+        "id": "6185:7904",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "分析报表"
+      },
+      {
+        "id": "6185:7905",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "资源位运营"
+      },
+      {
+        "id": "6185:7906",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "微信运营"
+      },
+      {
+        "id": "6185:7907",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "乐高"
+      },
+      {
+        "id": "6185:7908",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "权限管理"
+      },
+      {
+        "id": "6185:7909",
+        "owner": "6158:1989",
+        "state": "Default",
+        "label": "帮助"
+      }
+    ],
+    "content": {
+      "x": 216,
+      "y": 102,
+      "width": 1134,
+      "height": 633,
+      "children": [
+        {
+          "id": "6185:7911",
+          "name": "Filter / 策略名称",
+          "x": 24,
+          "y": 24,
+          "width": 1086,
+          "height": 32
+        },
+        {
+          "id": "6185:7935",
+          "name": "Table / 三列动态数据",
+          "x": 24,
+          "y": 76,
+          "width": 1086,
+          "height": 176
+        },
+        {
+          "id": "6185:8133",
+          "name": "Pagination / Right",
+          "x": 24,
+          "y": 272,
+          "width": 1086,
+          "height": 32
+        }
+      ]
+    },
+    "mode": {
+      "VariableCollectionId:9:8": "2158:0"
+    },
+    "tableText": [
+      {
+        "id": "I6185:7937;3350:5951",
+        "text": "策略名称"
+      },
+      {
+        "id": "I6185:7949;3350:5951",
+        "text": "策略状态"
+      },
+      {
+        "id": "I6185:7961;3350:5951",
+        "text": "创建时间"
+      },
+      {
+        "id": "I6185:8134;3698:39217",
+        "text": "共 3 项数据"
+      }
+    ]
+  },
+  "listsReadback": [
+    {
+      "nodeId": "6185:7863",
+      "sourceId": "6155:1851",
+      "menuId": "6158:1989",
+      "selectedLeaves": [
+        {
+          "id": "6185:7899",
+          "owner": "6158:1989",
+          "level": "2",
+          "label": "模板策略",
+          "state": "Selected",
+          "expanded": "False"
+        }
+      ],
+      "headerReadback": [],
+      "counts": {
+        "header": 3,
+        "rows": 3,
+        "cells": 9
+      },
+      "sourceBrand": {
+        "r": 0.09803921729326248,
+        "g": 0.4117647111415863,
+        "b": 0.9450980424880981,
+        "a": 1
+      },
+      "actualBrand": {
+        "r": 0.09803921729326248,
+        "g": 0.4117647111415863,
+        "b": 0.9450980424880981,
+        "a": 1
+      },
+      "brandMatch": true,
+      "structure": "PASS"
+    },
+    {
+      "nodeId": "6189:8141",
+      "sourceId": "5468:3233",
+      "menuId": "3650:998",
+      "selectedLeaves": [
+        {
+          "id": "6189:8152",
+          "owner": "3650:998",
+          "level": "2",
+          "label": "加微链接",
+          "state": "Selected",
+          "expanded": "False"
+        }
+      ],
+      "headerReadback": [
+        {
+          "owner": "5517:2109",
+          "items": "0"
+        }
+      ],
+      "counts": {
+        "header": 3,
+        "rows": 3,
+        "cells": 9
+      },
+      "sourceBrand": {
+        "r": 0,
+        "g": 0.7215686440467834,
+        "b": 0.3607843220233917,
+        "a": 1
+      },
+      "actualBrand": {
+        "r": 0,
+        "g": 0.7215686440467834,
+        "b": 0.3607843220233917,
+        "a": 1
+      },
+      "brandMatch": true,
+      "structure": "PASS"
+    }
+  ],
+  "listVisualAcceptance": {
+    "smartops": {
+      "nodeId": "6185:7863",
+      "result": "PASS",
+      "screenshot": "committed get_screenshot 1366x768; correct tabs, three text columns, 3 rows"
+    },
+    "zhikexing": {
+      "nodeId": "6189:8141",
+      "result": "PASS",
+      "screenshot": "committed get_screenshot 1366x768; correct business tabs, three text columns, 3 rows"
+    }
+  }
+}

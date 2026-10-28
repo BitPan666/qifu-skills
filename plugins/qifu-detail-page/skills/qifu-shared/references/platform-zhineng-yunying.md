@@ -29,3 +29,7 @@ platformKey=zhineng-yunying；默认主题 smartops-blue。2026-10-28已回读�
 绑定basic 基础（VariableCollectionId:9:8）的智能运营/Light（2158:0），优先语义变量基础颜色拓展/brand/default与文本颜色/--qifu-text-color-link。本次实时brand/default为#1969F1；历史#1677FF及旧Scene Themes变量不覆盖当前语义绑定。Hex只用于回读核对。
 
 单次或批量正式验收仍要求平台来源、主题、文字样式、结构和视觉全部通过；批量保持公共baseDrawer内容指纹一致。
+
+## 当前独立列表Adapter
+
+qfin-list-page 0.2.0新增qifu-zhineng-yunying-list-page 0.1.0；列表preflight-required。样本6185:7863复用6155:1851外壳和6158:1989独立菜单，3列3行。源7处文字样式缺口的历史观察保留；本轮共享Tag等变体在独立备份后补绑定，源Header页级文字只在输出副本绑定，不能宣称整个源外壳已清零。
