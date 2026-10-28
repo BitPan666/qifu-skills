@@ -40,7 +40,7 @@ class FivePlatformFoundationTest(unittest.TestCase):
                 self.assertEqual(code, 0)
                 self.assertEqual(value['platformKey'], key)
                 self.assertEqual(value['defaultTheme'], theme)
-                self.assertEqual(value['capabilities']['drawer'], 'pending-adapter')
+                self.assertEqual(value['capabilities']['drawer'], 'preflight-required')
 
     def test_resolves_smartops_shell_as_frame_without_upgrading_page_readiness(self):
         value, code = self.resolve(template_node_id=['6155:1851'])
@@ -142,9 +142,9 @@ class FivePlatformFoundationTest(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('THEME_PLATFORM_OWNERSHIP', result.stdout)
 
-    def test_validator_rejects_unimplemented_drawer_promoted_to_preflight(self):
+    def test_validator_rejects_drawer_promoted_without_acceptance(self):
         data = json.loads(REGISTRY.read_text())
-        data['platforms']['dianxiao']['capabilities']['drawer'] = 'preflight-required'
+        data['platforms']['dianxiao']['capabilities']['drawer'] = 'ready'
         result = self.run_validator(registry=data)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('CAPABILITY_EVIDENCE_MISSING', result.stdout)

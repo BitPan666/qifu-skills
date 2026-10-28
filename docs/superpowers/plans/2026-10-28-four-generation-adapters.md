@@ -28,29 +28,29 @@
 **Files:** list仓库plugins/qfin-list-page/skills/qifu-{zhineng-yunying,zhikexing}-list-page/；router/scripts/validate_router.py、SKILL.md、references/prompt-template.md；scripts/versioning_lib.py、install_version.py及tests。
 **Interfaces:** plan_page(spec) -> dict；child固定platform；返回shell/header/menu/theme/contentStrategy和验收要求，不写Figma。
 
-- [ ] 新写CLI场景测试，确认新平台无子Skill/计划器而失败。
-- [ ] 实现智能运营子Skill与计划器；用真实外壳副本组装样本，结构和截图验收，再做消费复核。
-- [ ] 实现智客星子Skill与计划器；拒旧来源并预检候选，用副本做真实样本和消费复核。
-- [ ] 扩展router和版本管理，当前五平台、历史三平台tag均测试通过。
-- [ ] 更新shared列表能力与版本，旧列表入口冲突统一指向独立插件。
-- [ ] 提交推送第一个检查点。
+- [x] 新写CLI场景测试，确认新平台无子Skill/计划器而失败。
+- [x] 实现智能运营子Skill与计划器；用真实外壳副本组装样本，结构和截图验收，再做消费复核。
+- [x] 实现智客星子Skill与计划器；拒旧来源并预检候选，用副本做真实样本和消费复核。
+- [x] 扩展router和版本管理，当前五平台、历史三平台tag均测试通过。
+- [x] 更新shared列表能力与版本，旧列表入口冲突统一指向独立插件。
+- [x] 提交推送第一个检查点。
 
 ### Task 2: 金毓盟和电销抽屉
 
 **Files:** shared/references/platform-{jinyumeng,dianxiao}.md；drawer/references/platform-backgrounds.md；drawer/scripts/plan_platform_drawer.py与tests。
 **Interfaces:** plan_drawer(spec) -> dict；返回来源、控件、主题、布局和实际验收范围；消费shared规则。
 
-- [ ] 先写背景平台尺寸、主题、字段控件和未支持组合的失败测试。
-- [ ] 实现金毓盟适配并在完整背景样本验收，记录56/208及独立主题。
-- [ ] 实现电销适配并验收56/200、无actionSlot、正确独立菜单。
-- [ ] 只有获证据的组合开放为preflight-required；更新releasePolicy，重生成detail插件载荷。
+- [x] 先写背景平台尺寸、主题、字段控件和未支持组合的失败测试。
+- [x] 实现金毓盟适配并在完整背景样本验收，记录56/208及独立主题。
+- [x] 实现电销适配并验收56/200、无actionSlot、正确独立菜单。
+- [x] 只有获证据的组合开放为preflight-required；更新releasePolicy，重生成detail插件载荷。
 - [ ] 推送第二个检查点。
 
 ### Task 3: 最终核验与时间线
 
-- [ ] 全套单元测试、契约、版本安装/回退兼容、payload一致性通过；记录实际数量。
-- [ ] 新鲜上下文四场景消费复核和独立全分支审查，修复实际阻塞。
-- [ ] 写明Figma源/备份/新增节点/样式变更、测试结果、剩余限制与回退方式。
+- [x] 全套单元测试、契约、版本安装/回退兼容、payload一致性通过；记录实际数量。
+- [x] 新鲜上下文四场景消费复核和独立全分支审查，修复实际阻塞。
+- [x] 写明Figma源/备份/新增节点/样式变更、测试结果、剩余限制与回退方式。
 - [ ] 推送最后记录检查点，回读远端SHA与本地tree一致、确认main和备份不动。
 
 ## Execution ruling

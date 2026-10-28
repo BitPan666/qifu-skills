@@ -101,7 +101,7 @@
         "figmaModeId": "4717:0",
         "capabilities": {
           "list": "external-plugin",
-          "drawer": "pending-adapter",
+          "drawer": "preflight-required",
           "detail": "unsupported"
         },
         "shellReadiness": "source-verified",
@@ -112,7 +112,7 @@
         "figmaModeId": "5722:0",
         "capabilities": {
           "list": "external-plugin",
-          "drawer": "pending-adapter",
+          "drawer": "preflight-required",
           "detail": "unsupported"
         },
         "shellReadiness": "source-verified",

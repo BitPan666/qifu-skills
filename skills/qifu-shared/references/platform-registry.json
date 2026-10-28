@@ -297,12 +297,47 @@
       },
       "capabilities": {
         "list": "external-plugin",
-        "drawer": "pending-adapter",
+        "drawer": "preflight-required",
         "detail": "unsupported"
       },
       "trialScenes": {
         "drawer": "6089:64073",
         "list": "6017:2723"
+      },
+      "drawerAdapter": {
+        "readiness": "preflight-required",
+        "version": "1.7.0",
+        "supportedOperations": [
+          "create",
+          "edit"
+        ],
+        "supportedCompositions": [
+          "Qifu Drawer Form / Simple Create",
+          "Qifu Drawer Form / Sectioned Create",
+          "Qifu Drawer Form / Edit"
+        ],
+        "supportedControls": [
+          "Input",
+          "Select",
+          "DateRange",
+          "Textarea"
+        ],
+        "labelLayouts": [
+          "top"
+        ],
+        "widthTiers": [
+          640
+        ],
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "sceneSourceNodeId": "6197:8368",
+        "validatedSamples": {
+          "sectioned-create": "6197:8368",
+          "edit": "6204:10171"
+        },
+        "scope": "default label layout, 4-field Create/Edit samples; every generated page still needs preflight and visual acceptance"
       }
     },
     "dianxiao": {
@@ -359,12 +394,47 @@
       },
       "capabilities": {
         "list": "external-plugin",
-        "drawer": "pending-adapter",
+        "drawer": "preflight-required",
         "detail": "unsupported"
       },
       "trialScenes": {
         "drawer": "6089:64515",
         "list": "6034:4860"
+      },
+      "drawerAdapter": {
+        "readiness": "preflight-required",
+        "version": "1.7.0",
+        "supportedOperations": [
+          "create",
+          "edit"
+        ],
+        "supportedCompositions": [
+          "Qifu Drawer Form / Simple Create",
+          "Qifu Drawer Form / Sectioned Create",
+          "Qifu Drawer Form / Edit"
+        ],
+        "supportedControls": [
+          "Input",
+          "Select",
+          "DateRange",
+          "Textarea"
+        ],
+        "labelLayouts": [
+          "left"
+        ],
+        "widthTiers": [
+          640
+        ],
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "sceneSourceNodeId": "6205:11709",
+        "validatedSamples": {
+          "sectioned-create": "6205:11709",
+          "edit": "6205:14118"
+        },
+        "scope": "default label layout, 4-field Create/Edit samples; every generated page still needs preflight and visual acceptance"
       }
     }
   },

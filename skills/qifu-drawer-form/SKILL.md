@@ -24,7 +24,8 @@ description: >-
 - 用户要求同一抽屉复用到多个平台、生成对比稿，或一次列出两个及以上平台：读取[多平台批量生成协议](references/multi-platform-batch.md)、[平台注册表](../qifu-shared/references/platform-registry.json)和[主题注册表](../qifu-shared/theme/theme-registry.json)，用 `scripts/resolve_platform.py` 解析精确信号，再按目标加载各平台 Adapter。
 - 开始写入与最终验收：读取[Figma 执行与结构化验收](references/figma-execution-validation.md)。
 - 数据详情、智能运营策略关联、智客星超频流控：分别读取对应的[数据详情 Golden Sample](references/golden-sample-data-detail-drawer.md)、[智能运营 Golden Sample](references/golden-sample-smartops-strategy-drawer.md)、[智客星超频 Golden Sample](references/golden-sample-zhikexing-overfrequency-drawer.md)。
-- 正式完整打开态：读取[打开态底图协议](references/zhikexing-list-background.md)。
+- 金毓盟/电销普通Create/Edit：完整读取[平台背景与表单适配](references/platform-backgrounds.md)，执行scripts/plan_platform_drawer.py；不套用智客星背景尺寸。
+- 其他平台正式完整打开态：读取[打开态底图协议](references/zhikexing-list-background.md)，并遵循当前平台Adapter。
 - 用户明确指定 `PORTABLE_KIT`：读取[Portable Kit 模式](references/portable-kit.md)和[Portable 组件清单](references/portable-component-manifest.json)。
 - 仅在诊断历史回归或维护本 Skill 时读取[已知限制与迁移记录](references/known-limitations.md)。
 
@@ -79,7 +80,7 @@ failurePolicy=ALL_OR_NOTHING|CONTINUE_WITH_REPORT
 - `PORTABLE_KIT`：只使用目标文件内、清单可精确匹配的本地组件；创建后验证 `INSTANCE.mainComponent`。
 - `VISUAL_FALLBACK`：仅当用户明确选择时允许。降级节点命名为 `Fallback / <Capability>`，并生成对应 Audit；不得冒充正式实例。
 
-所有页面级新增 Text 必须绑定组件库 Text Style。组件内部文字由母版管理；母版未绑定样式时报告 `COMPONENT_SOURCE_GAP`，不 detach 或在实例层覆盖字体。
+所有页面级新增 Text 必须绑定组件库 Text Style。组件内部文字由母版管理；母版未绑定样式时报告 `COMPONENT_SOURCE_GAP`，不 detach 或在实例层覆盖字体。母版已具备批准样式、历史实例仅残留空样式覆盖时，允许在字体/字号/行高完全一致的前提下恢复相同Text Style关联；记录节点，不修改字体字段。
 
 ## 工作流
 

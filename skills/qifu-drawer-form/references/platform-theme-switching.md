@@ -29,7 +29,7 @@ background.source AUTO(默认) | TEMPLATE | EXISTING_LIST_PAGE | STRUCTURE_PREVI
 | `zhineng-yunying` | 智能运营平台 | `smartops-blue` | 读取 `platform-zhineng-yunying.md`；没有已验收专属底图时使用中性 `STRUCTURE_PREVIEW + Overlay Mask` 并标记 `PREVIEW_ONLY`。 |
 | `qifu-generic` | 奇富通用后台 | `yushu-green` | 用户未指定平台时的保守默认；仍生成 `1366×768` 完整打开态，不套用任何平台菜单或业务壳。缺少通用底图时使用 `STRUCTURE_PREVIEW`。 |
 
-金毓盟 `jinyumeng` → `jinyumeng-blue`；电销 `dianxiao` → `dianxiao-green`，两者当前抽屉均为 `pending-adapter`，返回 `BLOCKED_PLATFORM_ADAPTER`。Figma试稿不是运行时支持的证据。
+金毓盟 `jinyumeng` → `jinyumeng-blue`；电销 `dianxiao` → `dianxiao-green`，两者当前普通Create/Edit抽屉为 `preflight-required`，完整读取platform-backgrounds.md并运行计划器；未覆盖的组合和控件继续阻塞。Figma历史试稿不等于当前生成已通过。
 
 智能运营基础Frame `6155:1851` 已登记，不能再报“缺少外壳”；现有打开态仍需业务背景与文字样式预检，未通过保持 `PREVIEW_ONLY`。智客星旧模板 `4892:34812` 已列为 `blockedSources`，不作为后备。
 

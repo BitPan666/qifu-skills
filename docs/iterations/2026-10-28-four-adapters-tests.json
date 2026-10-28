@@ -1,0 +1,128 @@
+{
+  "qifuUnitTests": 78,
+  "qfinUnitTests": 174,
+  "total": 252,
+  "qfinEvidence": "stage01 full suite unchanged after checkpoint01; final new-child contracts and independent root48/new-child16/router review passed",
+  "qifuChecks": [
+    {
+      "command": [
+        "python3",
+        "scripts/validate_repo.py"
+      ],
+      "exit": 0,
+      "output": "PASS: 6 skill packages validated\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests"
+      ],
+      "exit": 0,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 1.038s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "skills/qifu-list-page/tests"
+      ],
+      "exit": 0,
+      "output": "....................\n----------------------------------------------------------------------\nRan 20 tests in 0.653s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "skills/qifu-drawer-form/tests"
+      ],
+      "exit": 0,
+      "output": "..............................................\n----------------------------------------------------------------------\nRan 46 tests in 1.141s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "skills/qifu-detail-page/tests"
+      ],
+      "exit": 0,
+      "output": ".........\n----------------------------------------------------------------------\nRan 9 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "skills/qifu-list-page/scripts/validate_skill_contract.py"
+      ],
+      "exit": 0,
+      "output": "PASS qifu-list-page 1.4.1\n"
+    },
+    {
+      "command": [
+        "python3",
+        "skills/qifu-drawer-form/scripts/validate_portable_manifest.py"
+      ],
+      "exit": 0,
+      "output": "PASS: /private/tmp/qifu-skills-audit-20261028/skills/qifu-drawer-form/references/portable-component-manifest.json (10 components, 3 text styles)\n"
+    },
+    {
+      "command": [
+        "python3",
+        "skills/qifu-drawer-form/scripts/validate_multi_platform_contract.py"
+      ],
+      "exit": 0,
+      "output": "PASS: multi-platform drawer contract (6 platforms, 6 themes, 16 aliases)\n"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/build_detail_plugin.py",
+        "--check"
+      ],
+      "exit": 0,
+      "output": "Plugin payload matches canonical skills.\n",
+      "initialExit": 1,
+      "initialOutput": "ERROR: qifu-detail-page: file sets differ ({PosixPath('tests/__pycache__/test_category_qa_contract.cpython-312.pyc')})\nPlugin payload is out of sync. Run: python3 scripts/build_detail_plugin.py\n",
+      "resolution": "Removed only unittest-generated __pycache__ in canonical bundled skills; no generated caches shipped."
+    },
+    {
+      "command": [
+        "bash",
+        "-n",
+        "sync.sh"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/test_sync.sh"
+      ],
+      "exit": 0,
+      "output": "PASS: sync dry-run, real-copy, preflight, and symlink safety\n"
+    },
+    {
+      "command": [
+        "python3",
+        "scripts/test_drawer_release_sync.py"
+      ],
+      "exit": 0,
+      "output": "PASS: /private/var/folders/dl/79cs5n757g714khjbnbvnthr0000gp/T/qifu-drawer-release-test-qokd10xq/release/skills/qifu-drawer-form/references/portable-component-manifest.json (10 components, 3 text styles)\nPASS: multi-platform drawer contract (6 platforms, 6 themes, 16 aliases)\nPASS: Select/Cascader suffix token and validation contract\nPASS: drawer release validated (drawer 1.7.0, shared 1.4.1)\nPASS: standalone drawer release build and validation\n"
+    }
+  ],
+  "review": "PASS: two P2 fixed with RED/GREEN mutation tests; drawer46 and plan25 rechecked",
+  "consumption": "four adapter scenarios GREEN; final drawer 18 CLI checks (4 positives,14 rejected unsupported requests)",
+  "figma": "six final samples structural and visual PASS; see four-adapters-figma.json; no broad generationValidated promotion"
+}
