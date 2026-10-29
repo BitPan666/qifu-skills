@@ -124,5 +124,55 @@
   ],
   "review": "PASS: two P2 fixed with RED/GREEN mutation tests; drawer46 and plan25 rechecked",
   "consumption": "four adapter scenarios GREEN; final drawer 18 CLI checks (4 positives,14 rejected unsupported requests)",
-  "figma": "six final samples structural and visual PASS; see four-adapters-figma.json; no broad generationValidated promotion"
+  "figma": "six final samples structural and visual PASS; see four-adapters-figma.json; no broad generationValidated promotion",
+  "timelineChecks": [
+    {
+      "repo": "qifu-skills",
+      "before": "2026-10-29T07:58:59+08:00",
+      "stage": "phase01",
+      "selected": {
+        "sha": "71b07c1276b5f163c76c164c9080d247c258fa60",
+        "committedAt": "2026-10-29T00:24:29+08:00",
+        "subject": "feat(adapters): checkpoint 01 add SmartOps and Zhikexing list skills"
+      },
+      "restoreCommand": "git -C /private/tmp/qifu-skills-audit-20261028 worktree add -b codex/restore-20261029-002429-71b07c1 /private/tmp/qifu-skills-audit-20261028-restore-20261029-002429-71b07c1 71b07c1276b5f163c76c164c9080d247c258fa60",
+      "readOnly": true
+    },
+    {
+      "repo": "qifu-skills",
+      "before": "2026-10-29T08:00:00+08:00",
+      "stage": "phase02",
+      "selected": {
+        "sha": "8ae90e42903c84b0831bc2d938aa37ba0efd15c7",
+        "committedAt": "2026-10-29T07:59:01+08:00",
+        "subject": "feat(adapters): checkpoint 02 validate Jinyumeng and Dianxiao drawers"
+      },
+      "restoreCommand": "git -C /private/tmp/qifu-skills-audit-20261028 worktree add -b codex/restore-20261029-075901-8ae90e4 /private/tmp/qifu-skills-audit-20261028-restore-20261029-075901-8ae90e4 8ae90e42903c84b0831bc2d938aa37ba0efd15c7",
+      "readOnly": true
+    },
+    {
+      "repo": "qfin-list-page",
+      "before": "2026-10-29T07:58:59+08:00",
+      "stage": "phase01",
+      "selected": {
+        "sha": "b44877a6b056cf220f4fb0a3e5655a6c542c2257",
+        "committedAt": "2026-10-29T00:24:53+08:00",
+        "subject": "feat(adapters): checkpoint 01 add SmartOps and Zhikexing list skills"
+      },
+      "restoreCommand": "git -C /private/tmp/qfin-list-page-audit-20261028 worktree add -b codex/restore-20261029-002453-b44877a /private/tmp/qfin-list-page-audit-20261028-restore-20261029-002453-b44877a b44877a6b056cf220f4fb0a3e5655a6c542c2257",
+      "readOnly": true
+    },
+    {
+      "repo": "qfin-list-page",
+      "before": "2026-10-29T08:00:00+08:00",
+      "stage": "phase02",
+      "selected": {
+        "sha": "783562afb842fa179760a7c3f707b3f2d0fd430e",
+        "committedAt": "2026-10-29T07:59:09+08:00",
+        "subject": "docs(adapters): checkpoint 02 pair drawer acceptance and rollback records"
+      },
+      "restoreCommand": "git -C /private/tmp/qfin-list-page-audit-20261028 worktree add -b codex/restore-20261029-075909-783562a /private/tmp/qfin-list-page-audit-20261028-restore-20261029-075909-783562a 783562afb842fa179760a7c3f707b3f2d0fd430e",
+      "readOnly": true
+    }
+  ]
 }
